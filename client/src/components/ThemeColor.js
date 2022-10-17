@@ -8,5 +8,17 @@ export const theme = createTheme({
     secondary: {
       main: "#6c757d",
     },
+    dark: {
+      main: "#4267B2",
+    },
+  },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 860,
+      lg: 1200,
+      xl: 1536,
+    },
   },
 });
