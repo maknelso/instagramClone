@@ -6,7 +6,7 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import appleStore from "../assets/images/apple_store.png";
 import googleStore from "../assets/images/google_store.png";
 import phoneImg from "../assets/images/cbc7174b4f05.png";
-import { theme } from "../components/ThemeColor";
+import { Link } from "react-router-dom";
 
 const Container = styled(Grid)(({ theme }) => ({
   display: "flex",
@@ -15,10 +15,10 @@ const Container = styled(Grid)(({ theme }) => ({
   padding: "0 2rem",
   height: "100vh",
   [theme.breakpoints.up("md")]: {
-    padding: "0 5rem",
+    padding: "0rem 5rem",
   },
   [theme.breakpoints.up("lg")]: {
-    padding: "0 10rem",
+    padding: "0rem 10rem",
   },
 }));
 
@@ -90,9 +90,11 @@ const HomePage = () => {
           </BorderUp>
           <BorderBtm display="flex" justifyContent="center" gap={1}>
             <Typography>Don't have an account?</Typography>
-            <Typography color="primary" fontWeight={700}>
-              Sign up
-            </Typography>
+            <Link to="/signup">
+              <Typography color="primary" fontWeight={700}>
+                Sign up
+              </Typography>
+            </Link>
           </BorderBtm>
           <Typography sx={{ textAlign: "center", mb: "1rem" }}>
             Get the app.

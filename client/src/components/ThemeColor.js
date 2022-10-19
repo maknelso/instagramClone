@@ -11,11 +11,14 @@ export const theme = createTheme({
     dark: {
       main: "#4267B2",
     },
+    grey: {
+      main: "rgba(var(--f52,142,142,142),1)",
+    },
   },
   breakpoints: {
     values: {
       xs: 0,
-      sm: 600,
+      sm: 451,
       md: 860,
       lg: 1200,
       xl: 1536,
