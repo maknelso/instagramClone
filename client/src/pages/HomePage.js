@@ -9,22 +9,24 @@ import phoneImg from "../assets/images/cbc7174b4f05.png";
 import { Link } from "react-router-dom";
 
 const Container = styled(Grid)(({ theme }) => ({
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  padding: "0 2rem",
   height: "100vh",
+  padding: "2rem",
   [theme.breakpoints.up("md")]: {
-    padding: "0rem 5rem",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   [theme.breakpoints.up("lg")]: {
-    padding: "0rem 10rem",
+    justifyContent: "center",
+    gap: "3rem",
   },
 }));
 
 const PhoneComponent = styled(Grid)(({ theme }) => ({
+  display: "none",
   [theme.breakpoints.up("md")]: {
     display: "block",
+    maxWidth: "450px",
   },
 }));
 
@@ -48,8 +50,8 @@ const BorderBtm = styled(Grid)(({ theme }) => ({
 const HomePage = () => {
   return (
     <Container>
-      <PhoneComponent display="none">
-        <img style={{ width: "100%" }} src={phoneImg}></img>
+      <PhoneComponent>
+        <img style={{ maxWidth: "100%" }} src={phoneImg}></img>
       </PhoneComponent>
       <Grid>
         <Grid>
@@ -101,14 +103,15 @@ const HomePage = () => {
           </Typography>
           <Grid
             display="flex"
-            justifyContent="space-between"
+            justifyContent="center"
+            gap="1rem"
             sx={{ mb: "2rem" }}
           >
-            <Grid sx={{ width: "48%" }}>
-              <img style={{ width: "100%" }} src={appleStore}></img>
+            <Grid sx={{ maxWidth: "120px" }}>
+              <img style={{ maxWidth: "100%" }} src={appleStore}></img>
             </Grid>
-            <Grid sx={{ width: "48%" }}>
-              <img style={{ width: "100%" }} src={googleStore}></img>
+            <Grid sx={{ maxWidth: "120px" }}>
+              <img style={{ maxWidth: "100%" }} src={googleStore}></img>
             </Grid>
           </Grid>
           <Typography textAlign="center" color="secondary">
