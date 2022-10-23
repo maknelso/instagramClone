@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Divider, Grid, TextField, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import heroImg from "../assets/images/d2529dbef8ed.png";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import appleStore from "../assets/images/apple_store.png";
 import googleStore from "../assets/images/google_store.png";
+import axios from "axios";
 import { theme } from "../components/ThemeColor";
 import { Link } from "react-router-dom";
 
@@ -26,15 +27,66 @@ const ContainerInner = styled(Grid)(({ theme }) => ({
   },
 }));
 
-// const BorderUp = styled(Grid)(({ theme }) => ({
-//   [theme.breakpoints.up("md")]: {
-//     // border: "1px solid lightgrey",
-//     // padding: "0 2rem",
-//     // marginBottom: "0.8rem",
-//   },
-// }));
-
 const SignupPage = () => {
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleOnChangePhone = (e) => {
+    setPhoneNumber(e.target.value);
+  };
+
+  const handleOnChangeFullName = (e) => {
+    setFullName(e.target.value);
+  };
+
+  const handleOnChangeUserName = (e) => {
+    setUserName(e.target.value);
+  };
+
+  const handleOnChangePassword = (e) => {
+    setPassword(e.target.value);
+  };
+
+  // useEffect(() => {
+  // });
+
+  const handleUserRegister = () => {
+    axios
+      .post("/api/register", {
+        email: phoneNumber,
+        name: fullName,
+        username: userName,
+        password: password,
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    // console.log("clicked");
+    // const fetchRegisterApi = async () => {
+    //   const payload = {
+    //     firstName: "Fred",
+    //     lastName: "Flintstone",
+    //   };
+    //   try {
+    //     const res = await axios.post("/api/register", payload);
+    //     return res.json();
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // };
+    // fetchRegisterApi();
+  };
+
+  // console.log(phoneNumber);
+  // console.log(fullName);
+  // console.log(userName);
+  // console.log(password);
+
   return (
     <Container>
       <ContainerInner>
@@ -69,8 +121,11 @@ const SignupPage = () => {
             inputProps={{
               style: {
                 height: "10px",
+                fontSize: "12px",
               },
             }}
+            onChange={handleOnChangePhone}
+            value={phoneNumber}
           />
           <TextField
             fullWidth
@@ -79,8 +134,11 @@ const SignupPage = () => {
             inputProps={{
               style: {
                 height: "10px",
+                fontSize: "12px",
               },
             }}
+            onChange={handleOnChangeFullName}
+            value={fullName}
           />
           <TextField
             fullWidth
@@ -89,17 +147,24 @@ const SignupPage = () => {
             inputProps={{
               style: {
                 height: "10px",
+                fontSize: "12px",
               },
             }}
+            onChange={handleOnChangeUserName}
+            value={userName}
           />
           <TextField
             fullWidth
             placeholder="Password"
+            type="password"
             inputProps={{
               style: {
                 height: "10px",
+                fontSize: "12px",
               },
             }}
+            onChange={handleOnChangePassword}
+            value={password}
             sx={{ mb: "0.5rem" }}
           />
           <Button
@@ -110,18 +175,10 @@ const SignupPage = () => {
               fontSize: "16px",
               mb: "1.6rem",
             }}
+            onClick={handleUserRegister}
           >
             Sign up
           </Button>
-          {/* <Grid
-              display="flex"
-              justifyContent="center"
-              gap={1}
-              sx={{ mb: "1rem" }}
-            >
-              <FacebookIcon color="dark" />
-              <Typography>Log in with Facebook</Typography>
-            </Grid> */}
           <Typography sx={{ textAlign: "center", mb: "1.2rem" }}>
             Have an account?
             <Link to="/">Log in</Link>

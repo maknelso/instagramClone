@@ -51,7 +51,8 @@ class users(Resource):
         return users
 
 
-api.add_resource(users, '/api')
+api.add_resource(users, '/api/register')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
