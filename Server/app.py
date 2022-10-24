@@ -2,10 +2,12 @@ import json
 from flask import Flask, request
 from flask_restful import Resource, Api, marshal_with, fields
 from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
 
 
 app = Flask(__name__)
 api = Api(app)
+bcrypt = Bcrypt(app)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///igclonedb.db"
 db = SQLAlchemy(app)
@@ -43,8 +45,12 @@ class users(Resource):
     @marshal_with(userFields)
     def post(self):
         data = json.loads(request.get_data())
+        # to check if user enters any of these input
+        if not data['email'] or not data['name'] or not data['username'] or not data['password']:
+            return "Please enter all required fields", 400
+        hasedPassword = bcrypt.generate_password_hash(data["password"])
         user = Account(email=data['email'], name=data['name'],
-                       username=data['username'], password=data['password'])
+                       username=data['username'], password=hasedPassword)
         db.session.add(user)
         db.session.commit()
         users = Account.query.all()
