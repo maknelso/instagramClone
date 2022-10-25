@@ -8,6 +8,7 @@ import googleStore from "../assets/images/google_store.png";
 import axios from "axios";
 import { theme } from "../components/ThemeColor";
 import { Link } from "react-router-dom";
+import validator from "validator";
 
 const Container = styled(Grid)(({ theme }) => ({
   display: "flex",
@@ -29,9 +30,13 @@ const ContainerInner = styled(Grid)(({ theme }) => ({
 
 const SignupPage = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [phoneNumberErr, setPhoneNumberErr] = useState("");
   const [fullName, setFullName] = useState("");
+  const [fullNameErr, setFullNameErr] = useState("");
   const [userName, setUserName] = useState("");
+  const [userNameErr, setUserNameErr] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordErr, setPasswordErr] = useState("");
 
   const handleOnChangePhone = (e) => {
     setPhoneNumber(e.target.value);
@@ -49,43 +54,68 @@ const SignupPage = () => {
     setPassword(e.target.value);
   };
 
-  // useEffect(() => {
-  // });
+  const handleUserRegister = (e) => {
+    e.preventDefault();
+    validate();
 
-  const handleUserRegister = () => {
-    axios
-      .post("/api/register", {
+    const fetchRegisterApi = async () => {
+      const payload = {
         email: phoneNumber,
         name: fullName,
         username: userName,
         password: password,
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-    // console.log("clicked");
-    // const fetchRegisterApi = async () => {
-    //   const payload = {
-    //     firstName: "Fred",
-    //     lastName: "Flintstone",
-    //   };
-    //   try {
-    //     const res = await axios.post("/api/register", payload);
-    //     return res.json();
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // };
-    // fetchRegisterApi();
+      };
+      try {
+        if (!phoneNumberErr && !userNameErr && !fullNameErr && !passwordErr) {
+          const res = await axios.post("/api/register", payload);
+          console.log(res);
+        } else {
+          return null;
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchRegisterApi();
   };
 
-  // console.log(phoneNumber);
-  // console.log(fullName);
-  // console.log(userName);
-  // console.log(password);
+  const validate = () => {
+    // email and phone number validation
+    if (!phoneNumber) {
+      setPhoneNumberErr("Please enter your email or phone number");
+    } else if (!validator.isEmail(phoneNumber)) {
+      if (validator.isMobilePhone(phoneNumber, "en-CA")) {
+        setPhoneNumberErr("");
+      } else {
+        setPhoneNumberErr("Please enter a valid email address or phone number");
+      }
+    } else if (validator.isEmail(phoneNumber)) {
+      setPhoneNumberErr("");
+    }
+    // full name validation
+    if (!fullName) {
+      setFullNameErr("Please enter your full name");
+    } else if (fullName) {
+      setFullNameErr("");
+    }
+    // user name validation
+    if (!userName) {
+      setUserNameErr("Please enter your user name");
+    } else if (userName) {
+      setUserNameErr("");
+    }
+    if (!password) {
+      setPasswordErr("Please enter your password");
+    } else if (password) {
+      if (!validator.isStrongPassword(password)) {
+        setPasswordErr(
+          "Please enter at least 8 digit, and include at least  1 lowercase, 1 uppercase, 1 number, and a symbol"
+        );
+      } else {
+        setPasswordErr("");
+      }
+    }
+  };
 
   return (
     <Container>
@@ -114,71 +144,85 @@ const SignupPage = () => {
             Log in with Facebook
           </Button>
           <Divider sx={{ mb: "1.2rem" }}>OR</Divider>
-          <TextField
-            fullWidth
-            placeholder="Phone number, username, or email"
-            sx={{ mb: "0.5rem" }}
-            inputProps={{
-              style: {
-                height: "10px",
-                fontSize: "12px",
-              },
-            }}
-            onChange={handleOnChangePhone}
-            value={phoneNumber}
-          />
-          <TextField
-            fullWidth
-            placeholder="Full Name"
-            sx={{ mb: "0.5rem" }}
-            inputProps={{
-              style: {
-                height: "10px",
-                fontSize: "12px",
-              },
-            }}
-            onChange={handleOnChangeFullName}
-            value={fullName}
-          />
-          <TextField
-            fullWidth
-            placeholder="Username"
-            sx={{ mb: "0.5rem" }}
-            inputProps={{
-              style: {
-                height: "10px",
-                fontSize: "12px",
-              },
-            }}
-            onChange={handleOnChangeUserName}
-            value={userName}
-          />
-          <TextField
-            fullWidth
-            placeholder="Password"
-            type="password"
-            inputProps={{
-              style: {
-                height: "10px",
-                fontSize: "12px",
-              },
-            }}
-            onChange={handleOnChangePassword}
-            value={password}
-            sx={{ mb: "0.5rem" }}
-          />
-          <Button
-            variant="contained"
-            fullWidth
-            sx={{
-              textTransform: "capitalize",
-              fontSize: "16px",
-              mb: "1.6rem",
-            }}
-            onClick={handleUserRegister}
-          >
-            Sign up
-          </Button>
+
+          <form onSubmit={handleUserRegister}>
+            <TextField
+              fullWidth
+              autoFocus
+              name="phoneNumber"
+              // autoComplete="email"
+              placeholder="Phone number, username, or email"
+              sx={{ mb: "0.5rem" }}
+              inputProps={{
+                style: {
+                  height: "10px",
+                  fontSize: "12px",
+                },
+              }}
+              onChange={handleOnChangePhone}
+              value={phoneNumber}
+              error={phoneNumberErr ? true : false}
+              helperText={phoneNumberErr ? phoneNumberErr : null}
+            />
+            <TextField
+              fullWidth
+              placeholder="Full Name"
+              sx={{ mb: "0.5rem" }}
+              inputProps={{
+                style: {
+                  height: "10px",
+                  fontSize: "12px",
+                },
+              }}
+              onChange={handleOnChangeFullName}
+              value={fullName}
+              error={fullNameErr ? true : false}
+              helperText={fullNameErr ? fullNameErr : null}
+            />
+            <TextField
+              fullWidth
+              placeholder="Username"
+              sx={{ mb: "0.5rem" }}
+              inputProps={{
+                style: {
+                  height: "10px",
+                  fontSize: "12px",
+                },
+              }}
+              onChange={handleOnChangeUserName}
+              value={userName}
+              error={userNameErr ? true : false}
+              helperText={userNameErr ? userNameErr : null}
+            />
+            <TextField
+              fullWidth
+              placeholder="Password"
+              type="password"
+              inputProps={{
+                style: {
+                  height: "10px",
+                  fontSize: "12px",
+                },
+              }}
+              onChange={handleOnChangePassword}
+              value={password}
+              error={passwordErr ? true : false}
+              helperText={passwordErr ? passwordErr : null}
+              sx={{ mb: "0.5rem" }}
+            />
+            <Button
+              type="submit"
+              variant="contained"
+              fullWidth
+              sx={{
+                textTransform: "capitalize",
+                fontSize: "16px",
+                mb: "1.6rem",
+              }}
+            >
+              Sign up
+            </Button>
+          </form>
           <Typography sx={{ textAlign: "center", mb: "1.2rem" }}>
             Have an account?
             <Link to="/">Log in</Link>
