@@ -27,6 +27,8 @@ class Account(db.Model):
 with app.app_context():
     db.create_all()
 
+
+# create an outline of what the data should look like (the names of the fields and their types)
 userFields = {
     "account_id": fields.Integer,
     "email": fields.String,
@@ -34,6 +36,8 @@ userFields = {
     "username": fields.String,
     "password": fields.String
 }
+
+# the marshall_with decorator encodes data to send back to the user as JSON
 
 
 class users(Resource):
@@ -62,3 +66,5 @@ api.add_resource(users, '/api/register')
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
