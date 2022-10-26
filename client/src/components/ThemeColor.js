@@ -7,9 +7,11 @@ export const theme = createTheme({
     },
     secondary: {
       main: "#6c757d",
+      secondary: "##efefef",
     },
     dark: {
       main: "#4267B2",
+      secondary: "#385185",
     },
     grey: {
       main: "rgba(var(--f52,142,142,142),1)",

@@ -121,12 +121,13 @@ const SignupPage = () => {
     <Container>
       <ContainerInner>
         <Grid>
-          <Grid sx={{ p: "1rem 5rem" }}>
+          <Grid sx={{ p: "1rem 4rem" }}>
             <img style={{ width: "100%" }} src={heroImg}></img>
           </Grid>
           <Typography
-            variant="h6"
+            variant="body1"
             color={theme.palette.grey.main}
+            fontWeight={500}
             sx={{ textAlign: "center", mb: "1rem" }}
           >
             Sign up to see photos and videos from your friends.
@@ -137,8 +138,9 @@ const SignupPage = () => {
             fullWidth
             sx={{
               textTransform: "capitalize",
-              fontSize: "16px",
+              fontSize: "12px",
               mb: "1.6rem",
+              height: "30px",
             }}
           >
             Log in with Facebook
@@ -155,7 +157,7 @@ const SignupPage = () => {
               sx={{ mb: "0.5rem" }}
               inputProps={{
                 style: {
-                  height: "10px",
+                  height: "6px",
                   fontSize: "12px",
                 },
               }}
@@ -170,7 +172,7 @@ const SignupPage = () => {
               sx={{ mb: "0.5rem" }}
               inputProps={{
                 style: {
-                  height: "10px",
+                  height: "6px",
                   fontSize: "12px",
                 },
               }}
@@ -185,7 +187,7 @@ const SignupPage = () => {
               sx={{ mb: "0.5rem" }}
               inputProps={{
                 style: {
-                  height: "10px",
+                  height: "6px",
                   fontSize: "12px",
                 },
               }}
@@ -200,7 +202,7 @@ const SignupPage = () => {
               type="password"
               inputProps={{
                 style: {
-                  height: "10px",
+                  height: "6px",
                   fontSize: "12px",
                 },
               }}
@@ -216,20 +218,32 @@ const SignupPage = () => {
               fullWidth
               sx={{
                 textTransform: "capitalize",
-                fontSize: "16px",
-                mb: "1.6rem",
+                fontSize: "12px",
+                mb: "1.2rem",
+                height: "30px",
               }}
             >
               Sign up
             </Button>
           </form>
-          <Typography sx={{ textAlign: "center", mb: "1.2rem" }}>
+          <Typography
+            fontSize="12px"
+            sx={{ textAlign: "center", mb: "0.8rem" }}
+          >
             Have an account?
-            <Link to="/">Log in</Link>
+            <Link
+              to="/"
+              style={{
+                textDecoration: "none",
+                color: theme.palette.primary.main,
+              }}
+            >
+              Log in
+            </Link>
           </Typography>
         </Grid>
 
-        <Typography sx={{ textAlign: "center", mb: "1rem" }}>
+        <Typography fontSize="12px" sx={{ textAlign: "center", mb: "1rem" }}>
           Get the app
         </Typography>
         <Grid display="flex" justifyContent="space-between" sx={{ mb: "2rem" }}>
