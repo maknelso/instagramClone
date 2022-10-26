@@ -12,8 +12,6 @@ const Container = styled(Grid)(({ theme }) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-  },
-  [theme.breakpoints.up("lg")]: {
     gap: "2rem",
   },
 }));
@@ -22,7 +20,7 @@ const PhoneComponent = styled(Grid)(({ theme }) => ({
   display: "none",
   [theme.breakpoints.up("md")]: {
     display: "block",
-    maxWidth: "350px",
+    maxWidth: "420px",
   },
 }));
 

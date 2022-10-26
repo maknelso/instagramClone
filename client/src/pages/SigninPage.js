@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Divider, Grid, TextField, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import heroImg from "../assets/images/d2529dbef8ed.png";
@@ -9,33 +9,53 @@ import { Link } from "react-router-dom";
 import { theme } from "../components/ThemeColor";
 
 const FormComponent = styled(Grid)(({ theme }) => ({
+  padding: "4rem",
   [theme.breakpoints.up("md")]: {
+    padding: "0rem",
     maxWidth: "350px",
   },
 }));
 
 const BorderUp = styled(Grid)(({ theme }) => ({
+  border: "1px solid lightgrey",
+  padding: "0 2rem",
+  backgroundColor: "white",
+  marginBottom: "0.5rem",
+
   [theme.breakpoints.up("md")]: {
-    border: "1px solid lightgrey",
-    padding: "0 2rem",
+    backgroundColor: "white",
     marginBottom: "0.8rem",
   },
 }));
 
 const BorderBtm = styled(Grid)(({ theme }) => ({
-  padding: "0 2rem",
+  border: "1px solid lightgrey",
+  padding: "1rem 2rem",
   backgroundColor: "white",
+  marginBottom: "0.5rem",
+
   [theme.breakpoints.up("md")]: {
     border: "1px solid lightgrey",
-    padding: "1rem 2rem",
     marginBottom: "1rem",
   },
 }));
 
 const SigninPage = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordErr, setPasswordErr] = useState(false);
+
+  const handleEmailInput = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordInput = (e) => {
+    setPassword(e.target.value);
+  };
+
   return (
     <FormComponent>
-      <BorderUp sx={{ background: "white" }}>
+      <BorderUp>
         <Grid display="flex" justifyContent="center" sx={{ p: "2rem 3rem" }}>
           <img style={{ maxWidth: "150px" }} src={heroImg}></img>
         </Grid>
@@ -49,6 +69,8 @@ const SigninPage = () => {
               background: theme.palette.secondary.secondary,
             },
           }}
+          value={email}
+          onChange={handleEmailInput}
           sx={{ mb: "0.3rem" }}
         />
         <TextField
@@ -58,8 +80,11 @@ const SigninPage = () => {
             style: {
               height: "8px",
               fontSize: "12px",
+              background: theme.palette.secondary.secondary,
             },
           }}
+          value={password}
+          onChange={handlePasswordInput}
           sx={{ mb: "0.8rem" }}
         />
         <Button
@@ -126,7 +151,7 @@ const SigninPage = () => {
           <img style={{ maxWidth: "100%" }} src={googleStore}></img>
         </Grid>
       </Grid>
-      <Typography textAlign="center" color="secondary">
+      <Typography textAlign="center" color="secondary" fontSize="12px">
         &copy;2022 Instagram from Meta
       </Typography>
     </FormComponent>
