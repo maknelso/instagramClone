@@ -43,6 +43,7 @@ userFields = {
 
 # the marshall_with decorator encodes data to send back to the user as JSON
 
+
 class users_reg(Resource):
     @marshal_with(userFields)
     def get(self):
@@ -78,6 +79,7 @@ api.add_resource(users_reg, '/api/register')
 loginFields = {
     "token": fields.String
 }
+
 
 class users_login(Resource):
     @marshal_with(userFields)
