@@ -15,6 +15,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { theme } from "../ThemeColor";
+import { Link } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
   display: "none",
@@ -78,9 +79,11 @@ export default function DashHeader() {
           }}
         >
           <Grid display="flex" sx={{ pt: "0.8rem" }}>
-            <Grid sx={{ width: "100%" }}>
-              <img src={logo} style={{ width: "110px" }}></img>
-            </Grid>
+            <Link to="/">
+              <Grid sx={{ width: "100%" }}>
+                <img src={logo} style={{ width: "110px" }}></img>
+              </Grid>
+            </Link>
             <KeyboardArrowDownIcon
               fontSize="medium"
               sx={{ color: theme.palette.secondary.main }}
