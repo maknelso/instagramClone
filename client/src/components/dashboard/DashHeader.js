@@ -3,8 +3,6 @@ import AppBar from "@mui/material/AppBar";
 import { styled, alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
 import logo from "../../assets/images/d2529dbef8ed.png";
@@ -120,7 +118,7 @@ export default function DashHeader() {
             <Grid>
               <img
                 src={avatar}
-                style={{ width: "35px", borderRadius: "50%" }}
+                style={{ width: "30px", borderRadius: "50%" }}
               ></img>
             </Grid>
           </Grid>
