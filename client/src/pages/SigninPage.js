@@ -105,6 +105,7 @@ const SigninPage = () => {
             sx={{ mb: "0.3rem" }}
           />
           <TextField
+            type="password"
             fullWidth
             placeholder="Password"
             inputProps={{

@@ -26,15 +26,14 @@ const DashPosts = () => {
         <Grid display="flex" gap={2}>
           <Grid
             sx={{
-              width: "50px",
-              height: "50px",
+              width: "40px",
+              height: "40px",
               borderRadius: "50%",
             }}
           >
             <img
               style={{
                 width: "100%",
-                height: "100%",
                 objectFit: "cover",
                 borderRadius: "50%",
               }}
@@ -42,7 +41,7 @@ const DashPosts = () => {
             ></img>
           </Grid>
           <Grid display="flex" flexDirection="column">
-            <Typography fontWeight="bold">Julian</Typography>
+            <Typography fontWeight="bold">Jake</Typography>
             <Typography>Vista Valley Conuntry Club</Typography>
           </Grid>
         </Grid>
@@ -50,7 +49,10 @@ const DashPosts = () => {
       </Grid>
       <Grid>
         <Grid>
-          <img style={{ width: "100%" }} src={post}></img>
+          <img
+            style={{ width: "100%", maxHeight: "470px", objectFit: "cover" }}
+            src={post}
+          ></img>
         </Grid>
       </Grid>
       <Grid display="flex" justifyContent="space-between" p="1rem">

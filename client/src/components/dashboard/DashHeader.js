@@ -20,15 +20,17 @@ const Search = styled("div")(({ theme }) => ({
   display: "none",
   position: "relative",
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  // backgroundColor: alpha(theme.palette.common.white, 0.15),
+  backgroundColor: "#F7F8FA",
   "&:hover": {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
   marginLeft: 0,
   width: "100%",
-  [theme.breakpoints.up("sm")]: {
+  [theme.breakpoints.up("md")]: {
     marginLeft: theme.spacing(1),
     width: "auto",
+    display: "block",
   },
 }));
 
@@ -40,6 +42,7 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
+  color: "black",
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
@@ -49,9 +52,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
+    color: "black",
     width: "100%",
     [theme.breakpoints.up("sm")]: {
-      width: "12ch",
+      width: "40ch",
       "&:focus": {
         width: "20ch",
       },
@@ -65,9 +69,13 @@ export default function DashHeader() {
       <AppBar position="static" sx={{ boxShadow: "none" }}>
         <Toolbar
           display="flex"
-          justifyContent="spaceBetween"
           alignItems="center"
-          sx={{ p: "0 0.3rem", minHeight: "66px", background: "white" }}
+          sx={{
+            p: "0 0.3rem",
+            minHeight: "66px",
+            background: "white",
+            justifyContent: "space-between",
+          }}
         >
           <Grid display="flex" sx={{ pt: "0.8rem" }}>
             <Grid sx={{ width: "100%" }}>
@@ -87,13 +95,11 @@ export default function DashHeader() {
               inputProps={{ "aria-label": "search" }}
             />
           </Search>
-
           <Grid
             display="flex"
             justifyContent="flex-end"
             alignItems="center"
             gap={2}
-            sx={{ width: "100%" }}
           >
             <HomeIcon
               fontSize="large"
