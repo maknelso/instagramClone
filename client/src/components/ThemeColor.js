@@ -16,6 +16,12 @@ export const theme = createTheme({
     grey: {
       main: "rgba(var(--f52,142,142,142),1)",
     },
+    white: {
+      main: "#fff",
+    },
+    black: {
+      main: "#000",
+    },
   },
   breakpoints: {
     values: {

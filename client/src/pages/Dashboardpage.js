@@ -1,9 +1,13 @@
-import React from 'react'
+import { Grid } from "@mui/material";
+import React from "react";
+import DashHeader from "../components/dashboard/DashHeader";
 
 const Dashboardpage = () => {
   return (
-    <div>Dashboardpage</div>
-  )
-}
+    <Grid>
+      <DashHeader />
+    </Grid>
+  );
+};
 
-export default Dashboardpage
+export default Dashboardpage;
