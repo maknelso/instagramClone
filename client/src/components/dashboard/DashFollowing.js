@@ -3,19 +3,26 @@ import React from "react";
 import alex from "../../assets/images/dashboard/alex-suprun-ZHvM3XIOHoE-unsplash.jpg";
 import jake from "../../assets/images/dashboard/jake-nackos-IF9TK5Uy-KI-unsplash.jpg";
 import julian from "../../assets/images/dashboard/julian-wan-WNoLnJo7tS8-unsplash.jpg";
+import { styled } from "@mui/material/styles";
+
+const DashFollowContainer = styled(Grid)(({ theme }) => ({
+  display: "flex",
+  gap: "1rem",
+  padding: "0.6rem",
+  border: "1px solid lightgrey",
+  background: "white",
+  marginBottom: "1rem",
+  // paddingTop: "1rem"
+
+  [theme.breakpoints.up("md")]: {
+    margin: "0",
+    marginBottom: "1rem",
+  },
+}));
 
 const DashFollowing = () => {
   return (
-    <Grid
-      display="flex"
-      gap={2}
-      sx={{
-        p: "0.6rem",
-        border: "1px solid lightgrey",
-        mb: "1.2rem",
-        background: "white",
-      }}
-    >
+    <DashFollowContainer>
       <Grid display="flex" flexDirection="column" alignItems="center">
         <Grid
           sx={{
@@ -79,7 +86,7 @@ const DashFollowing = () => {
         </Grid>
         <Typography fontSize="12px">Alex</Typography>
       </Grid>
-    </Grid>
+    </DashFollowContainer>
   );
 };
 

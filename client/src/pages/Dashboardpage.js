@@ -8,7 +8,11 @@ import { styled } from "@mui/material/styles";
 
 const DashContainer = styled(Grid)(({ theme }) => ({
   height: "100vh",
+  maxWidth: "400px",
+  margin: "0 auto",
   [theme.breakpoints.up("md")]: {
+    maxWidth: "1600px",
+
     display: "flex",
     justifyContent: "center",
     // alignItems: "center",
@@ -16,6 +20,9 @@ const DashContainer = styled(Grid)(({ theme }) => ({
 }));
 
 const DashContainerLeft = styled(Grid)(({ theme }) => ({
+  [theme.breakpoints.up("sm")]: {
+    padding: "2rem 0",
+  },
   [theme.breakpoints.up("md")]: {
     padding: "2rem 6rem",
     paddingRight: "2rem",
