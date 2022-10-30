@@ -81,7 +81,7 @@ export default function DashHeader() {
           <Grid display="flex" sx={{ pt: "0.8rem" }}>
             <Link to="/">
               <Grid sx={{ width: "100%" }}>
-                <img src={logo} style={{ width: "110px" }}></img>
+                <img src={logo} style={{ width: "85px" }}></img>
               </Grid>
             </Link>
             <KeyboardArrowDownIcon

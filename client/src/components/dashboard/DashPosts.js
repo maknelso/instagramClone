@@ -21,7 +21,7 @@ const DashPosts = () => {
         display="flex"
         justifyContent="space-between"
         alignItems="center"
-        sx={{ p: "1rem" }}
+        sx={{ p: "0.4rem" }}
       >
         <Grid display="flex" gap={2}>
           <Grid
@@ -41,11 +41,13 @@ const DashPosts = () => {
             ></img>
           </Grid>
           <Grid display="flex" flexDirection="column">
-            <Typography fontWeight="bold">Jake</Typography>
-            <Typography>Vista Valley Conuntry Club</Typography>
+            <Typography fontWeight="bold" fontSize="12px">
+              Jake
+            </Typography>
+            <Typography fontSize="12px">Vista Valley Conuntry Club</Typography>
           </Grid>
         </Grid>
-        <MoreHorizIcon />
+        <MoreHorizIcon fontSize="small" />
       </Grid>
       <Grid>
         <Grid>
@@ -55,28 +57,45 @@ const DashPosts = () => {
           ></img>
         </Grid>
       </Grid>
-      <Grid display="flex" justifyContent="space-between" p="1rem">
+      <Grid
+        display="flex"
+        justifyContent="space-between"
+        p="1rem"
+        sx={{ pb: 0 }}
+      >
         <Grid display="flex" gap={1.2}>
-          <FavoriteBorderIcon fontSize="large" />
-          <ChatBubbleOutlineIcon fontSize="large" />
-          <ShareIcon fontSize="large" />
+          <FavoriteBorderIcon fontSize="small" />
+          <ChatBubbleOutlineIcon fontSize="small" />
+          <ShareIcon fontSize="small" />
         </Grid>
-        <BookmarkBorderIcon fontSize="large" />
+        <BookmarkBorderIcon fontSize="small" />
       </Grid>
       <Grid display="flex" flexDirection="column" gap={1} sx={{ p: "1rem" }}>
-        <Typography>
+        <Typography fontSize="12px">
           Liked by <span>James</span> and <span>others</span>
         </Typography>
         <Grid>
-          <Typography sx={{ display: "inline" }} fontWeight="bold">
+          <Typography
+            fontSize="12px"
+            sx={{ display: "inline" }}
+            fontWeight="bold"
+          >
             Julian
           </Typography>
-          <span>A planter with a black board with some text written on it</span>
+          <span style={{ fontSize: "12px" }}>
+            A planter with a black board with some text written on it
+          </span>
         </Grid>
-        <Typography sx={{ color: theme.palette.secondary.main }}>
+        <Typography
+          fontSize="12px"
+          sx={{ color: theme.palette.secondary.main }}
+        >
           View all 2 comments
         </Typography>
-        <Typography sx={{ color: theme.palette.secondary.main }}>
+        <Typography
+          fontSize="12px"
+          sx={{ color: theme.palette.secondary.main }}
+        >
           14 hours ago
         </Typography>
       </Grid>

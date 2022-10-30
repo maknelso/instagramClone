@@ -25,7 +25,7 @@ const DashContainerLeft = styled(Grid)(({ theme }) => ({
 const DashContainerRight = styled(Grid)(({ theme }) => ({
   [theme.breakpoints.up("md")]: {
     padding: "3rem 0",
-    width: "23%",
+    width: "28%",
     maxWidth: "500px",
   },
 }));

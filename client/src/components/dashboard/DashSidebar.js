@@ -19,7 +19,7 @@ const DashSidebar = () => {
         display="flex"
         justifyContent="space-between"
         alignItems="center"
-        sx={{ p: "1rem", width: "100%" }}
+        sx={{ p: "0.2rem", width: "100%" }}
       >
         <Grid display="flex" gap={2}>
           <Grid
@@ -39,23 +39,31 @@ const DashSidebar = () => {
             ></img>
           </Grid>
           <Grid display="flex" flexDirection="column">
-            <Typography fontWeight="bold">Zack</Typography>
-            <Typography>Zack123</Typography>
+            <Typography fontSize="12px" fontWeight="bold">
+              Zack
+            </Typography>
+            <Typography fontSize="12px">Zack123</Typography>
           </Grid>
         </Grid>
-        <Typography color="primary">Switch</Typography>
+        <Typography fontWeight="bold" fontSize="12px" color="primary">
+          Switch
+        </Typography>
       </Grid>
-      <Grid display="flex" justifyContent="space-between" sx={{ p: "1rem" }}>
-        <Typography sx={{ color: theme.palette.grey.main }}>
+      <Grid
+        display="flex"
+        justifyContent="space-between"
+        sx={{ p: "0.6rem 0" }}
+      >
+        <Typography variant="body2" sx={{ color: theme.palette.grey.main }}>
           Suggestions For You
         </Typography>
-        <Typography>See All</Typography>
+        <Typography variant="body2">See All</Typography>
       </Grid>
       <Grid
         display="flex"
         justifyContent="space-between"
         alignItems="center"
-        sx={{ p: "1rem", width: "100%" }}
+        sx={{ p: "0.3rem 0", width: "100%" }}
       >
         <Grid display="flex" gap={2}>
           <Grid
@@ -75,17 +83,21 @@ const DashSidebar = () => {
             ></img>
           </Grid>
           <Grid display="flex" flexDirection="column">
-            <Typography fontWeight="bold">Cyrilhan</Typography>
-            <Typography>Followed by omar + 4 more</Typography>
+            <Typography variant="body2" fontWeight="bold">
+              Cyrilhan
+            </Typography>
+            <Typography fontSize="12px">Followed by omar + 4 more</Typography>
           </Grid>
         </Grid>
-        <Typography color="primary">Follow</Typography>
+        <Typography fontSize="12px" fontWeight="bold" color="primary">
+          Follow
+        </Typography>
       </Grid>
       <Grid
         display="flex"
         justifyContent="space-between"
         alignItems="center"
-        sx={{ p: "1rem", width: "100%" }}
+        sx={{ p: "1rem 0", width: "100%" }}
       >
         <Grid display="flex" gap={2}>
           <Grid
@@ -105,11 +117,15 @@ const DashSidebar = () => {
             ></img>
           </Grid>
           <Grid display="flex" flexDirection="column">
-            <Typography fontWeight="bold">yamorose</Typography>
-            <Typography>Followed by omar + 11 more</Typography>
+            <Typography variant="body2" fontWeight="bold">
+              Cyrilhan
+            </Typography>
+            <Typography fontSize="12px">Followed by omar + 4 more</Typography>
           </Grid>
         </Grid>
-        <Typography color="primary">Follow</Typography>
+        <Typography fontSize="12px" fontWeight="bold" color="primary">
+          Follow
+        </Typography>
       </Grid>
     </DashSideContainer>
   );

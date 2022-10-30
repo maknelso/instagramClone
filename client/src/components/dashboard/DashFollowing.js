@@ -10,7 +10,7 @@ const DashFollowing = () => {
       display="flex"
       gap={2}
       sx={{
-        p: "1rem",
+        p: "0.6rem",
         border: "1px solid lightgrey",
         mb: "1.2rem",
         background: "white",
@@ -19,8 +19,8 @@ const DashFollowing = () => {
       <Grid display="flex" flexDirection="column" alignItems="center">
         <Grid
           sx={{
-            width: "70px",
-            height: "70px",
+            width: "50px",
+            height: "50px",
             border: "3px solid pink",
             borderRadius: "50%",
           }}
@@ -35,13 +35,13 @@ const DashFollowing = () => {
             src={jake}
           ></img>
         </Grid>
-        <Typography>Julian</Typography>
+        <Typography fontSize="12px">Julian</Typography>
       </Grid>
       <Grid display="flex" flexDirection="column" alignItems="center">
         <Grid
           sx={{
-            width: "70px",
-            height: "70px",
+            width: "50px",
+            height: "50px",
             border: "3px solid pink",
             borderRadius: "50%",
           }}
@@ -56,13 +56,13 @@ const DashFollowing = () => {
             src={julian}
           ></img>
         </Grid>
-        <Typography>Jake</Typography>
+        <Typography fontSize="12px">Jake</Typography>
       </Grid>
       <Grid display="flex" flexDirection="column" alignItems="center">
         <Grid
           sx={{
-            width: "70px",
-            height: "70px",
+            width: "50px",
+            height: "50px",
             border: "3px solid pink",
             borderRadius: "50%",
           }}
@@ -77,7 +77,7 @@ const DashFollowing = () => {
             src={alex}
           ></img>
         </Grid>
-        <Typography>Alex</Typography>
+        <Typography fontSize="12px">Alex</Typography>
       </Grid>
     </Grid>
   );
