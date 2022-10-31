@@ -12,7 +12,12 @@ const DashFollowContainer = styled(Grid)(({ theme }) => ({
   border: "1px solid lightgrey",
   background: "white",
   marginBottom: "1rem",
-  // paddingTop: "1rem"
+  marginTop: "1rem",
+  borderRadius: "4px",
+
+  [theme.breakpoints.up("sm")]: {
+    marginTop: 0,
+  },
 
   [theme.breakpoints.up("md")]: {
     margin: "0",

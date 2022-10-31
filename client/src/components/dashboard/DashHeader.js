@@ -2,11 +2,10 @@ import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import { styled, alpha } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
-import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
 import logo from "../../assets/images/d2529dbef8ed.png";
 import avatar from "../../assets/images/dashboard/avatar.jpg";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import HomeIcon from "@mui/icons-material/Home";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
@@ -14,6 +13,9 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import DehazeOutlinedIcon from "@mui/icons-material/DehazeOutlined";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import SearchIcon from "@mui/icons-material/Search";
+import ExploreIcon from "@mui/icons-material/Explore";
 import { theme } from "../ThemeColor";
 import { Link } from "react-router-dom";
 
@@ -49,7 +51,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     color: "black",
@@ -74,7 +75,9 @@ const DashToolBar = styled(Toolbar)(({ theme }) => ({
     flexDirection: "column",
     padding: 0,
   },
-  [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("md")]: {
+    alignItems: "flex-start",
+  },
 }));
 
 const DashLogoWrapper = styled(Grid)(({ theme }) => ({
@@ -83,7 +86,21 @@ const DashLogoWrapper = styled(Grid)(({ theme }) => ({
   [theme.breakpoints.up("sm")]: {
     display: "none",
   },
-  // [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {
+    display: "flex",
+    marginBottom: "3rem",
+  },
+}));
+
+const DashInsLoggo = styled(Grid)(({ theme }) => ({
+  display: "none",
+  [theme.breakpoints.up("sm")]: {
+    display: "block",
+    marginBottom: "1rem",
+  },
+  [theme.breakpoints.up("lg")]: {
+    display: "none",
+  },
 }));
 
 const DashIconWrapper = styled(Grid)(({ theme }) => ({
@@ -93,8 +110,12 @@ const DashIconWrapper = styled(Grid)(({ theme }) => ({
   gap: "1rem",
   [theme.breakpoints.up("sm")]: {
     flexDirection: "column",
+    gap: "2rem",
   },
-  // [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {
+    alignItems: "flex-start",
+    gap: "3rem",
+  },
 }));
 
 const DashHamburger = styled(Grid)(({ theme }) => ({
@@ -102,12 +123,25 @@ const DashHamburger = styled(Grid)(({ theme }) => ({
   [theme.breakpoints.up("sm")]: {
     display: "block",
   },
-  // [theme.breakpoints.up("md")]: {},
+  [theme.breakpoints.up("lg")]: {
+    display: "flex",
+    gap: "1rem",
+  },
+}));
+
+const DashIconText = styled(Grid)(({ theme }) => ({
+  display: "none",
+  [theme.breakpoints.up("lg")]: {
+    display: "block",
+    fontSize: "16px",
+  },
 }));
 
 const DashAppBar = styled(AppBar)(({ theme }) => ({
   position: "static",
   boxShadow: "none",
+  padding: "0 1rem",
+  background: "white",
   [theme.breakpoints.up("sm")]: {
     position: "absolute",
     left: 0,
@@ -118,14 +152,22 @@ const DashAppBar = styled(AppBar)(({ theme }) => ({
     flexDirection: "column",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: "1rem",
+    padding: "3rem 0",
     borderRight: "1px solid lightgrey",
   },
   [theme.breakpoints.up("md")]: {},
   [theme.breakpoints.up("lg")]: {
     width: "200px",
     alignItems: "flex-start",
+    padding: "2rem",
   },
+}));
+
+const DashDownWrapper = styled(Grid)(({ theme }) => ({
+  [theme.breakpoints.up("sm")]: {
+    display: "none",
+  },
+  // [theme.breakpoints.up("md")]: {},
 }));
 
 export default function DashHeader() {
@@ -139,10 +181,12 @@ export default function DashHeader() {
               <img src={logo} style={{ width: "85px" }}></img>
             </Grid>
           </Link>
-          <KeyboardArrowDownIcon
-            fontSize="medium"
-            sx={{ color: theme.palette.secondary.main }}
-          />
+          <DashDownWrapper>
+            <KeyboardArrowDownIcon
+              fontSize="medium"
+              sx={{ color: theme.palette.secondary.main }}
+            />
+          </DashDownWrapper>
         </DashLogoWrapper>
         <Search>
           <SearchIconWrapper>
@@ -154,28 +198,79 @@ export default function DashHeader() {
           />
         </Search>
         <DashIconWrapper>
-          <HomeIcon fontSize="large" sx={{ color: theme.palette.black.main }} />
-          <ChatBubbleOutlineIcon
-            fontSize="medium"
-            sx={{ color: theme.palette.black.main }}
-          />
-          <AddCircleOutlineIcon
-            fontSize="medium"
-            sx={{ color: theme.palette.black.main }}
-          />
-          <TravelExploreIcon
-            fontSize="medium"
-            sx={{ color: theme.palette.black.main }}
-          />
-          <FavoriteBorderIcon
-            fontSize="medium"
-            sx={{ color: theme.palette.black.main }}
-          />
-          <Grid>
+          <DashInsLoggo>
+            <InstagramIcon
+              fontSize="medium"
+              sx={{ color: theme.palette.black.main }}
+            />
+          </DashInsLoggo>
+          <Grid display="flex" alignItems="center" gap={1}>
+            <HomeIcon
+              fontSize="medium"
+              sx={{ color: theme.palette.black.main }}
+            />
+            <DashIconText
+              sx={{ color: theme.palette.black.main, fontWeight: "bold" }}
+            >
+              Home
+            </DashIconText>
+          </Grid>
+          <Grid display="flex" alignItems="center" gap={1}>
+            <SearchIcon
+              fontSize="medium"
+              sx={{ color: theme.palette.black.main }}
+            />
+            <DashIconText sx={{ color: theme.palette.black.main }}>
+              Search
+            </DashIconText>
+          </Grid>
+          <Grid display="flex" alignItems="center" gap={1}>
+            <ExploreIcon
+              fontSize="medium"
+              sx={{ color: theme.palette.black.main }}
+            />
+            <DashIconText sx={{ color: theme.palette.black.main }}>
+              Explore
+            </DashIconText>
+          </Grid>
+          <Grid display="flex" alignItems="center" gap={1}>
+            <ChatBubbleOutlineIcon
+              fontSize="medium"
+              sx={{ color: theme.palette.black.main }}
+            />
+            <DashIconText sx={{ color: theme.palette.black.main }}>
+              Messages
+            </DashIconText>
+          </Grid>
+
+          <Grid display="flex" alignItems="center" gap={1}>
+            <FavoriteBorderIcon
+              fontSize="medium"
+              sx={{ color: theme.palette.black.main }}
+            />
+            <DashIconText sx={{ color: theme.palette.black.main }}>
+              Notifications
+            </DashIconText>
+          </Grid>
+
+          <Grid display="flex" alignItems="center" gap={1}>
+            <AddCircleOutlineIcon
+              fontSize="medium"
+              sx={{ color: theme.palette.black.main }}
+            />
+            <DashIconText sx={{ color: theme.palette.black.main }}>
+              Create
+            </DashIconText>
+          </Grid>
+
+          <Grid display="flex" gap={1}>
             <img
               src={avatar}
-              style={{ width: "30px", borderRadius: "50%" }}
+              style={{ width: "20px", borderRadius: "50%" }}
             ></img>
+            <DashIconText sx={{ color: theme.palette.black.main }}>
+              Profile
+            </DashIconText>
           </Grid>
         </DashIconWrapper>
       </DashToolBar>
@@ -184,6 +279,9 @@ export default function DashHeader() {
           sx={{ color: theme.palette.black.main }}
           fontSize="medium"
         />
+        <DashIconText sx={{ color: theme.palette.black.main }}>
+          More
+        </DashIconText>
       </DashHamburger>
     </DashAppBar>
     // </Box>

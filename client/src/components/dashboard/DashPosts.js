@@ -15,7 +15,11 @@ const DashPosts = () => {
     <Grid
       display="flex"
       flexDirection="column"
-      sx={{ border: "1px solid lightgrey", background: "white" }}
+      sx={{
+        border: "1px solid lightgrey",
+        background: "white",
+        borderRadius: "4px",
+      }}
     >
       <Grid
         display="flex"
@@ -103,7 +107,7 @@ const DashPosts = () => {
         display="flex"
         justifyContent="space-between"
         alignItems="center"
-        sx={{ p: "1rem", border: "1px solid lightgrey" }}
+        sx={{ p: "1rem", borderTop: "1px solid lightgrey" }}
       >
         <Grid display="flex" alignItems="center" gap={1}>
           <SentimentSatisfiedAltIcon fontSize="large" />

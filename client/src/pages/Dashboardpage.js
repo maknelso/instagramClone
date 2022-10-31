@@ -12,10 +12,8 @@ const DashContainer = styled(Grid)(({ theme }) => ({
   margin: "0 auto",
   [theme.breakpoints.up("md")]: {
     maxWidth: "1600px",
-
     display: "flex",
     justifyContent: "center",
-    // alignItems: "center",
   },
 }));
 
