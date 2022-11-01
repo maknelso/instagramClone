@@ -76,3 +76,17 @@
 .fade-in-4 {
   animation: fade-in-4 13s cubic-bezier(0.39, 0.575, 0.565, 1) infinite both;
 }
+
+/* Dashboard page effects */
+
+.dash__hover {
+  padding: 1rem;
+  transition: all 0.1s ease;
+  border-radius: 50px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.dash__hover:hover {
+  background-color: #f7f8fa;
+}

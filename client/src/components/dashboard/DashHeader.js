@@ -10,7 +10,6 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import HomeIcon from "@mui/icons-material/Home";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import DehazeOutlinedIcon from "@mui/icons-material/DehazeOutlined";
 import InstagramIcon from "@mui/icons-material/Instagram";
@@ -18,6 +17,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import ExploreIcon from "@mui/icons-material/Explore";
 import { theme } from "../ThemeColor";
 import { Link } from "react-router-dom";
+import DashHamBtn from "./DashHamBtn";
 
 const Search = styled("div")(({ theme }) => ({
   display: "none",
@@ -78,6 +78,9 @@ const DashToolBar = styled(Toolbar)(({ theme }) => ({
   [theme.breakpoints.up("md")]: {
     alignItems: "flex-start",
   },
+  [theme.breakpoints.up("lg")]: {
+    width: "100%",
+  },
 }));
 
 const DashLogoWrapper = styled(Grid)(({ theme }) => ({
@@ -90,6 +93,14 @@ const DashLogoWrapper = styled(Grid)(({ theme }) => ({
     display: "flex",
     marginBottom: "3rem",
   },
+}));
+
+const DashIconHover = styled(Grid)(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  gap: "1rem",
+  [theme.breakpoints.up("sm")]: {},
+  [theme.breakpoints.up("lg")]: {},
 }));
 
 const DashInsLoggo = styled(Grid)(({ theme }) => ({
@@ -107,33 +118,33 @@ const DashIconWrapper = styled(Grid)(({ theme }) => ({
   display: "flex",
   justifyContent: "flex-end",
   alignItems: "center",
-  gap: "1rem",
   [theme.breakpoints.up("sm")]: {
     flexDirection: "column",
-    gap: "2rem",
+    gap: "1rem",
   },
   [theme.breakpoints.up("lg")]: {
     alignItems: "flex-start",
-    gap: "3rem",
+    width: "100%",
   },
 }));
 
-const DashHamburger = styled(Grid)(({ theme }) => ({
-  display: "none",
-  [theme.breakpoints.up("sm")]: {
-    display: "block",
-  },
-  [theme.breakpoints.up("lg")]: {
-    display: "flex",
-    gap: "1rem",
-  },
-}));
+// const DashHamburger = styled(Grid)(({ theme }) => ({
+//   display: "none",
+//   [theme.breakpoints.up("sm")]: {
+//     display: "block",
+//   },
+//   [theme.breakpoints.up("lg")]: {
+//     display: "flex",
+//     alignItems: "center",
+//     gap: "1rem",
+//   },
+// }));
 
 const DashIconText = styled(Grid)(({ theme }) => ({
   display: "none",
   [theme.breakpoints.up("lg")]: {
     display: "block",
-    fontSize: "16px",
+    fontSize: "12px",
   },
 }));
 
@@ -188,7 +199,7 @@ export default function DashHeader() {
             />
           </DashDownWrapper>
         </DashLogoWrapper>
-        <Search>
+        {/* <Search>
           <SearchIconWrapper>
             <SearchIcon />
           </SearchIconWrapper>
@@ -196,7 +207,7 @@ export default function DashHeader() {
             placeholder="Search…"
             inputProps={{ "aria-label": "search" }}
           />
-        </Search>
+        </Search> */}
         <DashIconWrapper>
           <DashInsLoggo>
             <InstagramIcon
@@ -204,66 +215,25 @@ export default function DashHeader() {
               sx={{ color: theme.palette.black.main }}
             />
           </DashInsLoggo>
-          <Grid display="flex" alignItems="center" gap={1}>
-            <HomeIcon
-              fontSize="medium"
-              sx={{ color: theme.palette.black.main }}
-            />
-            <DashIconText
-              sx={{ color: theme.palette.black.main, fontWeight: "bold" }}
-            >
-              Home
-            </DashIconText>
-          </Grid>
-          <Grid display="flex" alignItems="center" gap={1}>
-            <SearchIcon
-              fontSize="medium"
-              sx={{ color: theme.palette.black.main }}
-            />
-            <DashIconText sx={{ color: theme.palette.black.main }}>
-              Search
-            </DashIconText>
-          </Grid>
-          <Grid display="flex" alignItems="center" gap={1}>
-            <ExploreIcon
-              fontSize="medium"
-              sx={{ color: theme.palette.black.main }}
-            />
-            <DashIconText sx={{ color: theme.palette.black.main }}>
-              Explore
-            </DashIconText>
-          </Grid>
-          <Grid display="flex" alignItems="center" gap={1}>
-            <ChatBubbleOutlineIcon
-              fontSize="medium"
-              sx={{ color: theme.palette.black.main }}
-            />
-            <DashIconText sx={{ color: theme.palette.black.main }}>
-              Messages
-            </DashIconText>
-          </Grid>
+          {navItems.map((item) => {
+            return (
+              <DashIconHover className="dash__hover">
+                <Grid sx={{ color: theme.palette.black.main }}>
+                  {item.logo}
+                </Grid>
+                <DashIconText sx={{ color: theme.palette.black.main }}>
+                  {item.text}
+                </DashIconText>
+              </DashIconHover>
+            );
+          })}
 
-          <Grid display="flex" alignItems="center" gap={1}>
-            <FavoriteBorderIcon
-              fontSize="medium"
-              sx={{ color: theme.palette.black.main }}
-            />
-            <DashIconText sx={{ color: theme.palette.black.main }}>
-              Notifications
-            </DashIconText>
-          </Grid>
-
-          <Grid display="flex" alignItems="center" gap={1}>
-            <AddCircleOutlineIcon
-              fontSize="medium"
-              sx={{ color: theme.palette.black.main }}
-            />
-            <DashIconText sx={{ color: theme.palette.black.main }}>
-              Create
-            </DashIconText>
-          </Grid>
-
-          <Grid display="flex" gap={1}>
+          <DashIconHover
+            className="dash__hover"
+            display="flex"
+            gap={1}
+            alignItems="center"
+          >
             <img
               src={avatar}
               style={{ width: "20px", borderRadius: "50%" }}
@@ -271,19 +241,20 @@ export default function DashHeader() {
             <DashIconText sx={{ color: theme.palette.black.main }}>
               Profile
             </DashIconText>
-          </Grid>
+          </DashIconHover>
         </DashIconWrapper>
       </DashToolBar>
-      <DashHamburger>
-        <DehazeOutlinedIcon
-          sx={{ color: theme.palette.black.main }}
-          fontSize="medium"
-        />
-        <DashIconText sx={{ color: theme.palette.black.main }}>
-          More
-        </DashIconText>
-      </DashHamburger>
+      <DashHamBtn />
     </DashAppBar>
     // </Box>
   );
 }
+
+const navItems = [
+  { id: 1, logo: <HomeIcon />, text: "Home" },
+  { id: 2, logo: <SearchIcon />, text: "Search" },
+  { id: 3, logo: <ExploreIcon />, text: "Explore" },
+  { id: 4, logo: <ChatBubbleOutlineIcon />, text: "Messages" },
+  { id: 3, logo: <FavoriteBorderIcon />, text: "Notifications" },
+  { id: 3, logo: <AddCircleOutlineIcon />, text: "Create" },
+];
