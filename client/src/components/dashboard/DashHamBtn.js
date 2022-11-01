@@ -27,7 +27,7 @@ const DashIconText = styled(Grid)(({ theme }) => ({
   },
 }));
 
-export default function DashHamBtn() {
+export default function DashHamBtn({ handleLogOut }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -88,7 +88,7 @@ export default function DashHamBtn() {
           Switch accounts
         </MenuItem>
         <Divider />
-        <MenuItem sx={{ pt: 0, pb: 0, minHeight: 0 }} onClick={handleClose}>
+        <MenuItem sx={{ pt: 0, pb: 0, minHeight: 0 }} onClick={handleLogOut}>
           Log out
         </MenuItem>
       </Menu>

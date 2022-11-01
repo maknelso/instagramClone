@@ -1,10 +1,13 @@
 import { Grid } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DashFollowing from "../components/dashboard/DashFollowing";
 import DashHeader from "../components/dashboard/DashHeader";
 import DashPosts from "../components/dashboard/DashPosts";
 import DashSidebar from "../components/dashboard/DashSidebar";
 import { styled } from "@mui/material/styles";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const DashContainer = styled(Grid)(({ theme }) => ({
   height: "100vh",
@@ -36,16 +39,65 @@ const DashContainerRight = styled(Grid)(({ theme }) => ({
 }));
 
 const Dashboardpage = () => {
+  const [user, setUser] = useState(null);
+  const [failedAuth, setFailedAuth] = useState(false);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+
+    if (!token) {
+      setFailedAuth(true);
+      return;
+    }
+
+    axios
+      .get("/api/protect", {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((response) => {
+        setUser(response.data);
+      })
+      .catch(() => {
+        setFailedAuth(false);
+      });
+  }, []);
+
+  const handleLogOut = () => {
+    sessionStorage.removeItem("token");
+    setUser(null);
+    setFailedAuth(true);
+  };
+
+  if (failedAuth) {
+    navigate("/");
+  }
+
+  if (!user) {
+    return (
+      <main>
+        <p>Loading...</p>
+      </main>
+    );
+  }
+
+  console.log(user);
+
+  const { email, name, username } = user;
+
   return (
     <Grid>
-      <DashHeader />
+      <DashHeader handleLogOut={handleLogOut} />
       <DashContainer>
         <DashContainerLeft>
           <DashFollowing />
           <DashPosts />
         </DashContainerLeft>
         <DashContainerRight>
-          <DashSidebar />
+          <DashSidebar name={name} username={username} />
         </DashContainerRight>
       </DashContainer>
     </Grid>

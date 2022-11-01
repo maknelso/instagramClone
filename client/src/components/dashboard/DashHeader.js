@@ -128,18 +128,6 @@ const DashIconWrapper = styled(Grid)(({ theme }) => ({
   },
 }));
 
-// const DashHamburger = styled(Grid)(({ theme }) => ({
-//   display: "none",
-//   [theme.breakpoints.up("sm")]: {
-//     display: "block",
-//   },
-//   [theme.breakpoints.up("lg")]: {
-//     display: "flex",
-//     alignItems: "center",
-//     gap: "1rem",
-//   },
-// }));
-
 const DashIconText = styled(Grid)(({ theme }) => ({
   display: "none",
   [theme.breakpoints.up("lg")]: {
@@ -181,7 +169,7 @@ const DashDownWrapper = styled(Grid)(({ theme }) => ({
   // [theme.breakpoints.up("md")]: {},
 }));
 
-export default function DashHeader() {
+export default function DashHeader({ handleLogOut }) {
   return (
     // <Box sx={{ flexGrow: 1 }}>
     <DashAppBar>
@@ -244,7 +232,7 @@ export default function DashHeader() {
           </DashIconHover>
         </DashIconWrapper>
       </DashToolBar>
-      <DashHamBtn />
+      <DashHamBtn handleLogOut={handleLogOut} />
     </DashAppBar>
     // </Box>
   );

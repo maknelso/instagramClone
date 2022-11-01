@@ -1,0 +1,4 @@
+    "email": "123@gmail.com",
+    "name": "Nelson ",
+    "username": "123",
+    "password": "abc"

@@ -121,7 +121,7 @@ class users_login(Resource):
 # users_current route is used to authenticate the JWT received from frontend is valid
 
 
-currentFields = {
+protectFields = {
     "account_id": fields.Integer,
     "email": fields.String,
     "name": fields.String,
@@ -130,11 +130,12 @@ currentFields = {
 }
 
 
-class users_current(Resource):
-    @marshal_with(currentFields)
+class users_protect(Resource):
+    @marshal_with(protectFields)
     def get(self):
         if not request.headers.get("Authorization"):
             return jsonify({"message": "Please login"}), 401
+
         auth_token = request.headers.get("Authorization").split(" ")[1]
 
         try:
@@ -152,7 +153,7 @@ class users_current(Resource):
 
 api.add_resource(users_reg, '/api/register')
 api.add_resource(users_login, '/api/login')
-api.add_resource(users_current, '/api/current')
+api.add_resource(users_protect, '/api/protect')
 
 
 if __name__ == '__main__':
