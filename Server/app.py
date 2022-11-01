@@ -15,14 +15,6 @@ app.config['SECRET_KEY'] = '....your secret key ....'
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///igclonedb.db"
 db = SQLAlchemy(app)
 
-# login++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-"""
-    "email": "123@gmail.com",
-    "name": "Nelson ",
-    "username": "123",
-    "password": "abc"
-"""
-
 # create an outline of what the data should look like (the names of the fields and their types)
 
 

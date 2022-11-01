@@ -11,9 +11,11 @@ import axios from "axios";
 
 const FormComponent = styled(Grid)(({ theme }) => ({
   padding: "1rem",
+  maxWidth: "350px",
+  margin: "8rem auto",
   [theme.breakpoints.up("md")]: {
     padding: "0rem",
-    maxWidth: "350px",
+    // maxWidth: "350px",
   },
 }));
 
