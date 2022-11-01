@@ -12,9 +12,18 @@ bcrypt = Bcrypt(app)
 
 # --- the one indicated in your settings.py, cut an paste it here
 app.config['SECRET_KEY'] = '....your secret key ....'
-
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///igclonedb.db"
 db = SQLAlchemy(app)
+
+# login++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+"""
+    "email": "123@gmail.com",
+    "name": "Nelson ",
+    "username": "123",
+    "password": "abc"
+"""
+
+# create an outline of what the data should look like (the names of the fields and their types)
 
 
 class Account(db.Model):
@@ -30,6 +39,8 @@ class Account(db.Model):
 
 with app.app_context():
     db.create_all()
+
+# users_reg route is used to register new users
 
 # create an outline of what the data should look like (the names of the fields and their types)
 
@@ -65,17 +76,7 @@ class users_reg(Resource):
         return users
 
 
-api.add_resource(users_reg, '/api/register')
-
-# login++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-"""
-    "email": "123@gmail.com",
-    "name": "Nelson ",
-    "username": "123",
-    "password": "abc"
-"""
-
-# create an outline of what the data should look like (the names of the fields and their types)
+# users_login route is used to login existing users
 loginFields = {
     "token": fields.String
 }
@@ -106,8 +107,9 @@ class users_login(Resource):
             return "User or password is incorrect", 400
         else:
             # user has entered valid email and password, now we generate a jwt token for the user
-            token = jwt.encode({'email': data['email'], 'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)},
-                               app.config['SECRET_KEY'])
+            token = jwt.encode(
+                {'email': data['email'], 'exp': datetime.datetime.utcnow(
+                ) + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'], algorithm="HS256")
 
             # print(token)
             response = {
@@ -116,8 +118,41 @@ class users_login(Resource):
 
             return response
 
+# users_current route is used to authenticate the JWT received from frontend is valid
 
+
+currentFields = {
+    "account_id": fields.Integer,
+    "email": fields.String,
+    "name": fields.String,
+    "username": fields.String,
+    "password": fields.String
+}
+
+
+class users_current(Resource):
+    @marshal_with(currentFields)
+    def get(self):
+        if not request.headers.get("Authorization"):
+            return jsonify({"message": "Please login"}), 401
+        auth_token = request.headers.get("Authorization").split(" ")[1]
+
+        try:
+            data = jwt.decode(
+                auth_token, app.config['SECRET_KEY'], algorithms="HS256")
+            current_user = Account.query.filter_by(email=data['email']).first()
+
+        except:
+            return jsonify({
+                'message': 'Token is invalid !!'
+            }), 401
+
+        return current_user
+
+
+api.add_resource(users_reg, '/api/register')
 api.add_resource(users_login, '/api/login')
+api.add_resource(users_current, '/api/current')
 
 
 if __name__ == '__main__':
