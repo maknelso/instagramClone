@@ -3,6 +3,8 @@ from flask import Flask, request, jsonify
 from flask_restful import Resource, Api, marshal_with, fields
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
+from sqlalchemy import Column, ForeignKey, Integer, Table
+from sqlalchemy.orm import declarative_base, relationship
 import jwt
 import datetime
 
@@ -24,6 +26,18 @@ class Account(db.Model):
     name = db.Column(db.String(50), unique=False, nullable=False)
     username = db.Column(db.String(25), unique=True, nullable=False)
     password = db.Column(db.String(100), unique=False, nullable=False)
+    post_child = db.relationship("Posts")
+
+
+class Posts(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    account_id = db.Column(db.Integer, db.ForeignKey("account.account_id"))
+
+
+# class Follow(db.Model):
+#     follow_id = db.Column(db.Integer, primary_key=True)
+#     follower_id = db.Column(db.Integer, db.ForeignKey("Account.account_id"))
+    # following_id = db.Column(db.Integer, db.ForeignKey("Account.account_id"))
 
     def __repr__(self):
         return '<User %r>' % self.username
