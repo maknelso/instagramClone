@@ -78,13 +78,13 @@ const DashPosts = () => {
         <Typography fontSize="12px">
           Liked by <span>James</span> and <span>others</span>
         </Typography>
-        <Grid>
+        <Grid display="flex" alignItems="center" gap="0.3rem">
           <Typography
             fontSize="12px"
             sx={{ display: "inline" }}
             fontWeight="bold"
           >
-            Julian
+            Nelson
           </Typography>
           <span style={{ fontSize: "12px" }}>
             A planter with a black board with some text written on it
