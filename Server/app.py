@@ -2,6 +2,8 @@ import json
 from flask import Flask, request, jsonify
 from flask_restful import Resource, Api, marshal_with, fields
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import Column, ForeignKey, Integer, Table
+from sqlalchemy.orm import declarative_base, relationship
 from flask_bcrypt import Bcrypt
 import jwt
 import datetime
@@ -15,15 +17,37 @@ app.config['SECRET_KEY'] = '....your secret key ....'
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///igclonedb.db"
 db = SQLAlchemy(app)
 
+# declarative base class
+# class Base(declarative_base):
+#     pass
+Base = declarative_base()
+
 # create an outline of what the data should look like (the names of the fields and their types)
-
-
 class Account(db.Model):
     account_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     email = db.Column(db.String(25), unique=True, nullable=False)
     name = db.Column(db.String(50), unique=False, nullable=False)
     username = db.Column(db.String(25), unique=True, nullable=False)
     password = db.Column(db.String(100), unique=False, nullable=False)
+    post_child = db.relationship("Post")
+    follow_child = db.relationship("Follow")
+    like_child = db.relationship("Like")
+
+class Post(db.Model):
+    post_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    account_id = db.Column(db.Integer, db.ForeignKey("account.account_id"))
+    img_url = db.Column(db.String(250))
+    like_post_child = db.relationship("Like")
+
+class Follow(db.Model):
+    follow_id = db.Column(db.Integer, primary_key=True)
+    follower_id = db.Column(db.Integer, db.ForeignKey("account.account_id"))
+    following_id = db.Column(db.Integer, db.ForeignKey("account.account_id"))
+
+class Like(db.Model):
+    like_id = db.Column(db.Integer, primary_key=True)
+    post_id = db.Column(db.Integer, db.ForeignKey("post.post_id"))
+    account_id = db.Column(db.Integer, db.ForeignKey("account.account_id"))
 
     def __repr__(self):
         return '<User %r>' % self.username
