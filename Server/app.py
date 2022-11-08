@@ -17,13 +17,6 @@ app.config['SECRET_KEY'] = '....your secret key ....'
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///igclonedb.db"
 db = SQLAlchemy(app)
 
-# declarative base class
-# class Base(declarative_base):
-#     pass
-# Base = declarative_base()
-
-# create an outline of what the data should look like (the names of the fields and their types)
-
 
 class Account(db.Model):
     account_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -31,7 +24,7 @@ class Account(db.Model):
     name = db.Column(db.String(50), unique=False, nullable=False)
     username = db.Column(db.String(25), unique=True, nullable=False)
     password = db.Column(db.String(100), unique=False, nullable=False)
-    post_child = db.relationship("Post")
+    posts = db.relationship("Post")
     # follow_child = db.relationship("Follow")
     # like_child = db.relationship("Like")
 
@@ -53,6 +46,7 @@ class Post(db.Model):
 #     like_id = db.Column(db.Integer, primary_key=True)
 #     post_id = db.Column(db.Integer, db.ForeignKey("post.post_id"))
 #     account_id = db.Column(db.Integer, db.ForeignKey("account.account_id"))
+
 
     def __repr__(self):
         return '<User %r>' % self.username
@@ -147,7 +141,12 @@ protectFields = {
     "email": fields.String,
     "name": fields.String,
     "username": fields.String,
-    "password": fields.String
+    "password": fields.String,
+    "posts": {
+        "img_url": fields.String
+    }
+    # "post_id": fields.Integer,
+    # "img_url": fields.String
 }
 
 
@@ -162,7 +161,21 @@ class users_protect(Resource):
         try:
             data = jwt.decode(
                 auth_token, app.config['SECRET_KEY'], algorithms="HS256")
+
             current_user = Account.query.filter_by(email=data['email']).first()
+            print(current_user)
+            # account_id = current_user["account_id"]
+            # print(account_id)
+
+            # current_post = Post.query.filter_by(account_id=account_id).all()
+
+            # print(posts)
+            # current_user = Account.query.join(
+            #     Post, Account.account_id == Post.account_id).filter_by(email=data['email']).all()
+
+            # current_user = Account.query.join(
+            #     Post).filter_by(Account.account_id == Post.account_id).filter_by(
+            #         email=data['email']).all()
 
         except:
             return jsonify({
@@ -170,6 +183,7 @@ class users_protect(Resource):
             }), 401
 
         return current_user
+        # posts
 
 
 api.add_resource(users_reg, '/api/register')

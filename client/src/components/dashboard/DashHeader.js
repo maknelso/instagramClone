@@ -203,9 +203,9 @@ export default function DashHeader({ handleLogOut }) {
               sx={{ color: theme.palette.black.main }}
             />
           </DashInsLoggo>
-          {navItems.map((item) => {
+          {navItems.map((item, index) => {
             return (
-              <DashIconHover className="dash__hover">
+              <DashIconHover className="dash__hover" key={index}>
                 <Grid sx={{ color: theme.palette.black.main }}>
                   {item.logo}
                 </Grid>

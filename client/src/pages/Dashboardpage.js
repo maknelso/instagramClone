@@ -84,8 +84,6 @@ const Dashboardpage = () => {
     );
   }
 
-  console.log(user);
-
   const { email, name, username } = user;
 
   return (

@@ -8,3 +8,8 @@
     "username": "tonytest123321",
     "password": "Password123!"
 
+    "email": "josh1992@gmail.com",
+    "name": "Josh",
+    "username": "josh1992",
+    "password": "Password123!"
+

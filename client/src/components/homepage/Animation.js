@@ -6,19 +6,19 @@ import animate_4 from "../../assets/images/homepage/animate_4.png";
 
 const Animation = () => {
   return (
-    <div class="animation__outer">
-      <div class="animation__container">
+    <div className="animation__outer">
+      <div className="animation__container">
         <div>
-          <img src={animate_1} alt="" class="fade-in-1" />
+          <img src={animate_1} alt="" className="fade-in-1" />
         </div>
         <div>
-          <img src={animate_2} alt="" class="fade-in-2" />
+          <img src={animate_2} alt="" className="fade-in-2" />
         </div>
         <div>
-          <img src={animate_3} alt="" class="fade-in-3" />
+          <img src={animate_3} alt="" className="fade-in-3" />
         </div>
         <div>
-          <img src={animate_4} alt="" class="fade-in-4" />
+          <img src={animate_4} alt="" className="fade-in-4" />
         </div>
       </div>
     </div>
