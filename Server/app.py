@@ -24,7 +24,7 @@ class Account(db.Model):
     name = db.Column(db.String(50), unique=False, nullable=False)
     username = db.Column(db.String(25), unique=True, nullable=False)
     password = db.Column(db.String(100), unique=False, nullable=False)
-    posts = db.relationship("Post")
+    posts = db.relationship("Post", backref="account")
     # follow_child = db.relationship("Follow")
     # like_child = db.relationship("Like")
 
@@ -46,7 +46,6 @@ class Post(db.Model):
 #     like_id = db.Column(db.Integer, primary_key=True)
 #     post_id = db.Column(db.Integer, db.ForeignKey("post.post_id"))
 #     account_id = db.Column(db.Integer, db.ForeignKey("account.account_id"))
-
 
     def __repr__(self):
         return '<User %r>' % self.username
@@ -141,10 +140,10 @@ protectFields = {
     "email": fields.String,
     "name": fields.String,
     "username": fields.String,
-    "password": fields.String,
-    "posts": {
+    "current_post": fields.List(fields.Nested({
         "img_url": fields.String
-    }
+    }))
+
     # "post_id": fields.Integer,
     # "img_url": fields.String
 }
@@ -163,24 +162,28 @@ class users_protect(Resource):
                 auth_token, app.config['SECRET_KEY'], algorithms="HS256")
 
             current_user = Account.query.filter_by(email=data['email']).first()
-            print(current_user)
-            # account_id = current_user["account_id"]
-            # print(account_id)
 
-            # current_post = Post.query.filter_by(account_id=account_id).all()
+            account_id = current_user.account_id
 
-            # print(posts)
-            # current_user = Account.query.join(
-            #     Post, Account.account_id == Post.account_id).filter_by(email=data['email']).all()
+            posts = Post.query.filter_by(
+                account_id=account_id).all()
 
-            # current_user = Account.query.join(
-            #     Post).filter_by(Account.account_id == Post.account_id).filter_by(
-            #         email=data['email']).all()
+            current_user.current_post = posts
 
-        except:
-            return jsonify({
-                'message': 'Token is invalid !!'
-            }), 401
+            # res = {
+            #     "account_id": account_id,
+            #     "email": current_user.email,
+            #     "name": current_user.name,
+            #     "username": current_user.username,
+            #     "img_url": current_post.img_url
+
+            # }
+
+        except Exception as e:
+            print(e)
+            # return jsonify({
+            #     'message': 'Token is invalid !!'
+            # }), 401
 
         return current_user
         # posts
