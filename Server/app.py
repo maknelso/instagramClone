@@ -47,6 +47,7 @@ class Post(db.Model):
 #     post_id = db.Column(db.Integer, db.ForeignKey("post.post_id"))
 #     account_id = db.Column(db.Integer, db.ForeignKey("account.account_id"))
 
+
     def __repr__(self):
         return '<User %r>' % self.username
 
