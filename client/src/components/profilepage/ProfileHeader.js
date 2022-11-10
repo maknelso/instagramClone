@@ -5,7 +5,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { theme } from "../ThemeColor";
 
-const ProfileHeader = () => {
+const ProfileHeader = ({ username }) => {
   return (
     <AppBar position="static">
       <Toolbar
@@ -28,7 +28,7 @@ const ProfileHeader = () => {
           component="div"
           sx={{ color: theme.palette.black.main }}
         >
-          johndoe123
+          {username}
         </Typography>
         <IconButton
           size="large"

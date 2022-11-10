@@ -3,7 +3,7 @@ import { Typography, Grid, Button } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import SettingsIcon from "@mui/icons-material/Settings";
 
-const ProfileInfo = () => {
+const ProfileInfo = ({ username, name }) => {
   return (
     <Grid container item display="flex" p="3rem">
       <Grid item xs={3} display="flex" flexDirection="column" gap={2}>
@@ -13,11 +13,11 @@ const ProfileInfo = () => {
             style={{ borderRadius: "50%" }}
           ></img>
         </Grid>
-        <Typography variant="h6">John Doe</Typography>
+        <Typography variant="h6">{name}</Typography>
       </Grid>
       <Grid item xs={9} display="flex" flexDirection="column">
         <Grid display="flex" alignItems="center">
-          <Typography variant="h4">johndoe123</Typography>
+          <Typography variant="h4">{username}</Typography>
           <IconButton
             size="large"
             // edge="start"

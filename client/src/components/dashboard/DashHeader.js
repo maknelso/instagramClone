@@ -215,21 +215,22 @@ export default function DashHeader({ handleLogOut }) {
               </DashIconHover>
             );
           })}
-
-          <DashIconHover
-            className="dash__hover"
-            display="flex"
-            gap={1}
-            alignItems="center"
-          >
-            <img
-              src={avatar}
-              style={{ width: "20px", borderRadius: "50%" }}
-            ></img>
-            <DashIconText sx={{ color: theme.palette.black.main }}>
-              Profile
-            </DashIconText>
-          </DashIconHover>
+          <Link to="/profile">
+            <DashIconHover
+              className="dash__hover"
+              display="flex"
+              gap={1}
+              alignItems="center"
+            >
+              <img
+                src={avatar}
+                style={{ width: "20px", borderRadius: "50%" }}
+              ></img>
+              <DashIconText sx={{ color: theme.palette.black.main }}>
+                Profile
+              </DashIconText>
+            </DashIconHover>
+          </Link>
         </DashIconWrapper>
       </DashToolBar>
       <DashHamBtn handleLogOut={handleLogOut} />

@@ -124,7 +124,7 @@ class users_login(Resource):
             # user has entered valid email and password, now we generate a jwt token for the user
             token = jwt.encode(
                 {'email': data['email'], 'exp': datetime.datetime.utcnow(
-                ) + datetime.timedelta(minutes=30)}, app.config['SECRET_KEY'], algorithm="HS256")
+                ) + datetime.timedelta(minutes=90)}, app.config['SECRET_KEY'], algorithm="HS256")
 
             # print(token)
             response = {

@@ -4,7 +4,7 @@ import CalendarViewMonthOutlinedIcon from "@mui/icons-material/CalendarViewMonth
 import TurnedInNotOutlinedIcon from "@mui/icons-material/TurnedInNotOutlined";
 import AssignmentIndOutlinedIcon from "@mui/icons-material/AssignmentIndOutlined";
 
-const ProfilePosts = () => {
+const ProfilePosts = ({ currentpost }) => {
   return (
     <Grid container item>
       <Grid
@@ -50,15 +50,19 @@ const ProfilePosts = () => {
         })}
       </Grid>
       <Grid container item display="flex">
-        <Grid item xs={4} display="flex" justifyContent="space-around">
-          <img src="https://via.placeholder.com/128"></img>
-        </Grid>
-        <Grid item xs={4} display="flex" justifyContent="space-around">
-          <img src="https://via.placeholder.com/128"></img>
-        </Grid>
-        <Grid item xs={4} display="flex" justifyContent="space-around">
-          <img src="https://via.placeholder.com/128"></img>
-        </Grid>
+        {currentpost.map((post, index) => {
+          return (
+            <Grid
+              key={index}
+              item
+              xs={4}
+              display="flex"
+              justifyContent="space-around"
+            >
+              <img style={{ width: "100%" }} src={post.img_url}></img>
+            </Grid>
+          );
+        })}
       </Grid>
     </Grid>
   );
