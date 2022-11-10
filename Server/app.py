@@ -3,7 +3,8 @@ from flask import Flask, request, jsonify
 from flask_restful import Resource, Api, marshal_with, fields
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, ForeignKey, Integer, Table
-# from sqlalchemy.orm import declarative_base, relationship
+# from sqlalchemy import create_engine
+from sqlalchemy.orm import declarative_base, relationship
 from flask_bcrypt import Bcrypt
 import jwt
 import datetime
@@ -17,6 +18,14 @@ app.config['SECRET_KEY'] = '....your secret key ....'
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///igclonedb.db"
 db = SQLAlchemy(app)
 
+# TODO: https://www.youtube.com/watch?v=47i-jzrrIGQ (need to have accounts following each other)
+# association table for Account_Follow - this gives us the M:M relationship
+# think of accountID as follower
+# think of followID as followee
+account_follow = db.Table('account_follow',
+    db.Column('accountID', db.Integer, db.ForeignKey('account.account_id')),
+    db.Column('followID', db.Integer, db.ForeignKey('follow.follow_id'))
+)
 
 class Account(db.Model):
     account_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -24,10 +33,23 @@ class Account(db.Model):
     name = db.Column(db.String(50), unique=False, nullable=False)
     username = db.Column(db.String(25), unique=True, nullable=False)
     password = db.Column(db.String(100), unique=False, nullable=False)
+    
     posts = db.relationship("Post", backref="account")
-    # follow_child = db.relationship("Follow")
+    
+    following = db.relationship("Follow", secondary=account_follow, backref="followers")
     # like_child = db.relationship("Like")
+    def __repr__(self):
+        return f'<User: {self.name}>'
 
+class Follow(db.Model):
+    follow_id = db.Column(db.Integer, primary_key=True)
+    def __repr__(self):
+        return f'<User: {self.name}>'
+
+    # fairly sure we don't need - delete after:
+    # follower_id = db.Column(db.Integer, db.ForeignKey('Account.account_id'))
+    # following_id = db.Column(db.Integer, db.ForeignKey('Account.account_id'))
+    # following_id = db.Column(db.Integer, unique=False, nullable=True)
 
 class Post(db.Model):
     post_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -35,22 +57,13 @@ class Post(db.Model):
     img_url = db.Column(db.String(250))
     # like_post_child = db.relationship("Like")
 
-
-# class Follow(db.Model):
-#     follow_id = db.Column(db.Integer, primary_key=True)
-#     follower_id = db.Column(db.Integer, db.ForeignKey("account.account_id"))
-#     following_id = db.Column(db.Integer, db.ForeignKey("account.account_id"))
-
-
 # class Like(db.Model):
 #     like_id = db.Column(db.Integer, primary_key=True)
 #     post_id = db.Column(db.Integer, db.ForeignKey("post.post_id"))
 #     account_id = db.Column(db.Integer, db.ForeignKey("account.account_id"))
 
-
-    def __repr__(self):
-        return '<User %r>' % self.username
-
+# def __repr__(self):
+#         return '<User %r>' % self.username
 
 with app.app_context():
     db.create_all()
