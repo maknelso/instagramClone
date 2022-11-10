@@ -25,7 +25,7 @@ class Account(db.Model):
     username = db.Column(db.String(25), unique=True, nullable=False)
     password = db.Column(db.String(100), unique=False, nullable=False)
     posts = db.relationship("Post", backref="account")
-    # follow_child = db.relationship("Follow")
+    # follow_child = db.relationship("Follow", backref="follow")
     # like_child = db.relationship("Like")
 
 
@@ -38,8 +38,8 @@ class Post(db.Model):
 
 # class Follow(db.Model):
 #     follow_id = db.Column(db.Integer, primary_key=True)
-#     follower_id = db.Column(db.Integer, db.ForeignKey("account.account_id"))
-#     following_id = db.Column(db.Integer, db.ForeignKey("account.account_id"))
+    # follower_id = db.Column(db.Integer, db.ForeignKey("account.account_id"))
+    # following_id = db.Column(db.Integer, db.ForeignKey("account.account_id"))
 
 
 # class Like(db.Model):
