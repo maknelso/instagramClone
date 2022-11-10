@@ -3,7 +3,7 @@ from flask import Flask, request, jsonify
 from flask_restful import Resource, Api, marshal_with, fields
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, ForeignKey, Integer, Table
-from sqlalchemy.orm import declarative_base, relationship
+# from sqlalchemy.orm import declarative_base, relationship
 from flask_bcrypt import Bcrypt
 import jwt
 import datetime
@@ -144,9 +144,6 @@ protectFields = {
     "current_post": fields.List(fields.Nested({
         "img_url": fields.String
     }))
-
-    # "post_id": fields.Integer,
-    # "img_url": fields.String
 }
 
 
@@ -171,23 +168,18 @@ class users_protect(Resource):
 
             current_user.current_post = posts
 
-            # res = {
-            #     "account_id": account_id,
-            #     "email": current_user.email,
-            #     "name": current_user.name,
-            #     "username": current_user.username,
-            #     "img_url": current_post.img_url
+        except:
+            return jsonify({
+                'message': 'Token is invalid !!'
+            }), 401
 
-            # }
-
-        except Exception as e:
-            print(e)
-            # return jsonify({
-            #     'message': 'Token is invalid !!'
-            # }), 401
+        # except Exception as e:
+        #     print(e)
+        #     # return jsonify({
+        #     #     'message': 'Token is invalid !!'
+        #     # }), 401
 
         return current_user
-        # posts
 
 
 api.add_resource(users_reg, '/api/register')

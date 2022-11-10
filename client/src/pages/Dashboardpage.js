@@ -38,7 +38,7 @@ const DashContainerRight = styled(Grid)(({ theme }) => ({
   },
 }));
 
-const Dashboardpage = () => {
+const DashboardPage = () => {
   const [user, setUser] = useState(null);
   const [failedAuth, setFailedAuth] = useState(false);
 
@@ -102,4 +102,4 @@ const Dashboardpage = () => {
   );
 };
 
-export default Dashboardpage;
+export default DashboardPage;
