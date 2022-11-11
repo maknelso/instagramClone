@@ -6,6 +6,18 @@ import ProfilePosts from "../components/profilepage/ProfilePosts";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import ProfileBottom from "../components/profilepage/ProfileBottom";
+import DashHeader from "../components/dashboard/DashHeader";
+import { styled } from "@mui/material/styles";
+
+const ProfileContainer = styled(Grid)(({ theme }) => ({
+  height: "100vh",
+  [theme.breakpoints.up("sm")]: {
+    marginLeft: "65px",
+  },
+  [theme.breakpoints.up("lg")]: {
+    marginLeft: "200px",
+  },
+}));
 
 const UserProfilePage = () => {
   const [user, setUser] = useState(null);
@@ -52,12 +64,13 @@ const UserProfilePage = () => {
   const { name, username, current_post } = user;
 
   return (
-    <Grid sx={{ height: "100vh" }}>
-      <ProfileHeader username={username} />
+    <ProfileContainer>
+      <DashHeader />
+      {/* <ProfileHeader username={username} /> */}
       <ProfileInfo name={name} username={username} />
       <ProfilePosts currentpost={current_post} />
       <ProfileBottom />
-    </Grid>
+    </ProfileContainer>
   );
 };
 
