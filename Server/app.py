@@ -17,6 +17,14 @@ app.config['SECRET_KEY'] = '....your secret key ....'
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///igclonedb.db"
 db = SQLAlchemy(app)
 
+# associate table between Account and Follow
+follow = db.Table('follow',
+                  db.Column('account_id', db.Integer, db.ForeignKey(
+                      'account.account_id'), primary_key=True),
+                  db.Column('follow_id', db.Integer, db.ForeignKey(
+                      'following.id'), primary_key=True),
+                  )
+
 
 class Account(db.Model):
     account_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -25,8 +33,15 @@ class Account(db.Model):
     username = db.Column(db.String(25), unique=True, nullable=False)
     password = db.Column(db.String(100), unique=False, nullable=False)
     posts = db.relationship("Post", backref="account")
-    # follow_child = db.relationship("Follow", backref="follow")
+    follow = db.relationship(
+        "Following", secondary=follow)
     # like_child = db.relationship("Like")
+
+
+class Following(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    follower_id = db.Column(db.Integer, db.ForeignKey("account.account_id"))
+    following_id = db.Column(db.Integer, db.ForeignKey("account.account_id"))
 
 
 class Post(db.Model):
@@ -34,12 +49,6 @@ class Post(db.Model):
     account_id = db.Column(db.Integer, db.ForeignKey("account.account_id"))
     img_url = db.Column(db.String(250))
     # like_post_child = db.relationship("Like")
-
-
-# class Follow(db.Model):
-#     follow_id = db.Column(db.Integer, primary_key=True)
-    # follower_id = db.Column(db.Integer, db.ForeignKey("account.account_id"))
-    # following_id = db.Column(db.Integer, db.ForeignKey("account.account_id"))
 
 
 # class Like(db.Model):
@@ -143,7 +152,9 @@ protectFields = {
     "username": fields.String,
     "current_post": fields.List(fields.Nested({
         "img_url": fields.String
-    }))
+    })),
+    "current_follower": fields.Integer,
+    "current_following": fields.Integer
 }
 
 
@@ -168,16 +179,28 @@ class users_protect(Resource):
 
             current_user.current_post = posts
 
-        except:
-            return jsonify({
-                'message': 'Token is invalid !!'
-            }), 401
+            follower = len(Following.query.filter_by(
+                follower_id=account_id).all())
 
-        # except Exception as e:
-        #     print(e)
-        #     # return jsonify({
-        #     #     'message': 'Token is invalid !!'
-        #     # }), 401
+            current_user.current_follower = follower
+
+            following = len(Following.query.filter_by(
+                following_id=account_id).all())
+
+            current_user.current_following = following
+
+            # print(follower)
+
+        # except:
+        #     return jsonify({
+        #         'message': 'Token is invalid !!'
+        #     }), 401
+
+        except Exception as e:
+            print(e)
+            # return jsonify({
+            #     'message': 'Token is invalid !!'
+            # }), 401
 
         return current_user
 
