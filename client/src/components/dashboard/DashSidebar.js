@@ -35,8 +35,8 @@ const DashSidebar = ({ name, username }) => {
                 objectFit: "cover",
                 borderRadius: "50%",
               }}
-              src="https://instagramclone-2022.s3.us-west-1.amazonaws.com/avatars/Nelson.jpg"
-              // src={avatar}
+              // src="https://instagramclone-2022.s3.us-west-1.amazonaws.com/avatars/Nelson.jpg"
+              src={avatar}
             ></img>
           </Grid>
           <Grid display="flex" flexDirection="column">

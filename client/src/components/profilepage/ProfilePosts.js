@@ -50,7 +50,7 @@ const ProfilePosts = ({ currentpost }) => {
         })}
       </Grid>
       <Grid container item display="flex">
-        {currentpost.map((post, index) => {
+        {/* {currentpost.map((post, index) => {
           return (
             <Grid
               key={index}
@@ -62,7 +62,13 @@ const ProfilePosts = ({ currentpost }) => {
               <img style={{ width: "100%" }} src={post.img_url}></img>
             </Grid>
           );
-        })}
+        })} */}
+        <Grid item xs={4} display="flex" justifyContent="space-around">
+          <img
+            style={{ width: "100%" }}
+            src="https://via.placeholder.com/150"
+          ></img>
+        </Grid>
       </Grid>
     </Grid>
   );
