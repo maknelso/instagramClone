@@ -3,20 +3,27 @@ import React from "react";
 import CalendarViewMonthOutlinedIcon from "@mui/icons-material/CalendarViewMonthOutlined";
 import TurnedInNotOutlinedIcon from "@mui/icons-material/TurnedInNotOutlined";
 import AssignmentIndOutlinedIcon from "@mui/icons-material/AssignmentIndOutlined";
+import { styled } from "@mui/material/styles";
+
+const ProfilePostWrapper = styled(Grid)(({ theme }) => ({
+  [theme.breakpoints.up("sm")]: {
+    padding: "0 2rem",
+  },
+}));
+
+const ProfilePostdisappear = styled(Grid)(({ theme }) => ({
+  display: "flex",
+  padding: "1.2rem",
+  borderBottom: "1px solid lightgrey",
+  [theme.breakpoints.up("sm")]: {
+    display: "none",
+  },
+}));
 
 const ProfilePosts = ({ currentpost }) => {
   return (
-    <Grid container item>
-      <Grid
-        container
-        item
-        display="flex"
-        p="1.2rem"
-        sx={{
-          borderTop: "1px solid lightgrey",
-          borderBottom: "1px solid lightgrey",
-        }}
-      >
+    <ProfilePostWrapper container item>
+      <ProfilePostdisappear container item>
         {row_1.map((item, index) => {
           return (
             <Grid
@@ -32,7 +39,7 @@ const ProfilePosts = ({ currentpost }) => {
             </Grid>
           );
         })}
-      </Grid>
+      </ProfilePostdisappear>
       <Grid container item display="flex" pt={0}>
         {row_2.map((item, index) => {
           return (
@@ -70,7 +77,7 @@ const ProfilePosts = ({ currentpost }) => {
           ></img>
         </Grid>
       </Grid>
-    </Grid>
+    </ProfilePostWrapper>
   );
 };
 
