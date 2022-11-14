@@ -3,6 +3,13 @@ import { Typography, Grid, Button } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { styled } from "@mui/material/styles";
+import profile from "../../assets/images/profilepage/profile.jpg";
+
+const ProfileInfoWrapper = styled(Grid)(({ theme }) => ({
+  borderBottom: "1px solid lightgrey",
+  padding: "3rem",
+  [theme.breakpoints.up("sm")]: {},
+}));
 
 const ProfileInfoImgWrapper = styled(Grid)(({ theme }) => ({
   maxWidth: "77px",
@@ -64,17 +71,11 @@ const ProfileInfoBtn = styled(Button)(({ theme }) => ({
 
 const ProfileInfo = ({ username, name }) => {
   return (
-    <Grid
-      container
-      item
-      display="flex"
-      p="3rem"
-      sx={{ borderBottom: "1px solid lightgrey" }}
-    >
+    <ProfileInfoWrapper container item display="flex">
       <Grid item xs={3} sm={4} display="flex" flexDirection="column" gap={2}>
         <ProfileInfoImgWrapper>
           <img
-            src="https://via.placeholder.com/77"
+            src={profile}
             style={{ borderRadius: "50%", width: "100%" }}
           ></img>
         </ProfileInfoImgWrapper>
@@ -115,7 +116,7 @@ const ProfileInfo = ({ username, name }) => {
           <Typography variant="h6">{name}</Typography>
         </ProfileInfoRightThird>
       </ProfileInfoRight>
-    </Grid>
+    </ProfileInfoWrapper>
   );
 };
 

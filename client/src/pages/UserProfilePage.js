@@ -9,6 +9,13 @@ import ProfileBottom from "../components/profilepage/ProfileBottom";
 import DashHeader from "../components/dashboard/DashHeader";
 import { styled } from "@mui/material/styles";
 
+const ProfileWrapper = styled(Grid)(({ theme }) => ({
+  [theme.breakpoints.up("lg")]: {
+    marginLeft: "5rem",
+    marginRight: "5rem",
+  },
+}));
+
 const ProfileContainer = styled(Grid)(({ theme }) => ({
   height: "100vh",
   [theme.breakpoints.up("sm")]: {
@@ -61,15 +68,21 @@ const UserProfilePage = () => {
 
   console.log(user);
 
-  const { name, username, current_post } = user;
+  const { name, username, current_post, current_follower, current_following } =
+    user;
 
   return (
     <ProfileContainer>
       <DashHeader />
-      {/* <ProfileHeader username={username} /> */}
-      <ProfileInfo name={name} username={username} />
-      <ProfilePosts currentpost={current_post} />
-      <ProfileBottom />
+      <ProfileWrapper>
+        <ProfileInfo name={name} username={username} />
+        <ProfilePosts
+          currentpost={current_post}
+          current_follower={current_follower}
+          current_following={current_following}
+        />
+        <ProfileBottom />
+      </ProfileWrapper>
     </ProfileContainer>
   );
 };

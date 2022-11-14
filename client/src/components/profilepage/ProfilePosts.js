@@ -20,7 +20,7 @@ const ProfilePostdisappear = styled(Grid)(({ theme }) => ({
   },
 }));
 
-const ProfilePosts = ({ currentpost }) => {
+const ProfilePosts = ({ currentpost, current_follower, current_following }) => {
   return (
     <ProfilePostWrapper container item>
       <ProfilePostdisappear container item>
