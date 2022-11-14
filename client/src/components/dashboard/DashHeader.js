@@ -4,7 +4,7 @@ import { styled, alpha } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import InputBase from "@mui/material/InputBase";
 import logo from "../../assets/images/d2529dbef8ed.png";
-import avatar from "../../assets/images/dashboard/avatar.jpg";
+import profile from "../../assets/images/profilepage/profile.jpg";
 import { Grid, Typography } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import HomeIcon from "@mui/icons-material/Home";
@@ -205,17 +205,26 @@ export default function DashHeader({ handleLogOut }) {
           </DashInsLoggo>
           {navItems.map((item, index) => {
             return (
-              <DashIconHover className="dash__hover" key={index}>
-                <Grid sx={{ color: theme.palette.black.main }}>
-                  {item.logo}
-                </Grid>
-                <DashIconText sx={{ color: theme.palette.black.main }}>
-                  {item.text}
-                </DashIconText>
-              </DashIconHover>
+              <Link
+                to={item.to}
+                key={index}
+                style={{ color: "black", textDecoration: "none" }}
+              >
+                <DashIconHover className="dash__hover">
+                  <Grid sx={{ color: theme.palette.black.main }}>
+                    {item.logo}
+                  </Grid>
+                  <DashIconText sx={{ color: theme.palette.black.main }}>
+                    {item.text}
+                  </DashIconText>
+                </DashIconHover>
+              </Link>
             );
           })}
-          <Link to="/profile">
+          <Link
+            to="/profile"
+            style={{ color: "black", textDecoration: "none" }}
+          >
             <DashIconHover
               className="dash__hover"
               display="flex"
@@ -223,8 +232,12 @@ export default function DashHeader({ handleLogOut }) {
               alignItems="center"
             >
               <img
-                src={avatar}
-                style={{ width: "20px", borderRadius: "50%" }}
+                src={profile}
+                style={{
+                  width: "20px",
+                  borderRadius: "50%",
+                  border: "1px solid black",
+                }}
               ></img>
               <DashIconText sx={{ color: theme.palette.black.main }}>
                 Profile
@@ -240,10 +253,20 @@ export default function DashHeader({ handleLogOut }) {
 }
 
 const navItems = [
-  { id: 1, logo: <HomeIcon />, text: "Home" },
-  { id: 2, logo: <SearchIcon />, text: "Search" },
-  { id: 3, logo: <ExploreIcon />, text: "Explore" },
-  { id: 4, logo: <ChatBubbleOutlineIcon />, text: "Messages" },
-  { id: 3, logo: <FavoriteBorderIcon />, text: "Notifications" },
-  { id: 3, logo: <AddCircleOutlineIcon />, text: "Create" },
+  { id: 1, logo: <HomeIcon />, text: "Home", to: "/dashboard" },
+  { id: 2, logo: <SearchIcon />, text: "Search", to: "/dashboard" },
+  { id: 3, logo: <ExploreIcon />, text: "Explore", to: "/dashboard" },
+  {
+    id: 4,
+    logo: <ChatBubbleOutlineIcon />,
+    text: "Messages",
+    to: "/dashboard",
+  },
+  {
+    id: 3,
+    logo: <FavoriteBorderIcon />,
+    text: "Notifications",
+    to: "/dashboard",
+  },
+  { id: 3, logo: <AddCircleOutlineIcon />, text: "Create", to: "/dashboard" },
 ];
