@@ -20,27 +20,50 @@ const ProfilePostdisappear = styled(Grid)(({ theme }) => ({
   },
 }));
 
+const ProfileTagTitle = styled(Typography)(({ theme }) => ({
+  display: "none",
+  [theme.breakpoints.up("lg")]: {
+    display: "block",
+  },
+}));
+
 const ProfilePosts = ({ currentpost, current_follower, current_following }) => {
+  console.log(currentpost);
   return (
     <ProfilePostWrapper container item>
       <ProfilePostdisappear container item>
-        {row_1.map((item, index) => {
-          return (
-            <Grid
-              item
-              xs={4}
-              display="flex"
-              flexDirection="column"
-              alignItems="center"
-              key={index}
-            >
-              <Typography>{item.number}</Typography>
-              <Typography>{item.title}</Typography>
-            </Grid>
-          );
-        })}
+        <Grid
+          item
+          xs={4}
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+        >
+          <Typography>{currentpost.length}</Typography>
+          <Typography>post</Typography>
+        </Grid>
+        <Grid
+          item
+          xs={4}
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+        >
+          <Typography>{current_follower}</Typography>
+          <Typography>follower</Typography>
+        </Grid>
+        <Grid
+          item
+          xs={4}
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+        >
+          <Typography>{current_following}</Typography>
+          <Typography>following</Typography>
+        </Grid>
       </ProfilePostdisappear>
-      <Grid container item display="flex" pt={0}>
+      <Grid container item display="flex" p="1rem">
         {row_2.map((item, index) => {
           return (
             <Grid
@@ -51,7 +74,10 @@ const ProfilePosts = ({ currentpost, current_follower, current_following }) => {
               alignItems="center"
               key={index}
             >
-              <IconButton>{item.icon}</IconButton>
+              <Grid display="flex" alignItems="center">
+                <IconButton>{item.icon}</IconButton>
+                <ProfileTagTitle>{item.title}</ProfileTagTitle>
+              </Grid>
             </Grid>
           );
         })}
@@ -105,13 +131,16 @@ const row_2 = [
   {
     id: 1,
     icon: <CalendarViewMonthOutlinedIcon fontSize="large" />,
+    title: "POSTS",
   },
   {
     id: 2,
     icon: <TurnedInNotOutlinedIcon fontSize="large" />,
+    title: "SAVED",
   },
   {
     id: 3,
     icon: <AssignmentIndOutlinedIcon fontSize="large" />,
+    title: "TAGGED",
   },
 ];

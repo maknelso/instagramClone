@@ -1,6 +1,5 @@
 import { Grid } from "@mui/material";
 import React, { useState, useEffect } from "react";
-import ProfileHeader from "../components/profilepage/ProfileHeader";
 import ProfileInfo from "../components/profilepage/ProfileInfo";
 import ProfilePosts from "../components/profilepage/ProfilePosts";
 import axios from "axios";
@@ -65,8 +64,6 @@ const UserProfilePage = () => {
       </main>
     );
   }
-
-  console.log(user);
 
   const { name, username, current_post, current_follower, current_following } =
     user;

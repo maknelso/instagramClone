@@ -8,6 +8,7 @@ import { styled } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import DashModal from "../components/dashboard/DashModal";
 
 const DashContainer = styled(Grid)(({ theme }) => ({
   height: "100vh",
@@ -41,6 +42,10 @@ const DashContainerRight = styled(Grid)(({ theme }) => ({
 const DashboardPage = () => {
   const [user, setUser] = useState(null);
   const [failedAuth, setFailedAuth] = useState(false);
+
+  // modal state in DashModal.js
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
 
   const navigate = useNavigate();
 
@@ -92,12 +97,13 @@ const DashboardPage = () => {
       <DashContainer>
         <DashContainerLeft>
           <DashFollowing />
-          <DashPosts />
+          <DashPosts handleOpen={handleOpen} />
         </DashContainerLeft>
         <DashContainerRight>
           <DashSidebar name={name} username={username} />
         </DashContainerRight>
       </DashContainer>
+      <DashModal open={open} setOpen={setOpen} />
     </Grid>
   );
 };

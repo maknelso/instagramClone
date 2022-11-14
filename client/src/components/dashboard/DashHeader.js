@@ -132,7 +132,7 @@ const DashIconText = styled(Grid)(({ theme }) => ({
   display: "none",
   [theme.breakpoints.up("lg")]: {
     display: "block",
-    fontSize: "12px",
+    fontSize: "16px",
   },
 }));
 
@@ -239,7 +239,9 @@ export default function DashHeader({ handleLogOut }) {
                   border: "1px solid black",
                 }}
               ></img>
-              <DashIconText sx={{ color: theme.palette.black.main }}>
+              <DashIconText
+                sx={{ color: theme.palette.black.main, fontWeight: "bold" }}
+              >
                 Profile
               </DashIconText>
             </DashIconHover>

@@ -23,7 +23,7 @@ const DashIconText = styled(Grid)(({ theme }) => ({
   display: "none",
   [theme.breakpoints.up("lg")]: {
     display: "block",
-    fontSize: "12px",
+    fontSize: "16px",
   },
 }));
 
@@ -49,7 +49,7 @@ export default function DashHamBtn({ handleLogOut }) {
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
       >
-        <DehazeOutlinedIcon />
+        <DehazeOutlinedIcon fontSize="large" />
         <DashIconText sx={{ color: theme.palette.black.main }}>
           More
         </DashIconText>

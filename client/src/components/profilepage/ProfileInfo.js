@@ -113,7 +113,9 @@ const ProfileInfo = ({ username, name }) => {
           </Grid>
         </ProfileInfoRightSecond>
         <ProfileInfoRightThird>
-          <Typography variant="h6">{name}</Typography>
+          <Typography variant="h5" fontWeight={700}>
+            {name}
+          </Typography>
         </ProfileInfoRightThird>
       </ProfileInfoRight>
     </ProfileInfoWrapper>

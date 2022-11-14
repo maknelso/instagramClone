@@ -10,7 +10,7 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
 import { theme } from "../ThemeColor";
 
-const DashPosts = () => {
+const DashPosts = ({ handleOpen }) => {
   return (
     <Grid
       display="flex"
@@ -51,7 +51,11 @@ const DashPosts = () => {
             <Typography fontSize="12px">Vista Valley Conuntry Club</Typography>
           </Grid>
         </Grid>
-        <MoreHorizIcon fontSize="small" />
+        <MoreHorizIcon
+          sx={{ cursor: "pointer" }}
+          fontSize="large"
+          onClick={handleOpen}
+        />
       </Grid>
       <Grid>
         <Grid>
@@ -68,11 +72,11 @@ const DashPosts = () => {
         sx={{ pb: 0 }}
       >
         <Grid display="flex" gap={1.2}>
-          <FavoriteBorderIcon fontSize="small" />
-          <ChatBubbleOutlineIcon fontSize="small" />
-          <ShareIcon fontSize="small" />
+          <FavoriteBorderIcon fontSize="large" />
+          <ChatBubbleOutlineIcon fontSize="large" />
+          <ShareIcon fontSize="large" />
         </Grid>
-        <BookmarkBorderIcon fontSize="small" />
+        <BookmarkBorderIcon fontSize="large" />
       </Grid>
       <Grid display="flex" flexDirection="column" gap={1} sx={{ p: "1rem" }}>
         <Typography fontSize="12px">
