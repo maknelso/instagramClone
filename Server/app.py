@@ -182,12 +182,12 @@ class users_protect(Resource):
             follower = len(Following.query.filter_by(
                 follower_id=account_id).all())
 
-            current_user.current_follower = follower
+            current_user.current_following = follower
 
             following = len(Following.query.filter_by(
                 following_id=account_id).all())
 
-            current_user.current_following = following
+            current_user.current_follower = following
 
             # print(follower)
 

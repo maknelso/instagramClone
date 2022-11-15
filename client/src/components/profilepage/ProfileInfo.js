@@ -69,7 +69,13 @@ const ProfileInfoBtn = styled(Button)(({ theme }) => ({
   },
 }));
 
-const ProfileInfo = ({ username, name }) => {
+const ProfileInfo = ({
+  username,
+  name,
+  current_follower,
+  current_following,
+  currentpost,
+}) => {
   return (
     <ProfileInfoWrapper container item display="flex">
       <Grid item xs={3} sm={4} display="flex" flexDirection="column" gap={2}>
@@ -100,15 +106,21 @@ const ProfileInfo = ({ username, name }) => {
         </ProfileInfoRightFirst>
         <ProfileInfoRightSecond>
           <Grid display="flex" alignItems="center" gap={0.6}>
-            <Typography sx={{ fontSize: "1.6rem" }}>1</Typography>
+            <Typography sx={{ fontSize: "1.6rem" }}>
+              {currentpost.length}
+            </Typography>
             <Typography sx={{ fontSize: "1.4rem" }}>post</Typography>
           </Grid>
           <Grid display="flex" alignItems="center" gap={0.6}>
-            <Typography sx={{ fontSize: "1.6rem" }}>0</Typography>
+            <Typography sx={{ fontSize: "1.6rem" }}>
+              {current_follower}
+            </Typography>
             <Typography sx={{ fontSize: "1.4rem" }}>followers</Typography>
           </Grid>
           <Grid display="flex" alignItems="center" gap={0.6}>
-            <Typography sx={{ fontSize: "1.6rem" }}>4</Typography>
+            <Typography sx={{ fontSize: "1.6rem" }}>
+              {current_following}
+            </Typography>
             <Typography sx={{ fontSize: "1.4rem" }}>follwing</Typography>
           </Grid>
         </ProfileInfoRightSecond>

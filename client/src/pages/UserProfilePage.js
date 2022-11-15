@@ -72,7 +72,13 @@ const UserProfilePage = () => {
     <ProfileContainer>
       <DashHeader />
       <ProfileWrapper>
-        <ProfileInfo name={name} username={username} />
+        <ProfileInfo
+          name={name}
+          username={username}
+          current_follower={current_follower}
+          current_following={current_following}
+          currentpost={current_post}
+        />
         <ProfilePosts
           currentpost={current_post}
           current_follower={current_follower}
