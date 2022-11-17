@@ -25,7 +25,6 @@ const DashFollowContainer = styled(Grid)(({ theme }) => ({
 }));
 
 const DashFollowing = ({ userFollowingPosts }) => {
-  console.log(userFollowingPosts);
   return (
     <DashFollowContainer>
       {userFollowingPosts.map((user, index) => {

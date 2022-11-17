@@ -40,7 +40,7 @@ const DashContainerRight = styled(Grid)(({ theme }) => ({
 }));
 
 const DashboardPage = () => {
-  const [user, setUser] = useState(null);
+  const [usersInfo, setUsersInfo] = useState(null);
   const [failedAuth, setFailedAuth] = useState(false);
   const [userFollowingPosts, setUserFollowingPosts] = useState([]);
 
@@ -65,7 +65,19 @@ const DashboardPage = () => {
         },
       })
       .then((response) => {
-        setUser(response.data);
+        setUsersInfo(response.data);
+        const { following_posts, users } = response.data;
+
+        let userPosts = [];
+        following_posts.forEach((post) => {
+          const userData = users.find((user) => {
+            return user.account_id === post.account_id;
+          });
+          post.username = userData.username;
+          userPosts.push(post)
+          // userFollowingPosts.push(post);
+        });
+        setUserFollowingPosts(userPosts);
       })
       .catch(() => {
         setFailedAuth(false);
@@ -74,7 +86,7 @@ const DashboardPage = () => {
 
   const handleLogOut = () => {
     sessionStorage.removeItem("token");
-    setUser(null);
+    setUsersInfo(null);
     setFailedAuth(true);
   };
 
@@ -82,7 +94,7 @@ const DashboardPage = () => {
     navigate("/");
   }
 
-  if (!user) {
+  if (!usersInfo) {
     return (
       <main>
         <p>Loading...</p>
@@ -90,18 +102,7 @@ const DashboardPage = () => {
     );
   }
 
-  const { email, name, username, following_posts, users } = user;
-  // console.log(users);
-
-  // const tempArr = [];
-
-  following_posts.forEach((post) => {
-    const userData = users.find((user) => {
-      return user.account_id === post.account_id;
-    });
-    post.username = userData.username;
-    userFollowingPosts.push(post);
-  });
+  // console.log(userFollowingPosts);
 
   return (
     <Grid>
@@ -115,7 +116,7 @@ const DashboardPage = () => {
           />
         </DashContainerLeft>
         <DashContainerRight>
-          <DashSidebar name={name} username={username} />
+          {/* <DashSidebar user={user} /> */}
         </DashContainerRight>
       </DashContainer>
       <DashModal open={open} setOpen={setOpen} />
