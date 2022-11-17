@@ -11,7 +11,7 @@ import axios from "axios";
 import DashModal from "../components/dashboard/DashModal";
 
 const DashContainer = styled(Grid)(({ theme }) => ({
-  height: "100vh",
+  height: "100%",
   maxWidth: "400px",
   margin: "0 auto",
   [theme.breakpoints.up("md")]: {
@@ -42,6 +42,7 @@ const DashContainerRight = styled(Grid)(({ theme }) => ({
 const DashboardPage = () => {
   const [user, setUser] = useState(null);
   const [failedAuth, setFailedAuth] = useState(false);
+  const [userFollowingPosts, setUserFollowingPosts] = useState([]);
 
   // modal state in DashModal.js
   const [open, setOpen] = React.useState(false);
@@ -89,15 +90,29 @@ const DashboardPage = () => {
     );
   }
 
-  const { email, name, username } = user;
+  const { email, name, username, following_posts, users } = user;
+  // console.log(users);
+
+  // const tempArr = [];
+
+  following_posts.forEach((post) => {
+    const userData = users.find((user) => {
+      return user.account_id === post.account_id;
+    });
+    post.username = userData.username;
+    userFollowingPosts.push(post);
+  });
 
   return (
     <Grid>
       <DashHeader handleLogOut={handleLogOut} />
       <DashContainer>
         <DashContainerLeft>
-          <DashFollowing />
-          <DashPosts handleOpen={handleOpen} />
+          <DashFollowing userFollowingPosts={userFollowingPosts} />
+          <DashPosts
+            handleOpen={handleOpen}
+            userFollowingPosts={userFollowingPosts}
+          />
         </DashContainerLeft>
         <DashContainerRight>
           <DashSidebar name={name} username={username} />

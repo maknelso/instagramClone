@@ -64,40 +64,6 @@ const DashSidebar = ({ name, username }) => {
         display="flex"
         justifyContent="space-between"
         alignItems="center"
-        sx={{ p: "0.3rem 0", width: "100%" }}
-      >
-        <Grid display="flex" gap={2}>
-          <Grid
-            sx={{
-              width: "40px",
-              height: "40px",
-              borderRadius: "50%",
-            }}
-          >
-            <img
-              style={{
-                width: "100%",
-                objectFit: "cover",
-                borderRadius: "50%",
-              }}
-              src="https://via.placeholder.com/40"
-            ></img>
-          </Grid>
-          <Grid display="flex" flexDirection="column">
-            <Typography variant="body2" fontWeight="bold">
-              Cyrilhan
-            </Typography>
-            <Typography fontSize="12px">Followed by omar + 4 more</Typography>
-          </Grid>
-        </Grid>
-        <Typography fontSize="12px" fontWeight="bold" color="primary">
-          Follow
-        </Typography>
-      </Grid>
-      <Grid
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
         sx={{ p: "1rem 0", width: "100%" }}
       >
         <Grid display="flex" gap={2}>
