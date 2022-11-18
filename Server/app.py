@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, ForeignKey, Integer, Table
 # from sqlalchemy.orm import declarative_base, relationship
 from flask_bcrypt import Bcrypt
+from flask_migrate import Migrate
 import jwt
 import datetime
 import config
@@ -21,6 +22,9 @@ app.config.from_object(config)
 db.init_app(app)
 
 api = Api(app)
+
+migrate = Migrate(app, db)
+
 
 
 # class Like(db.Model):

@@ -65,8 +65,14 @@ const UserProfilePage = () => {
     );
   }
 
-  const { name, username, current_post, current_follower, current_following } =
-    user;
+  const {
+    name,
+    username,
+    avatar,
+    current_post,
+    current_follower,
+    current_following,
+  } = user;
 
   return (
     <ProfileContainer>
@@ -78,6 +84,7 @@ const UserProfilePage = () => {
           current_follower={current_follower}
           current_following={current_following}
           currentpost={current_post}
+          avatar={avatar}
         />
         <ProfilePosts
           currentpost={current_post}

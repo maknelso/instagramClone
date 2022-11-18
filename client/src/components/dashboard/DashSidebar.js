@@ -1,7 +1,7 @@
 import { Grid, Typography } from "@mui/material";
 import React from "react";
 import { styled } from "@mui/material/styles";
-import avatar from "../../assets/images/dashboard/avatar.jpg";
+// import avatar from "../../assets/images/dashboard/avatar.jpg";
 import { theme } from "../ThemeColor";
 
 const DashSideContainer = styled(Grid)(({ theme }) => ({
@@ -13,6 +13,7 @@ const DashSideContainer = styled(Grid)(({ theme }) => ({
 }));
 
 const DashSidebar = ({ usersInfo }) => {
+  console.log(usersInfo);
   return (
     <DashSideContainer>
       <Grid
@@ -36,7 +37,7 @@ const DashSidebar = ({ usersInfo }) => {
                 borderRadius: "50%",
               }}
               // src="https://instagramclone-2022.s3.us-west-1.amazonaws.com/avatars/Nelson.jpg"
-              src={avatar}
+              src={usersInfo.avatar}
             ></img>
           </Grid>
           <Grid display="flex" flexDirection="column">

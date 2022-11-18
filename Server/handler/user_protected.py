@@ -28,7 +28,7 @@ protectFields = {
         "username": fields.String,
         "account_id": fields.Integer
     })),
-
+    "avatar": fields.String,
 }
 
 

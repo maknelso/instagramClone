@@ -75,13 +75,14 @@ const ProfileInfo = ({
   current_follower,
   current_following,
   currentpost,
+  avatar,
 }) => {
   return (
     <ProfileInfoWrapper container item display="flex">
       <Grid item xs={3} sm={4} display="flex" flexDirection="column" gap={2}>
         <ProfileInfoImgWrapper>
           <img
-            src={profile}
+            src={avatar}
             style={{ borderRadius: "50%", width: "100%" }}
           ></img>
         </ProfileInfoImgWrapper>
