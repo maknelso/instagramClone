@@ -91,7 +91,7 @@ const DashPosts = ({ handleOpen, userFollowingPosts }) => {
               sx={{ display: "inline" }}
               fontWeight="bold"
             >
-              Nelson
+              {post.username}
             </Typography>
             <span style={{ fontSize: "12px" }}>
               A planter with a black board with some text written on it

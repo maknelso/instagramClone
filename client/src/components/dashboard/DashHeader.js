@@ -141,8 +141,8 @@ const DashAppBar = styled(AppBar)(({ theme }) => ({
   boxShadow: "none",
   padding: "0 1rem",
   background: "white",
-  height: "100%",
   [theme.breakpoints.up("sm")]: {
+    height: "100%",
     position: "fixed",
     left: 0,
     width: "65px",

@@ -74,7 +74,7 @@ const DashboardPage = () => {
             return user.account_id === post.account_id;
           });
           post.username = userData.username;
-          userPosts.push(post)
+          userPosts.push(post);
           // userFollowingPosts.push(post);
         });
         setUserFollowingPosts(userPosts);
@@ -116,7 +116,7 @@ const DashboardPage = () => {
           />
         </DashContainerLeft>
         <DashContainerRight>
-          {/* <DashSidebar user={user} /> */}
+          <DashSidebar usersInfo={usersInfo} />
         </DashContainerRight>
       </DashContainer>
       <DashModal open={open} setOpen={setOpen} />

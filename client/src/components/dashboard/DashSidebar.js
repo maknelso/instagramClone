@@ -12,7 +12,7 @@ const DashSideContainer = styled(Grid)(({ theme }) => ({
   },
 }));
 
-const DashSidebar = ({ user }) => {
+const DashSidebar = ({ usersInfo }) => {
   return (
     <DashSideContainer>
       <Grid
@@ -41,9 +41,9 @@ const DashSidebar = ({ user }) => {
           </Grid>
           <Grid display="flex" flexDirection="column">
             <Typography fontSize="12px" fontWeight="bold">
-              {/* {name} */}
+              {usersInfo.name}
             </Typography>
-            {/* <Typography fontSize="12px">{username}</Typography> */}
+            <Typography fontSize="12px">{usersInfo.username}</Typography>
           </Grid>
         </Grid>
         <Typography fontWeight="bold" fontSize="12px" color="primary">

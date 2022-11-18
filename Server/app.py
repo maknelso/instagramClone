@@ -22,19 +22,6 @@ db.init_app(app)
 
 api = Api(app)
 
-# --- the on`e indicated in your settings.py, cut an paste it here
-
-
-
-
-
-
-
-
-
-
-
-
 
 # class Like(db.Model):
 #     like_id = db.Column(db.Integer, primary_key=True)
@@ -42,15 +29,10 @@ api = Api(app)
 #     account_id = db.Column(db.Integer, db.ForeignKey("account.account_id"))
 
 
-
-
 with app.app_context():
     db.create_all()
 
 # users_reg route is used to register new users
-
-
-
 
 
 api.add_resource(users_reg, '/api/register')

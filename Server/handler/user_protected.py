@@ -31,6 +31,7 @@ protectFields = {
 
 }
 
+
 class users_protect(Resource):
     @ marshal_with(protectFields)
     def get(self):
@@ -90,28 +91,8 @@ class users_protect(Resource):
             users = Account.query.filter(
                 Account.account_id.in_(current_following_id_arr)).all()
 
-            # usersObj = {
-            #     1: {account_id: xx, username: xxx},
-            #     16: {},
-            #     17: {}
-            # }
-
-            # for user in users:
-            #     usersObj[user.account_id] = user
-
-            # 3. loop over the follwoing_id, and use those id to look up all the associated posts, which will be an array
-
-            # for following_id in current_following_id_arr:
-            #     following_posts = Post.query.filter_by(
-            #         account_id=following_id).all()
-
-            # following_users = Account.query.filter_by(
-            #     account_id=account_id).all()
-
             current_user.following_posts = posts
             current_user.users = users
-
-            # print(posts_arr)
 
             # except:
             #     return jsonify({
