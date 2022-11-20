@@ -18,14 +18,15 @@ import ExploreIcon from "@mui/icons-material/Explore";
 import { theme } from "../ThemeColor";
 import { Link } from "react-router-dom";
 import DashHamBtn from "./DashHamBtn";
+import DashSearchMobile from "./DashSearchMobile";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
   backgroundColor: "#F7F8FA",
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
+  // "&:hover": {
+  //   backgroundColor: alpha(theme.palette.common.white, 0.25),
+  // },
   marginLeft: 0,
   width: "100%",
   [theme.breakpoints.up("sm")]: {
@@ -179,12 +180,17 @@ const DashDownWrapper = styled(Grid)(({ theme }) => ({
 }));
 
 export default function DashHeader({ handleLogOut }) {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
   return (
     // <Box sx={{ flexGrow: 1 }}>
     <DashAppBar>
       <DashToolBar>
         <DashLogoWrapper>
-          <Link to="/">
+          <Link to="/dashboard">
             <Grid sx={{ width: "100%" }}>
               <img src={logo} style={{ width: "85px" }}></img>
             </Grid>
@@ -196,15 +202,21 @@ export default function DashHeader({ handleLogOut }) {
             />
           </DashDownWrapper>
         </DashLogoWrapper>
-        <Search>
+        <Search onClick={handleClick}>
           <SearchIconWrapper>
             <SearchIcon />
           </SearchIconWrapper>
           <StyledInputBase
             placeholder="Search…"
             inputProps={{ "aria-label": "search" }}
+            sx={{ width: "100%" }}
           />
         </Search>
+        <DashSearchMobile
+          anchorEl={anchorEl}
+          setAnchorEl={setAnchorEl}
+          handleClick={handleClick}
+        />
         <DashIconWrapper>
           <DashInsLoggo>
             <InstagramIcon
