@@ -113,6 +113,7 @@ const DashboardPage = () => {
           <DashPosts
             handleOpen={handleOpen}
             userFollowingPosts={userFollowingPosts}
+            usersInfo={usersInfo}
           />
         </DashContainerLeft>
         <DashContainerRight>

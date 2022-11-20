@@ -20,7 +20,6 @@ import { Link } from "react-router-dom";
 import DashHamBtn from "./DashHamBtn";
 
 const Search = styled("div")(({ theme }) => ({
-  display: "none",
   position: "relative",
   borderRadius: theme.shape.borderRadius,
   backgroundColor: "#F7F8FA",
@@ -29,6 +28,9 @@ const Search = styled("div")(({ theme }) => ({
   },
   marginLeft: 0,
   width: "100%",
+  [theme.breakpoints.up("sm")]: {
+    display: "none",
+  },
   [theme.breakpoints.up("md")]: {
     marginLeft: theme.spacing(1),
     width: "auto",
@@ -135,6 +137,12 @@ const DashIconText = styled(Grid)(({ theme }) => ({
     fontSize: "16px",
   },
 }));
+const DashMobileDisappear = styled(Grid)(({ theme }) => ({
+  display: "none",
+  [theme.breakpoints.up("sm")]: {
+    display: "block",
+  },
+}));
 
 const DashAppBar = styled(AppBar)(({ theme }) => ({
   position: "static",
@@ -188,7 +196,7 @@ export default function DashHeader({ handleLogOut }) {
             />
           </DashDownWrapper>
         </DashLogoWrapper>
-        {/* <Search>
+        <Search>
           <SearchIconWrapper>
             <SearchIcon />
           </SearchIconWrapper>
@@ -196,7 +204,7 @@ export default function DashHeader({ handleLogOut }) {
             placeholder="Search…"
             inputProps={{ "aria-label": "search" }}
           />
-        </Search> */}
+        </Search>
         <DashIconWrapper>
           <DashInsLoggo>
             <InstagramIcon
@@ -204,24 +212,27 @@ export default function DashHeader({ handleLogOut }) {
               sx={{ color: theme.palette.black.main }}
             />
           </DashInsLoggo>
-          {navItems.map((item, index) => {
-            return (
-              <Link
-                to={item.to}
-                key={index}
-                style={{ color: "black", textDecoration: "none" }}
-              >
-                <DashIconHover className="dash__hover">
-                  <Grid sx={{ color: theme.palette.black.main }}>
-                    {item.logo}
-                  </Grid>
-                  <DashIconText sx={{ color: theme.palette.black.main }}>
-                    {item.text}
-                  </DashIconText>
-                </DashIconHover>
-              </Link>
-            );
-          })}
+          <DashMobileDisappear>
+            {navItems.map((item, index) => {
+              return (
+                <Link
+                  to={item.to}
+                  key={index}
+                  style={{ color: "black", textDecoration: "none" }}
+                >
+                  <DashIconHover className="dash__hover">
+                    <Grid sx={{ color: theme.palette.black.main }}>
+                      {item.logo}
+                    </Grid>
+                    <DashIconText sx={{ color: theme.palette.black.main }}>
+                      {item.text}
+                    </DashIconText>
+                  </DashIconHover>
+                </Link>
+              );
+            })}
+          </DashMobileDisappear>
+
           <Link
             to="/profile"
             style={{ color: "black", textDecoration: "none" }}
