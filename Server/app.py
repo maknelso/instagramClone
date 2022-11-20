@@ -12,6 +12,8 @@ import config
 from handler.user_protected import users_protect
 from handler.users_login import users_login
 from handler.users_reg import users_reg
+# new import for search
+from handler.users_search import users_search
 from config import db, bcrypt
 from modals.Account import Account
 from modals.Following import Following
@@ -42,6 +44,8 @@ with app.app_context():
 api.add_resource(users_reg, '/api/register')
 api.add_resource(users_login, '/api/login')
 api.add_resource(users_protect, '/api/protect')
+# new - search fx 
+api.add_resource(users_search, '/api/search')
 
 
 if __name__ == '__main__':
