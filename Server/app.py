@@ -28,7 +28,6 @@ api = Api(app)
 migrate = Migrate(app, db)
 
 
-
 # class Like(db.Model):
 #     like_id = db.Column(db.Integer, primary_key=True)
 #     post_id = db.Column(db.Integer, db.ForeignKey("post.post_id"))
@@ -44,8 +43,8 @@ with app.app_context():
 api.add_resource(users_reg, '/api/register')
 api.add_resource(users_login, '/api/login')
 api.add_resource(users_protect, '/api/protect')
-# new - search fx 
-api.add_resource(users_search, '/api/search')
+# new - search fx
+api.add_resource(users_search, '/api/profile/<username>')
 
 
 if __name__ == '__main__':
