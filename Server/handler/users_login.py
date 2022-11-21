@@ -23,9 +23,10 @@ userFields = {
     "email": fields.String,
     "name": fields.String,
     "username": fields.String,
-    "password": fields.String
-}
+    "password": fields.String,
+    "avatar": fields.String,
 
+}
 
 
 class users_login(Resource):

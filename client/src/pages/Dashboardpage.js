@@ -102,11 +102,11 @@ const DashboardPage = () => {
     );
   }
 
-  // console.log(userFollowingPosts);
+  // console.log(usersInfo);
 
   return (
     <Grid>
-      <DashHeader handleLogOut={handleLogOut} />
+      <DashHeader handleLogOut={handleLogOut} usersInfo={usersInfo} />
       <DashContainer>
         <DashContainerLeft>
           <DashFollowing userFollowingPosts={userFollowingPosts} />

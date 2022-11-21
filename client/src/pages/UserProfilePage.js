@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import ProfileInfo from "../components/profilepage/ProfileInfo";
 import ProfilePosts from "../components/profilepage/ProfilePosts";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import ProfileBottom from "../components/profilepage/ProfileBottom";
 import DashHeader from "../components/dashboard/DashHeader";
 import { styled } from "@mui/material/styles";
@@ -27,35 +27,38 @@ const ProfileContainer = styled(Grid)(({ theme }) => ({
 
 const UserProfilePage = () => {
   const [user, setUser] = useState(null);
-  const [failedAuth, setFailedAuth] = useState(false);
+  // const [failedAuth, setFailedAuth] = useState(false);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+
+  const { user_name } = useParams();
 
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
+    // const token = sessionStorage.getItem("token");
 
-    if (!token) {
-      setFailedAuth(true);
-      return;
-    }
+    // if (!token) {
+    //   setFailedAuth(true);
+    //   return;
+    // }
 
     axios
-      .get("/api/protect", {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
+      .get(`/api/instagram/${user_name}`, {
+        // headers: {
+        //   Authorization: "Bearer " + token,
+        // },
       })
       .then((response) => {
+        console.log(response);
         setUser(response.data);
       })
       .catch(() => {
-        setFailedAuth(false);
+        // setFailedAuth(false);
       });
   }, []);
 
-  if (failedAuth) {
-    navigate("/");
-  }
+  // if (failedAuth) {
+  //   navigate("/");
+  // }
 
   if (!user) {
     return (

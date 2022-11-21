@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import Drawer from "@mui/material/Drawer";
 import Divider from "@mui/material/Divider";
 import { Grid, Typography } from "@mui/material";
@@ -7,6 +7,7 @@ import InputBase from "@mui/material/InputBase";
 import CloseIcon from "@mui/icons-material/Close";
 import Avatar from "@mui/material/Avatar";
 import MenuItem from "@mui/material/MenuItem";
+import axios from "axios";
 
 const DashDrawer = styled(Drawer)(({ theme }) => ({
   "& .MuiDrawer-paper": {
@@ -47,6 +48,27 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function DashSearchDrawer({ isDrawerOpen, setIsDrawderOpen }) {
+  const [searchDb, setSearchDb] = useState([]);
+  const [searchItem, setSearchItem] = useState("");
+
+  useEffect(() => {
+    axios
+      .get("/api/login")
+      .then((response) => {
+        setSearchDb(response.data);
+        // console.log(response.data);
+        const filteredArr = response.data.filter((searchedUser) => {
+          return searchedUser.username === searchItem;
+        });
+        setSearchDb(filteredArr);
+      })
+      .catch(() => {});
+  }, [searchItem]);
+
+  const handleSearchOnChange = (e) => {
+    setSearchItem(e.target.value);
+  };
+
   return (
     <Grid>
       <DashDrawer
@@ -65,6 +87,8 @@ export default function DashSearchDrawer({ isDrawerOpen, setIsDrawderOpen }) {
             <Typography variant="h5">Search</Typography>
             <Search>
               <StyledInputBase
+                onChange={handleSearchOnChange}
+                value={searchItem}
                 placeholder="Search…"
                 inputProps={{ "aria-label": "search" }}
                 sx={{ width: "100%" }}
@@ -83,23 +107,31 @@ export default function DashSearchDrawer({ isDrawerOpen, setIsDrawderOpen }) {
               <Typography fontWeight={500}>Recent</Typography>
               <Typography color="primary">Clear all</Typography>
             </Grid>
-            <MenuItem sx={{ display: "flex", justifyContent: "space-between" }}>
-              <Grid
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  gap: "1rem",
-                }}
-              >
-                <Avatar />
-                <Grid>
-                  <Typography>Leomessi</Typography>
-                  <Typography>Leo Messi</Typography>
-                </Grid>
-              </Grid>
-              <CloseIcon />
-            </MenuItem>
-            <MenuItem sx={{ display: "flex", justifyContent: "space-between" }}>
+            {searchDb.map((user, index) => {
+              return (
+                <MenuItem
+                  key={index}
+                  sx={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <Grid
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      gap: "1rem",
+                    }}
+                  >
+                    <Avatar src={user.avatar} />
+                    <Grid>
+                      <Typography>{user.username}</Typography>
+                      <Typography>{user.name}</Typography>
+                    </Grid>
+                  </Grid>
+                  <CloseIcon />
+                </MenuItem>
+              );
+            })}
+
+            {/* <MenuItem sx={{ display: "flex", justifyContent: "space-between" }}>
               <Grid
                 sx={{
                   display: "flex",
@@ -114,7 +146,7 @@ export default function DashSearchDrawer({ isDrawerOpen, setIsDrawderOpen }) {
                 </Grid>
               </Grid>
               <CloseIcon />
-            </MenuItem>
+            </MenuItem> */}
           </Grid>
         </Grid>
       </DashDrawer>

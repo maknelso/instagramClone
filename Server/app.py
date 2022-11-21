@@ -44,7 +44,7 @@ api.add_resource(users_reg, '/api/register')
 api.add_resource(users_login, '/api/login')
 api.add_resource(users_protect, '/api/protect')
 # new - search fx
-api.add_resource(users_search, '/api/profile/<username>')
+api.add_resource(users_search, '/api/instagram/<username>')
 
 
 if __name__ == '__main__':

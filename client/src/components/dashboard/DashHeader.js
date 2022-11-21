@@ -5,7 +5,7 @@ import Toolbar from "@mui/material/Toolbar";
 import InputBase from "@mui/material/InputBase";
 import logo from "../../assets/images/d2529dbef8ed.png";
 import profile from "../../assets/images/profilepage/profile.jpg";
-import { Grid, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import HomeIcon from "@mui/icons-material/Home";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
@@ -15,7 +15,7 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import SearchIcon from "@mui/icons-material/Search";
 import ExploreIcon from "@mui/icons-material/Explore";
 import { theme } from "../ThemeColor";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import DashHamBtn from "./DashHamBtn";
 import DashSearchMobile from "./DashSearchMobile";
 import DashSearchDrawer from "./DashSearchDrawer";
@@ -179,7 +179,7 @@ const DashDownWrapper = styled(Grid)(({ theme }) => ({
   // [theme.breakpoints.up("md")]: {},
 }));
 
-export default function DashHeader({ handleLogOut }) {
+export default function DashHeader({ handleLogOut, usersInfo }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [isDrawerOpen, setIsDrawderOpen] = React.useState(false);
 
@@ -204,7 +204,7 @@ export default function DashHeader({ handleLogOut }) {
             />
           </DashDownWrapper>
         </DashLogoWrapper>
-        <Search onClick={handleClick}>
+        <Search onKeyDown={handleClick}>
           <SearchIconWrapper>
             <SearchIcon />
           </SearchIconWrapper>
@@ -274,7 +274,7 @@ export default function DashHeader({ handleLogOut }) {
           </DashMobileDisappear>
 
           <Link
-            to="/profile"
+            // to={`/instagram/${usersInfo.username}`}
             style={{ color: "black", textDecoration: "none" }}
           >
             <DashIconHover

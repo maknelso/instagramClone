@@ -10,10 +10,11 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
+          <Route path="/instagram/:user_name" element={<UserProfilePage />} />
           <Route path="/" element={<HomePage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/dashboard" element={<Dashboardpage />} />
-          <Route path="/profile" element={<UserProfilePage />} />
+          {/* <Route path="/profile" element={<UserProfilePage />} /> */}
         </Routes>
       </BrowserRouter>
     </div>

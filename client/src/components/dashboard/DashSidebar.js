@@ -13,7 +13,6 @@ const DashSideContainer = styled(Grid)(({ theme }) => ({
 }));
 
 const DashSidebar = ({ usersInfo }) => {
-  console.log(usersInfo);
   return (
     <DashSideContainer>
       <Grid
