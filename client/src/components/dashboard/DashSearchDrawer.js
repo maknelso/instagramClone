@@ -8,6 +8,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import Avatar from "@mui/material/Avatar";
 import MenuItem from "@mui/material/MenuItem";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const DashDrawer = styled(Drawer)(({ theme }) => ({
   "& .MuiDrawer-paper": {
@@ -89,7 +90,7 @@ export default function DashSearchDrawer({ isDrawerOpen, setIsDrawderOpen }) {
               <StyledInputBase
                 onChange={handleSearchOnChange}
                 value={searchItem}
-                placeholder="Search…"
+                placeholder="Enter username…"
                 inputProps={{ "aria-label": "search" }}
                 sx={{ width: "100%" }}
               />
@@ -109,25 +110,34 @@ export default function DashSearchDrawer({ isDrawerOpen, setIsDrawderOpen }) {
             </Grid>
             {searchDb.map((user, index) => {
               return (
-                <MenuItem
+                <Link
+                  style={{
+                    textDecoration: "none",
+                    color: "black",
+                    cursor: "pointer",
+                  }}
                   key={index}
-                  sx={{ display: "flex", justifyContent: "space-between" }}
+                  to={`/instagram/${user.username}`}
                 >
-                  <Grid
-                    sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      gap: "1rem",
-                    }}
+                  <MenuItem
+                    sx={{ display: "flex", justifyContent: "space-between" }}
                   >
-                    <Avatar src={user.avatar} />
-                    <Grid>
-                      <Typography>{user.username}</Typography>
-                      <Typography>{user.name}</Typography>
+                    <Grid
+                      sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        gap: "1rem",
+                      }}
+                    >
+                      <Avatar src={user.avatar} />
+                      <Grid>
+                        <Typography>{user.username}</Typography>
+                        <Typography>{user.name}</Typography>
+                      </Grid>
                     </Grid>
-                  </Grid>
-                  <CloseIcon />
-                </MenuItem>
+                    <CloseIcon />
+                  </MenuItem>
+                </Link>
               );
             })}
 
