@@ -1,6 +1,6 @@
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
-import { styled, alpha } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import InputBase from "@mui/material/InputBase";
 import logo from "../../assets/images/d2529dbef8ed.png";
@@ -11,7 +11,6 @@ import HomeIcon from "@mui/icons-material/Home";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import DehazeOutlinedIcon from "@mui/icons-material/DehazeOutlined";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import SearchIcon from "@mui/icons-material/Search";
 import ExploreIcon from "@mui/icons-material/Explore";
@@ -19,6 +18,7 @@ import { theme } from "../ThemeColor";
 import { Link } from "react-router-dom";
 import DashHamBtn from "./DashHamBtn";
 import DashSearchMobile from "./DashSearchMobile";
+import DashSearchDrawer from "./DashSearchDrawer";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -181,6 +181,8 @@ const DashDownWrapper = styled(Grid)(({ theme }) => ({
 
 export default function DashHeader({ handleLogOut }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [isDrawerOpen, setIsDrawderOpen] = React.useState(false);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -225,6 +227,32 @@ export default function DashHeader({ handleLogOut }) {
             />
           </DashInsLoggo>
           <DashMobileDisappear>
+            <Link
+              to="/dashboard"
+              style={{ color: "black", textDecoration: "none" }}
+            >
+              <DashIconHover className="dash__hover">
+                <Grid sx={{ color: theme.palette.black.main }}>
+                  <HomeIcon />
+                </Grid>
+                <DashIconText sx={{ color: theme.palette.black.main }}>
+                  Home
+                </DashIconText>
+              </DashIconHover>
+            </Link>
+            {/* <Link style={{ color: "black", textDecoration: "none" }}> */}
+            <DashIconHover
+              className="dash__hover"
+              onClick={() => setIsDrawderOpen(true)}
+            >
+              <Grid sx={{ color: theme.palette.black.main }}>
+                <SearchIcon />
+              </Grid>
+              <DashIconText sx={{ color: theme.palette.black.main }}>
+                Search
+              </DashIconText>
+            </DashIconHover>
+            {/* </Link> */}
             {navItems.map((item, index) => {
               return (
                 <Link
@@ -272,6 +300,10 @@ export default function DashHeader({ handleLogOut }) {
           </Link>
         </DashIconWrapper>
       </DashToolBar>
+      <DashSearchDrawer
+        isDrawerOpen={isDrawerOpen}
+        setIsDrawderOpen={setIsDrawderOpen}
+      />
       <DashHamBtn handleLogOut={handleLogOut} />
     </DashAppBar>
     // </Box>
@@ -279,8 +311,12 @@ export default function DashHeader({ handleLogOut }) {
 }
 
 const navItems = [
-  { id: 1, logo: <HomeIcon />, text: "Home", to: "/dashboard" },
-  { id: 2, logo: <SearchIcon />, text: "Search", to: "/dashboard" },
+  // { id: 1, logo: <HomeIcon />, text: "Home", to: "/dashboard" },
+  // {
+  //   id: 2,
+  //   logo: <SearchIcon />,
+  //   text: "Search",
+  // },
   { id: 3, logo: <ExploreIcon />, text: "Explore", to: "/dashboard" },
   {
     id: 4,
