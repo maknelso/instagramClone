@@ -103,6 +103,8 @@ const DashboardPage = () => {
     );
   }
 
+  // console.log(usersInfo);
+
   return (
     <Grid>
       <DashHeader handleLogOut={handleLogOut} usersInfo={usersInfo} />

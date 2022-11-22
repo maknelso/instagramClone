@@ -52,7 +52,7 @@ const DashPosts = ({ handleOpen, userFollowingPosts }) => {
               <Typography fontWeight="bold" fontSize="12px">
                 {post.username}
               </Typography>
-              <Typography fontSize="12px">Some location</Typography>
+              <Typography fontSize="12px">Location</Typography>
             </Grid>
           </Grid>
           <MoreHorizIcon
@@ -94,9 +94,7 @@ const DashPosts = ({ handleOpen, userFollowingPosts }) => {
             >
               {post.username}
             </Typography>
-            <span style={{ fontSize: "12px" }}>
-              A planter with a black board with some text written on it
-            </span>
+            <span style={{ fontSize: "12px" }}>{post.img_description}</span>
           </Grid>
           <Typography
             fontSize="12px"

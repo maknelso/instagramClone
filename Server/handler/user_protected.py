@@ -16,12 +16,14 @@ protectFields = {
     "name": fields.String,
     "username": fields.String,
     "current_post": fields.List(fields.Nested({
-        "img_url": fields.String
+        "img_url": fields.String,
+        "img_description": fields.String
     })),
     "current_follower": fields.Integer,
     "current_following": fields.Integer,
     "following_posts": fields.List(fields.Nested({
         "img_url": fields.String,
+        "img_description": fields.String,
         "account_id": fields.Integer
     })),
     "users": fields.List(fields.Nested({
