@@ -74,6 +74,7 @@ const DashboardPage = () => {
             return user.account_id === post.account_id;
           });
           post.username = userData.username;
+          post.avatar = userData.avatar;
           userPosts.push(post);
           // userFollowingPosts.push(post);
         });
@@ -101,8 +102,6 @@ const DashboardPage = () => {
       </main>
     );
   }
-
-  // console.log(usersInfo);
 
   return (
     <Grid>

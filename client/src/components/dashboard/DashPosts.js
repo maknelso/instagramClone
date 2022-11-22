@@ -11,6 +11,7 @@ import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt
 import { theme } from "../ThemeColor";
 
 const DashPosts = ({ handleOpen, userFollowingPosts }) => {
+  console.log(userFollowingPosts);
   return userFollowingPosts.map((post, index) => {
     return (
       <Grid
@@ -44,7 +45,7 @@ const DashPosts = ({ handleOpen, userFollowingPosts }) => {
                   objectFit: "cover",
                   borderRadius: "50%",
                 }}
-                src={julian}
+                src={post.avatar}
               ></img>
             </Grid>
             <Grid display="flex" flexDirection="column">

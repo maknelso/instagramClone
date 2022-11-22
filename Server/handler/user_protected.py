@@ -26,7 +26,8 @@ protectFields = {
     })),
     "users": fields.List(fields.Nested({
         "username": fields.String,
-        "account_id": fields.Integer
+        "account_id": fields.Integer,
+        "avatar": fields.String
     })),
     "avatar": fields.String,
 }
@@ -83,7 +84,7 @@ class users_protect(Resource):
             for followingObj in following_users:
                 current_following_id_arr.append(followingObj.following_id)
 
-            print(current_following_id_arr)
+            # print(current_following_id_arr)
 
             posts = Post.query.filter(
                 Post.account_id.in_(current_following_id_arr)).all()

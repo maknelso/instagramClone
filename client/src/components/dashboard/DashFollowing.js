@@ -50,7 +50,7 @@ const DashFollowing = ({ userFollowingPosts }) => {
                   objectFit: "cover",
                   borderRadius: "50%",
                 }}
-                src={jake}
+                src={user.avatar}
               ></img>
             </Grid>
             <Typography fontSize="12px">{user.username}</Typography>

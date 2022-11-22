@@ -60,6 +60,7 @@ export default function DashSearchDrawer({ isDrawerOpen, setIsDrawderOpen }) {
         // console.log(response.data);
         const filteredArr = response.data.filter((searchedUser) => {
           return searchedUser.username === searchItem;
+          // return searchedUser.username.match(searchItem);
         });
         setSearchDb(filteredArr);
       })

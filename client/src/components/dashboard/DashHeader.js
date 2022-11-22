@@ -204,7 +204,7 @@ export default function DashHeader({ handleLogOut, usersInfo }) {
             />
           </DashDownWrapper>
         </DashLogoWrapper>
-        <Search onKeyDown={handleClick}>
+        <Search>
           <SearchIconWrapper>
             <SearchIcon />
           </SearchIconWrapper>
@@ -311,12 +311,6 @@ export default function DashHeader({ handleLogOut, usersInfo }) {
 }
 
 const navItems = [
-  // { id: 1, logo: <HomeIcon />, text: "Home", to: "/dashboard" },
-  // {
-  //   id: 2,
-  //   logo: <SearchIcon />,
-  //   text: "Search",
-  // },
   { id: 3, logo: <ExploreIcon />, text: "Explore", to: "/dashboard" },
   {
     id: 4,
