@@ -1,9 +1,7 @@
 import { Button, Grid, TextField, Typography } from "@mui/material";
-import React from "react";
-import julian from "../../assets/images/dashboard/julian-wan-WNoLnJo7tS8-unsplash.jpg";
+import React, { useState } from "react";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import post from "../../assets/images/dashboard/post.jpg";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import ShareIcon from "@mui/icons-material/Share";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
@@ -11,7 +9,12 @@ import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt
 import { theme } from "../ThemeColor";
 
 const DashPosts = ({ handleOpen, userFollowingPosts }) => {
-  console.log(userFollowingPosts);
+  const [favoriteBtn, setFavoriteBtn] = useState(false);
+
+  const handleClickFavoriteBtn = () => {
+    setFavoriteBtn(!favoriteBtn);
+  };
+
   return userFollowingPosts.map((post, index) => {
     return (
       <Grid
@@ -76,7 +79,11 @@ const DashPosts = ({ handleOpen, userFollowingPosts }) => {
           sx={{ pb: 0 }}
         >
           <Grid display="flex" gap={1.2}>
-            <FavoriteBorderIcon fontSize="large" />
+            <FavoriteIcon
+              fontSize="large"
+              onClick={handleClickFavoriteBtn}
+              // sx={{ color: favoriteBtn ? theme.palette.red.main : "white" }}
+            />
             <ChatBubbleOutlineIcon fontSize="large" />
             <ShareIcon fontSize="large" />
           </Grid>

@@ -22,6 +22,9 @@ export const theme = createTheme({
     black: {
       main: "#000",
     },
+    red: {
+      main: "#FA383E",
+    },
   },
   breakpoints: {
     values: {
