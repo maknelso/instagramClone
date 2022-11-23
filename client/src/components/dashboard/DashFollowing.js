@@ -39,7 +39,15 @@ const DashFollowing = ({ userFollowingPosts }) => {
               sx={{
                 width: "50px",
                 height: "50px",
-                border: "3px solid pink",
+                padding: "0.2rem",
+                border: "double 2px transparent",
+                backgroundImage:
+                  "linear-gradient(white, white), radial-gradient(circle at top left, #f00,#F4D35E)",
+
+                backgroundOrigin: "border-box",
+                backgroundClip: "padding-box, border-box",
+                // border:
+                //   "3px solid ;",
                 borderRadius: "50%",
               }}
             >

@@ -1,12 +1,21 @@
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import ShareIcon from "@mui/icons-material/Share";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
 import { theme } from "../ThemeColor";
+import SvgIcon from "@mui/material/SvgIcon";
+
+function HomeIcon(props) {
+  return (
+    <SvgIcon {...props}>
+      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+    </SvgIcon>
+  );
+}
 
 const DashPosts = ({ handleOpen, userFollowingPosts }) => {
   const [favoriteBtn, setFavoriteBtn] = useState(false);
@@ -34,11 +43,11 @@ const DashPosts = ({ handleOpen, userFollowingPosts }) => {
           alignItems="center"
           sx={{ p: "0.4rem" }}
         >
-          <Grid display="flex" gap={2}>
+          <Grid display="flex" alignItems="center" gap={2}>
             <Grid
               sx={{
-                width: "40px",
-                height: "40px",
+                width: "30px",
+                height: "30px",
                 borderRadius: "50%",
               }}
             >
@@ -79,7 +88,7 @@ const DashPosts = ({ handleOpen, userFollowingPosts }) => {
           sx={{ pb: 0 }}
         >
           <Grid display="flex" gap={1.2}>
-            <FavoriteIcon
+            <FavoriteBorderOutlinedIcon
               fontSize="large"
               onClick={handleClickFavoriteBtn}
               // sx={{ color: favoriteBtn ? theme.palette.red.main : "white" }}
