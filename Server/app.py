@@ -15,10 +15,10 @@ from handler.users_reg import users_reg
 # new import for search
 from handler.users_search import users_search
 from config import db, bcrypt
-# from modals.Account import Account
-# from modals.Following import Following
-# from modals.Post import Post
-# from modals.Like import Like
+from modals.Account import Account
+from modals.Following import Following
+from modals.Post import Post
+from modals.Like import Like
 
 app = Flask(__name__)
 app.config.from_object(config)

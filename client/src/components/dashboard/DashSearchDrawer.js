@@ -52,6 +52,8 @@ export default function DashSearchDrawer({ isDrawerOpen, setIsDrawderOpen }) {
   const [searchDb, setSearchDb] = useState([]);
   const [searchItem, setSearchItem] = useState("");
 
+  console.log(searchDb)
+
   useEffect(() => {
     axios
       .get("/api/login")
