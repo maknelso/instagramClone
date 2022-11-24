@@ -97,6 +97,8 @@ class users_protect(Resource):
             current_user.following_posts = posts
             current_user.users = users
 
+            # join like with account and post table
+
             # except:
             #     return jsonify({
             #         'message': 'Token is invalid !!'

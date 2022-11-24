@@ -7,15 +7,6 @@ import ShareIcon from "@mui/icons-material/Share";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
 import { theme } from "../ThemeColor";
-import SvgIcon from "@mui/material/SvgIcon";
-
-function HomeIcon(props) {
-  return (
-    <SvgIcon {...props}>
-      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-    </SvgIcon>
-  );
-}
 
 const DashPosts = ({ handleOpen, userFollowingPosts }) => {
   const [favoriteBtn, setFavoriteBtn] = useState(false);
@@ -41,7 +32,7 @@ const DashPosts = ({ handleOpen, userFollowingPosts }) => {
           display="flex"
           justifyContent="space-between"
           alignItems="center"
-          sx={{ p: "0.4rem" }}
+          sx={{ p: "0.8rem" }}
         >
           <Grid display="flex" alignItems="center" gap={2}>
             <Grid
@@ -69,7 +60,7 @@ const DashPosts = ({ handleOpen, userFollowingPosts }) => {
           </Grid>
           <MoreHorizIcon
             sx={{ cursor: "pointer" }}
-            fontSize="large"
+            fontSize="medium"
             onClick={handleOpen}
           />
         </Grid>

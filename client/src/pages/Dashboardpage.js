@@ -106,7 +106,7 @@ const DashboardPage = () => {
   // console.log(usersInfo);
 
   return (
-    <Grid>
+    <Grid sx={{ height: "100%" }}>
       <DashHeader handleLogOut={handleLogOut} usersInfo={usersInfo} />
       <DashContainer>
         <DashContainerLeft>

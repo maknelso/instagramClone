@@ -21,7 +21,7 @@ const DashSidebar = ({ usersInfo }) => {
         alignItems="center"
         sx={{ p: "0.2rem", width: "100%" }}
       >
-        <Grid display="flex" gap={2}>
+        <Grid display="flex" gap={2} alignItems="center">
           <Grid
             sx={{
               width: "50px",

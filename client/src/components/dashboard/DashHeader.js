@@ -141,7 +141,9 @@ const DashIconText = styled(Grid)(({ theme }) => ({
 const DashMobileDisappear = styled(Grid)(({ theme }) => ({
   display: "none",
   [theme.breakpoints.up("sm")]: {
-    display: "block",
+    display: "flex",
+    flexDirection: "column",
+    gap: "1rem",
   },
 }));
 
@@ -194,7 +196,7 @@ export default function DashHeader({ handleLogOut, usersInfo }) {
         <DashLogoWrapper>
           <Link to="/dashboard">
             <Grid sx={{ width: "100%" }}>
-              <img src={logo} style={{ width: "85px" }}></img>
+              <img src={logo} style={{ width: "100px" }}></img>
             </Grid>
           </Link>
           <DashDownWrapper>
@@ -222,7 +224,7 @@ export default function DashHeader({ handleLogOut, usersInfo }) {
         <DashIconWrapper>
           <DashInsLoggo>
             <InstagramIcon
-              fontSize="medium"
+              fontSize="large"
               sx={{ color: theme.palette.black.main }}
             />
           </DashInsLoggo>
@@ -233,20 +235,20 @@ export default function DashHeader({ handleLogOut, usersInfo }) {
             >
               <DashIconHover className="dash__hover">
                 <Grid sx={{ color: theme.palette.black.main }}>
-                  <HomeIcon />
+                  <HomeIcon fontSize="large" />
                 </Grid>
                 <DashIconText sx={{ color: theme.palette.black.main }}>
                   Home
                 </DashIconText>
               </DashIconHover>
             </Link>
-            {/* <Link style={{ color: "black", textDecoration: "none" }}> */}
+
             <DashIconHover
               className="dash__hover"
               onClick={() => setIsDrawderOpen(true)}
             >
               <Grid sx={{ color: theme.palette.black.main }}>
-                <SearchIcon />
+                <SearchIcon fontSize="large" />
               </Grid>
               <DashIconText sx={{ color: theme.palette.black.main }}>
                 Search
@@ -311,18 +313,28 @@ export default function DashHeader({ handleLogOut, usersInfo }) {
 }
 
 const navItems = [
-  { id: 3, logo: <ExploreIcon />, text: "Explore", to: "/dashboard" },
+  {
+    id: 3,
+    logo: <ExploreIcon fontSize="large" />,
+    text: "Explore",
+    to: "/dashboard",
+  },
   {
     id: 4,
-    logo: <ChatBubbleOutlineIcon />,
+    logo: <ChatBubbleOutlineIcon fontSize="large" />,
     text: "Messages",
     to: "/dashboard",
   },
   {
     id: 3,
-    logo: <FavoriteBorderIcon />,
+    logo: <FavoriteBorderIcon fontSize="large" />,
     text: "Notifications",
     to: "/dashboard",
   },
-  { id: 3, logo: <AddCircleOutlineIcon />, text: "Create", to: "/dashboard" },
+  {
+    id: 3,
+    logo: <AddCircleOutlineIcon fontSize="large" />,
+    text: "Create",
+    to: "/dashboard",
+  },
 ];

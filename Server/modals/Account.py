@@ -8,6 +8,13 @@ follow = db.Table('follow',
                       'following.id'), primary_key=True),
                   )
 
+# like = db.Table('like',
+#                 db.Column('account_id', db.Integer, db.ForeignKey(
+#                     'account.account_id'), primary_key=True),
+#                 db.Column('like_id', db.Integer, db.ForeignKey(
+#                     'like.id'), primary_key=True),
+#                 )
+
 
 class Account(db.Model):
     account_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -16,7 +23,10 @@ class Account(db.Model):
     username = db.Column(db.String(25), unique=True, nullable=False)
     password = db.Column(db.String(100), unique=False, nullable=False)
     avatar = db.Column(db.String(200), unique=False)
+
     posts = db.relationship("Post", backref="account")
     follow = db.relationship(
         "Following", secondary=follow)
+    # likes = db.relationship('Like', backref='account', lazy=True)
+
     # like_child = db.relationship("Like")
