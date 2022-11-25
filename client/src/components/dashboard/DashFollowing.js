@@ -46,8 +46,6 @@ const DashFollowing = ({ userFollowingPosts }) => {
 
                 backgroundOrigin: "border-box",
                 backgroundClip: "padding-box, border-box",
-                // border:
-                //   "3px solid ;",
                 borderRadius: "50%",
               }}
             >

@@ -10,6 +10,7 @@ import { theme } from "../ThemeColor";
 import axios from "axios";
 
 const DashPosts = ({ handleOpen, userFollowingPosts }) => {
+  console.log(userFollowingPosts);
   const [favicon, setFavicon] = useState({});
   const [failedAuth, setFailedAuth] = useState(false);
 
@@ -71,6 +72,14 @@ const DashPosts = ({ handleOpen, userFollowingPosts }) => {
                 width: "30px",
                 height: "30px",
                 borderRadius: "50%",
+                padding: "0.2rem",
+                border: "double 2px transparent",
+                backgroundImage:
+                  "linear-gradient(white, white), radial-gradient(circle at top left, #f00,#F4D35E)",
+
+                backgroundOrigin: "border-box",
+                backgroundClip: "padding-box, border-box",
+                borderRadius: "50%",
               }}
             >
               <img
@@ -114,10 +123,7 @@ const DashPosts = ({ handleOpen, userFollowingPosts }) => {
               fontSize="large"
               onClick={() => handleLike(post.post_id)}
               sx={{
-                color:
-                  favicon[post.post_id] || false
-                    ? theme.palette.red.main
-                    : "white",
+                color: favicon[post.post_id] ? theme.palette.red.main : "white",
               }}
             />
             <ChatBubbleOutlineIcon fontSize="large" />
