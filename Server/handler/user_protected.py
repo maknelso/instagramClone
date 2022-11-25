@@ -27,7 +27,8 @@ protectFields = {
     "following_posts": fields.List(fields.Nested({
         "img_url": fields.String,
         "img_description": fields.String,
-        "account_id": fields.Integer
+        "account_id": fields.Integer,
+        "post_id": fields.Integer
     })),
     "users": fields.List(fields.Nested({
         "username": fields.String,
@@ -127,9 +128,8 @@ class users_protect(Resource):
         if not request.headers.get("Authorization"):
             return jsonify({"message": "Please login"}), 401
 
-        # auth_token = request.headers.get("Authorization").split(" ")[1]
-        auth_token = request.headers.get("Authorization")
-        print(auth_token)
+        auth_token = request.headers.get("Authorization").split(" ")[1]
+        # auth_token = request.headers.get("Authorization")
 
         try:
             jwt_data = jwt.decode(
@@ -140,11 +140,22 @@ class users_protect(Resource):
             current_user = Account.query.filter_by(
                 email=jwt_data['email']).first()
 
-            like_info = Like(account_id=current_user.account_id,
-                             post_id=frontend_data['post_id'])
+            if frontend_data["like"]:
+                like_info = Like(account_id=current_user.account_id,
+                                 post_id=frontend_data['post_id'])
+                db.session.add(like_info)
+                # db.session.commit()
 
-            db.session.add(like_info)
+            else:
+                # delete
+                # pass
+                like_info = Like.query.filter_by(
+                    account_id=current_user.account_id, post_id=frontend_data["post_id"]).first()
+                db.session.delete(like_info)
+                # db.session.commit()
+
             db.session.commit()
+
             # like_table = Like.query.all()
 
         except Exception as e:

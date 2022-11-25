@@ -1,5 +1,5 @@
 import { Button, Grid, TextField, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
@@ -7,12 +7,43 @@ import ShareIcon from "@mui/icons-material/Share";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
 import { theme } from "../ThemeColor";
+import axios from "axios";
 
 const DashPosts = ({ handleOpen, userFollowingPosts }) => {
-  const [favoriteBtn, setFavoriteBtn] = useState(false);
+  const [favicon, setFavicon] = useState({});
+  const [failedAuth, setFailedAuth] = useState(false);
 
-  const handleClickFavoriteBtn = () => {
-    setFavoriteBtn(!favoriteBtn);
+  console.log(favicon);
+
+  const handleLike = (post_id) => {
+    setFavicon({ ...favicon, [post_id]: !favicon[post_id] });
+
+    const token = sessionStorage.getItem("token");
+    if (!token) {
+      setFailedAuth(true);
+      return;
+    }
+
+    axios
+      .post(
+        "/api/protect",
+        {
+          post_id: post_id,
+          like: !favicon[post_id],
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      )
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+        setFavicon({ ...favicon, [post_id]: favicon[post_id] });
+      });
   };
 
   return userFollowingPosts.map((post, index) => {
@@ -81,8 +112,13 @@ const DashPosts = ({ handleOpen, userFollowingPosts }) => {
           <Grid display="flex" gap={1.2}>
             <FavoriteBorderOutlinedIcon
               fontSize="large"
-              onClick={handleClickFavoriteBtn}
-              // sx={{ color: favoriteBtn ? theme.palette.red.main : "white" }}
+              onClick={() => handleLike(post.post_id)}
+              sx={{
+                color:
+                  favicon[post.post_id] || false
+                    ? theme.palette.red.main
+                    : "white",
+              }}
             />
             <ChatBubbleOutlineIcon fontSize="large" />
             <ShareIcon fontSize="large" />
