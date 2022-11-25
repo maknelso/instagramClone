@@ -1,3 +1,4 @@
+import json
 from flask import Flask, request, jsonify
 from flask_restful import Resource, Api, marshal_with, fields
 from flask_sqlalchemy import SQLAlchemy
@@ -8,7 +9,9 @@ import jwt
 from modals.Account import Account
 from modals.Post import Post
 from modals.Following import Following
-from config import SECRET_KEY
+from modals.Like import Like
+from config import SECRET_KEY, db
+
 
 protectFields = {
     "account_id": fields.Integer,
@@ -32,6 +35,12 @@ protectFields = {
         "avatar": fields.String
     })),
     "avatar": fields.String,
+}
+
+likeFields = {
+    "account_id": fields.Integer,
+    "post_id": fields.Integer,
+
 }
 
 
@@ -112,3 +121,37 @@ class users_protect(Resource):
             # }), 401
 
         return current_user
+
+    @ marshal_with(likeFields)
+    def post(self):
+        if not request.headers.get("Authorization"):
+            return jsonify({"message": "Please login"}), 401
+
+        # auth_token = request.headers.get("Authorization").split(" ")[1]
+        auth_token = request.headers.get("Authorization")
+        print(auth_token)
+
+        try:
+            jwt_data = jwt.decode(
+                auth_token, SECRET_KEY, algorithms="HS256")
+
+            frontend_data = json.loads(request.get_data())
+
+            current_user = Account.query.filter_by(
+                email=jwt_data['email']).first()
+
+            like_info = Like(account_id=current_user.account_id,
+                             post_id=frontend_data['post_id'])
+
+            db.session.add(like_info)
+            db.session.commit()
+            # like_table = Like.query.all()
+
+        except Exception as e:
+            print("err")
+            print(e)
+            # return jsonify({
+            #     'message': 'Token is invalid !!'
+            # }), 401
+
+        # return like_table
