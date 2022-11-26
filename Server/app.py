@@ -12,6 +12,7 @@ import config
 from handler.user_protected import users_protect
 from handler.users_login import users_login
 from handler.users_reg import users_reg
+from handler.users_like import users_like
 # new import for search
 from handler.users_search import users_search
 from config import db, bcrypt
@@ -38,7 +39,7 @@ with app.app_context():
 api.add_resource(users_reg, '/api/register')
 api.add_resource(users_login, '/api/login')
 api.add_resource(users_protect, '/api/protect')
-# new - search fx
+api.add_resource(users_like, '/api/like')
 api.add_resource(users_search, '/api/instagram/<username>')
 
 

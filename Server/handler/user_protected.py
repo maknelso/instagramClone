@@ -41,7 +41,6 @@ protectFields = {
 likeFields = {
     "account_id": fields.Integer,
     "post_id": fields.Integer,
-
 }
 
 

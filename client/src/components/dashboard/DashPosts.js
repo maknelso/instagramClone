@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
@@ -10,11 +11,19 @@ import { theme } from "../ThemeColor";
 import axios from "axios";
 
 const DashPosts = ({ handleOpen, userFollowingPosts }) => {
-  console.log(userFollowingPosts);
   const [favicon, setFavicon] = useState({});
   const [failedAuth, setFailedAuth] = useState(false);
 
-  console.log(favicon);
+  useEffect(() => {
+    let res = {};
+    axios.get("/api/like").then((response) => {
+      response.data.forEach((user) => {
+        // console.log(user);
+        res[user.post_id] = true;
+      });
+      setFavicon(res);
+    });
+  }, []);
 
   const handleLike = (post_id) => {
     setFavicon({ ...favicon, [post_id]: !favicon[post_id] });
@@ -119,13 +128,23 @@ const DashPosts = ({ handleOpen, userFollowingPosts }) => {
           sx={{ pb: 0 }}
         >
           <Grid display="flex" gap={1.2}>
-            <FavoriteBorderOutlinedIcon
-              fontSize="large"
-              onClick={() => handleLike(post.post_id)}
-              sx={{
-                color: favicon[post.post_id] ? theme.palette.red.main : "white",
-              }}
-            />
+            {favicon[post.post_id] ? (
+              <FavoriteIcon
+                fontSize="large"
+                onClick={() => handleLike(post.post_id)}
+                sx={{
+                  color: theme.palette.red.main,
+                }}
+              />
+            ) : (
+              <FavoriteBorderOutlinedIcon
+                fontSize="large"
+                onClick={() => handleLike(post.post_id)}
+                sx={{
+                  color: "white",
+                }}
+              />
+            )}
             <ChatBubbleOutlineIcon fontSize="large" />
             <ShareIcon fontSize="large" />
           </Grid>
