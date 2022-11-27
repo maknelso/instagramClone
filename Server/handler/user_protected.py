@@ -28,7 +28,9 @@ protectFields = {
         "img_url": fields.String,
         "img_description": fields.String,
         "account_id": fields.Integer,
-        "post_id": fields.Integer
+        "post_id": fields.Integer,
+        "liked_user_name": fields.String,
+
     })),
     "users": fields.List(fields.Nested({
         "username": fields.String,
@@ -99,6 +101,13 @@ class users_protect(Resource):
 
             posts = Post.query.filter(
                 Post.account_id.in_(current_following_id_arr)).all()
+
+            for obj in posts:
+                likeObjs = Like.query.filter_by(
+                    post_id=obj.post_id).first()
+                usernames = Account.query.filter_by(
+                    account_id=likeObjs.account_id).first()
+                obj.liked_user_name = usernames.username
 
             users = Account.query.filter(
                 Account.account_id.in_(current_following_id_arr)).all()

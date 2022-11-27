@@ -55,7 +55,7 @@ const DashSidebar = ({ usersInfo }) => {
         justifyContent="space-between"
         sx={{ p: "0.6rem 0" }}
       >
-        <Typography variant="body2" sx={{ color: theme.palette.grey.main }}>
+        <Typography variant="body1" sx={{ color: theme.palette.grey.main }}>
           Suggestions For You
         </Typography>
         <Typography variant="body2">See All</Typography>
