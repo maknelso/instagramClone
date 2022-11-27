@@ -18,14 +18,11 @@ const DashPosts = ({ handleOpen, userFollowingPosts }) => {
     let res = {};
     axios.get("/api/like").then((response) => {
       response.data.forEach((user) => {
-        console.log(user);
         res[user.post_id] = true;
       });
       setFavicon(res);
     });
   }, []);
-
-  console.log(favicon);
 
   const handleLike = (post_id) => {
     setFavicon({ ...favicon, [post_id]: !favicon[post_id] });
@@ -156,9 +153,10 @@ const DashPosts = ({ handleOpen, userFollowingPosts }) => {
           <BookmarkBorderIcon fontSize="large" />
         </Grid>
         <Grid display="flex" flexDirection="column" gap={1} sx={{ p: "1rem" }}>
-          <Typography fontSize="12px">
-            Liked by <span>{post.liked_user_name}</span> and <span>others</span>
-          </Typography>
+          {/* <Typography fontSize="12px">
+            Liked by <span>{post.liked_user_name}</span> and
+            <span>others</span>
+          </Typography> */}
           <Grid display="flex" alignItems="center" gap="0.3rem">
             <Typography
               fontSize="12px"
