@@ -1,14 +1,14 @@
-import { Button, Grid, TextField, Typography } from "@mui/material";
-import React, { useState, useEffect } from "react";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
-import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
-import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
-import { theme } from "../ThemeColor";
-import axios from "axios";
+import { Button, Grid, TextField, Typography } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ShareIcon from '@mui/icons-material/Share';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
+import { theme } from '../ThemeColor';
+import axios from 'axios';
 
 const DashPosts = ({ handleOpen, userFollowingPosts }) => {
   const [favicon, setFavicon] = useState({});
@@ -16,7 +16,7 @@ const DashPosts = ({ handleOpen, userFollowingPosts }) => {
 
   useEffect(() => {
     let res = {};
-    axios.get("/api/like").then((response) => {
+    axios.get('/api/like').then((response) => {
       response.data.forEach((user) => {
         res[user.post_id] = true;
       });
@@ -27,7 +27,7 @@ const DashPosts = ({ handleOpen, userFollowingPosts }) => {
   const handleLike = (post_id) => {
     setFavicon({ ...favicon, [post_id]: !favicon[post_id] });
 
-    const token = sessionStorage.getItem("token");
+    const token = sessionStorage.getItem('token');
     if (!token) {
       setFailedAuth(true);
       return;
@@ -35,14 +35,14 @@ const DashPosts = ({ handleOpen, userFollowingPosts }) => {
 
     axios
       .post(
-        "/api/protect",
+        '/api/protect',
         {
           post_id: post_id,
           like: !favicon[post_id],
         },
         {
           headers: {
-            Authorization: "Bearer " + token,
+            Authorization: 'Bearer ' + token,
           },
         }
       )
@@ -64,38 +64,38 @@ const DashPosts = ({ handleOpen, userFollowingPosts }) => {
         mb="1rem"
         key={index}
         sx={{
-          border: "1px solid lightgrey",
-          background: "white",
-          borderRadius: "4px",
+          border: '1px solid lightgrey',
+          background: 'white',
+          borderRadius: '4px',
         }}
       >
         <Grid
           display="flex"
           justifyContent="space-between"
           alignItems="center"
-          sx={{ p: "0.8rem" }}
+          sx={{ p: '0.8rem' }}
         >
           <Grid display="flex" alignItems="center" gap={2}>
             <Grid
               sx={{
-                width: "30px",
-                height: "30px",
-                borderRadius: "50%",
-                padding: "0.2rem",
-                border: "double 2px transparent",
+                width: '30px',
+                height: '30px',
+                borderRadius: '50%',
+                padding: '0.2rem',
+                border: 'double 2px transparent',
                 backgroundImage:
-                  "linear-gradient(white, white), radial-gradient(circle at top left, #f00,#F4D35E)",
+                  'linear-gradient(white, white), radial-gradient(circle at top left, #f00,#F4D35E)',
 
-                backgroundOrigin: "border-box",
-                backgroundClip: "padding-box, border-box",
-                borderRadius: "50%",
+                backgroundOrigin: 'border-box',
+                backgroundClip: 'padding-box, border-box',
+                borderRadius: '50%',
               }}
             >
               <img
                 style={{
-                  width: "100%",
-                  objectFit: "cover",
-                  borderRadius: "50%",
+                  width: '100%',
+                  objectFit: 'cover',
+                  borderRadius: '50%',
                 }}
                 src={post.avatar}
               ></img>
@@ -108,7 +108,7 @@ const DashPosts = ({ handleOpen, userFollowingPosts }) => {
             </Grid>
           </Grid>
           <MoreHorizIcon
-            sx={{ cursor: "pointer" }}
+            sx={{ cursor: 'pointer' }}
             fontSize="medium"
             onClick={handleOpen}
           />
@@ -116,7 +116,7 @@ const DashPosts = ({ handleOpen, userFollowingPosts }) => {
         <Grid>
           <Grid>
             <img
-              style={{ width: "100%", maxHeight: "470px", objectFit: "cover" }}
+              style={{ width: '100%', maxHeight: '470px', objectFit: 'cover' }}
               src={post.img_url}
             ></img>
           </Grid>
@@ -134,7 +134,7 @@ const DashPosts = ({ handleOpen, userFollowingPosts }) => {
                 onClick={() => handleLike(post.post_id)}
                 sx={{
                   color: theme.palette.red.main,
-                  cursor: "pointer",
+                  cursor: 'pointer',
                 }}
               />
             ) : (
@@ -142,8 +142,8 @@ const DashPosts = ({ handleOpen, userFollowingPosts }) => {
                 fontSize="large"
                 onClick={() => handleLike(post.post_id)}
                 sx={{
-                  color: "white",
-                  cursor: "pointer",
+                  color: 'white',
+                  cursor: 'pointer',
                 }}
               />
             )}
@@ -152,7 +152,7 @@ const DashPosts = ({ handleOpen, userFollowingPosts }) => {
           </Grid>
           <BookmarkBorderIcon fontSize="large" />
         </Grid>
-        <Grid display="flex" flexDirection="column" gap={1} sx={{ p: "1rem" }}>
+        <Grid display="flex" flexDirection="column" gap={1} sx={{ p: '1rem' }}>
           {/* <Typography fontSize="12px">
             Liked by <span>{post.liked_user_name}</span> and
             <span>others</span>
@@ -160,12 +160,12 @@ const DashPosts = ({ handleOpen, userFollowingPosts }) => {
           <Grid display="flex" alignItems="center" gap="0.3rem">
             <Typography
               fontSize="12px"
-              sx={{ display: "inline" }}
+              sx={{ display: 'inline' }}
               fontWeight="bold"
             >
               {post.username}
             </Typography>
-            <span style={{ fontSize: "12px" }}>{post.img_description}</span>
+            <span style={{ fontSize: '12px' }}>{post.img_description}</span>
           </Grid>
           <Typography
             fontSize="12px"
@@ -184,13 +184,19 @@ const DashPosts = ({ handleOpen, userFollowingPosts }) => {
           display="flex"
           justifyContent="space-between"
           alignItems="center"
-          sx={{ p: "1rem", borderTop: "1px solid lightgrey" }}
+          sx={{ p: '1rem', borderTop: '1px solid lightgrey' }}
         >
-          <Grid display="flex" alignItems="center" gap={1}>
+          <Grid
+            display="flex"
+            alignItems="center"
+            gap={1}
+            sx={{ width: '100%' }}
+          >
             <SentimentSatisfiedAltIcon fontSize="large" />
             <TextField
               variant="standard"
               placeholder="Add a comment..."
+              sx={{ width: '100%' }}
               InputProps={{
                 disableUnderline: true,
               }}
