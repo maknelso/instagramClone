@@ -21,5 +21,4 @@ class Account(db.Model):
     follow = db.relationship(
         "Following", secondary=follow)
     likes = db.relationship("Like", backref="account")
-
-    # like_child = db.relationship("Like")
+    comments = db.relationship("Comment", backref="account")

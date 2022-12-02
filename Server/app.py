@@ -20,6 +20,7 @@ from modals.Account import Account
 from modals.Following import Following
 from modals.Post import Post
 from modals.Like import Like
+from modals.Comment import Comment
 
 app = Flask(__name__)
 app.config.from_object(config)
