@@ -147,10 +147,25 @@ const DashPosts = ({ handleOpen, userFollowingPosts }) => {
                 }}
               />
             )}
-            <ChatBubbleOutlineIcon fontSize="large" />
-            <ShareIcon fontSize="large" />
+            <ChatBubbleOutlineIcon
+              fontSize="large"
+              sx={{
+                cursor: 'pointer',
+              }}
+            />
+            <ShareIcon
+              fontSize="large"
+              sx={{
+                cursor: 'pointer',
+              }}
+            />
           </Grid>
-          <BookmarkBorderIcon fontSize="large" />
+          <BookmarkBorderIcon
+            fontSize="large"
+            sx={{
+              cursor: 'pointer',
+            }}
+          />
         </Grid>
         <Grid display="flex" flexDirection="column" gap={1} sx={{ p: '1rem' }}>
           {/* <Typography fontSize="12px">
