@@ -3,16 +3,19 @@ import React, { useState, useEffect } from 'react';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
+import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 import { theme } from '../ThemeColor';
 import axios from 'axios';
+import DashCommentModal from './DashCommentModal';
 
 const DashPosts = ({ handleOpen, userFollowingPosts }) => {
   const [favicon, setFavicon] = useState({});
   const [failedAuth, setFailedAuth] = useState(false);
+  const [openCommentModal, setOpenCommentModal] = useState(false);
 
   useEffect(() => {
     let res = {};
@@ -56,7 +59,6 @@ const DashPosts = ({ handleOpen, userFollowingPosts }) => {
   };
 
   return userFollowingPosts.map((post, index) => {
-    console.log(post);
     return (
       <Grid
         display="flex"
@@ -153,7 +155,7 @@ const DashPosts = ({ handleOpen, userFollowingPosts }) => {
                 cursor: 'pointer',
               }}
             />
-            <ShareIcon
+            <ShareOutlinedIcon
               fontSize="large"
               sx={{
                 cursor: 'pointer',
@@ -184,7 +186,8 @@ const DashPosts = ({ handleOpen, userFollowingPosts }) => {
           </Grid>
           <Typography
             fontSize="12px"
-            sx={{ color: theme.palette.secondary.main }}
+            onClick={() => setOpenCommentModal(true)}
+            sx={{ color: theme.palette.secondary.main, cursor: 'pointer' }}
           >
             View all 2 comments
           </Typography>
@@ -219,6 +222,10 @@ const DashPosts = ({ handleOpen, userFollowingPosts }) => {
           </Grid>
           <Button>Post</Button>
         </Grid>
+        <DashCommentModal
+          openCommentModal={openCommentModal}
+          setOpenCommentModal={setOpenCommentModal}
+        />
       </Grid>
     );
   });
