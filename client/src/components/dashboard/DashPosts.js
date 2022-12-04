@@ -15,7 +15,8 @@ import DashCommentModal from './DashCommentModal';
 const DashPosts = ({ handleOpen, userFollowingPosts }) => {
   const [favicon, setFavicon] = useState({});
   const [failedAuth, setFailedAuth] = useState(false);
-  const [openCommentModal, setOpenCommentModal] = useState(false);
+  const [CommentModal, setCommentModal] = useState(false);
+  const [postId, setPostId] = useState(2);
 
   useEffect(() => {
     let res = {};
@@ -56,6 +57,11 @@ const DashPosts = ({ handleOpen, userFollowingPosts }) => {
         console.log(error);
         setFavicon({ ...favicon, [post_id]: favicon[post_id] });
       });
+  };
+
+  const handleGetPostId = (post_id) => {
+    setPostId(post_id);
+    setCommentModal(true);
   };
 
   return userFollowingPosts.map((post, index) => {
@@ -186,7 +192,7 @@ const DashPosts = ({ handleOpen, userFollowingPosts }) => {
           </Grid>
           <Typography
             fontSize="12px"
-            onClick={() => setOpenCommentModal(true)}
+            onClick={() => handleGetPostId(post.post_id)}
             sx={{ color: theme.palette.secondary.main, cursor: 'pointer' }}
           >
             View all 2 comments
@@ -223,8 +229,10 @@ const DashPosts = ({ handleOpen, userFollowingPosts }) => {
           <Button>Post</Button>
         </Grid>
         <DashCommentModal
-          openCommentModal={openCommentModal}
-          setOpenCommentModal={setOpenCommentModal}
+          openCommentModal={CommentModal}
+          setOpenCommentModal={setCommentModal}
+          postId={postId}
+          userFollowingPosts={userFollowingPosts}
         />
       </Grid>
     );

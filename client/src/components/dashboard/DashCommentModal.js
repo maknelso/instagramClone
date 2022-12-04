@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from '@mui/material/Modal';
 import { Button, Grid, TextField, Typography } from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
@@ -17,16 +17,26 @@ const style = {
   transform: 'translate(-50%, -50%)',
   width: 280,
   bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
   borderRadius: '10px',
+  overflow: 'hidden',
 };
 
 export default function DashCommentModal({
   setOpenCommentModal,
   openCommentModal,
+  postId,
+  userFollowingPosts,
 }) {
+  const [filteredPost, setFilteredPost] = useState({});
+
   const handleClose = () => setOpenCommentModal(false);
+
+  useEffect(() => {
+    const newPost = userFollowingPosts.find((post) => {
+      return post.post_id === postId;
+    });
+    setFilteredPost(newPost);
+  });
 
   return (
     <Modal
@@ -74,14 +84,14 @@ export default function DashCommentModal({
                     objectFit: 'cover',
                     borderRadius: '50%',
                   }}
-                  // src={post.avatar}
-                  src={profile}
+                  src={filteredPost.avatar}
+                  // src={profile}
                 ></img>
               </Grid>
               <Grid display="flex" alignItems="center" gap={0.4}>
                 <Typography fontSize="12px">
-                  username
-                  {/* {post.username} */}
+                  {/* username */}
+                  {filteredPost.username}
                 </Typography>
                 <CheckCircleIcon fontSize="0.4rem" color="primary" />
               </Grid>
@@ -96,8 +106,7 @@ export default function DashCommentModal({
                   maxHeight: '470px',
                   objectFit: 'cover',
                 }}
-                src="https://assets.codepen.io/7439974/avocado.jpg"
-                // src={post.img_url}
+                src={filteredPost.img_url}
               ></img>
             </Grid>
           </Grid>
@@ -156,7 +165,7 @@ export default function DashCommentModal({
             />
           </Grid>
           <Grid p="1rem">
-            <Typography variant="body2" color="secondary">
+            <Typography fontSize="0.8rem" color="secondary">
               12 HOURS AGO
             </Typography>
           </Grid>
