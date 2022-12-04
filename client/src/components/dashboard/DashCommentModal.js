@@ -9,8 +9,9 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { styled } from '@mui/material/styles';
 
-const style = {
+const DashModal = styled(Grid)(({ theme }) => ({
   position: 'absolute',
   top: '50%',
   left: '50%',
@@ -19,7 +20,64 @@ const style = {
   bgcolor: 'background.paper',
   borderRadius: '10px',
   overflow: 'hidden',
-};
+  [theme.breakpoints.up('lg')]: {
+    display: 'flex',
+    width: 950,
+  },
+}));
+
+const DashModalLeft = styled(Grid)(({ theme }) => ({
+  display: 'none',
+  [theme.breakpoints.up('lg')]: {
+    display: 'flex',
+  },
+}));
+
+const DashModalRight = styled(Grid)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  mb: '1rem',
+  background: 'white',
+  borderRadius: '4px',
+  marginBottom: 0,
+  [theme.breakpoints.up('lg')]: {
+    borderRadius: '0px',
+  },
+}));
+
+const DashModalRightImg = styled(Grid)(({ theme }) => ({
+  [theme.breakpoints.up('lg')]: {
+    display: 'none',
+  },
+}));
+
+const DashModalRightHeader = styled(Grid)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  padding: '0.8rem',
+  [theme.breakpoints.up('lg')]: {
+    borderBottom: '1px solid lightgrey',
+  },
+}));
+
+const DashModalRightComment = styled(Grid)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  padding: '0.8rem',
+  [theme.breakpoints.up('lg')]: {},
+}));
+
+const DashModalActualComment = styled(Grid)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  padding: '0.8rem',
+  [theme.breakpoints.up('lg')]: {
+    borderBottom: '1px solid lightgrey',
+  },
+}));
 
 export default function DashCommentModal({
   setOpenCommentModal,
@@ -46,35 +104,24 @@ export default function DashCommentModal({
       aria-describedby="modal-modal-description"
       disableAutoFocus={true}
     >
-      <Grid sx={style}>
-        <Grid
-          display="flex"
-          flexDirection="column"
-          mb="1rem"
-          sx={{
-            background: 'white',
-            borderRadius: '4px',
-          }}
-        >
-          <Grid
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            sx={{ p: '0.8rem' }}
-          >
+      <DashModal container item>
+        <DashModalLeft item lg={6}>
+          <img
+            style={{
+              width: '100%',
+              objectFit: 'cover',
+            }}
+            src={filteredPost.img_url}
+          ></img>
+        </DashModalLeft>
+        <DashModalRight item lg={6}>
+          <DashModalRightHeader>
             <Grid display="flex" alignItems="center" gap={2}>
               <Grid
                 sx={{
                   width: '30px',
                   height: '30px',
                   borderRadius: '50%',
-                  padding: '0.2rem',
-                  border: 'double 2px transparent',
-                  backgroundImage:
-                    'linear-gradient(white, white), radial-gradient(circle at top left, #f00,#F4D35E)',
-
-                  backgroundOrigin: 'border-box',
-                  backgroundClip: 'padding-box, border-box',
                   borderRadius: '50%',
                 }}
               >
@@ -85,21 +132,76 @@ export default function DashCommentModal({
                     borderRadius: '50%',
                   }}
                   src={filteredPost.avatar}
-                  // src={profile}
                 ></img>
               </Grid>
               <Grid display="flex" alignItems="center" gap={0.4}>
-                <Typography fontSize="12px">
-                  {/* username */}
+                <Typography fontSize="12px" fontWeight="bold">
                   {filteredPost.username}
                 </Typography>
                 <CheckCircleIcon fontSize="0.4rem" color="primary" />
               </Grid>
             </Grid>
             <MoreHorizIcon sx={{ cursor: 'pointer' }} fontSize="small" />
-          </Grid>
+          </DashModalRightHeader>
+          <DashModalRightComment>
+            <Grid display="flex" alignItems="center" gap={2}>
+              <Grid
+                sx={{
+                  width: '30px',
+                  height: '30px',
+                  borderRadius: '50%',
+                  borderRadius: '50%',
+                }}
+              >
+                <img
+                  style={{
+                    width: '100%',
+                    objectFit: 'cover',
+                    borderRadius: '50%',
+                  }}
+                  src={filteredPost.avatar}
+                ></img>
+              </Grid>
+              <Grid display="flex" alignItems="center" gap={0.4}>
+                <Typography fontSize="12px" fontWeight="bold">
+                  {filteredPost.username}
+                </Typography>
+                <CheckCircleIcon fontSize="0.4rem" color="primary" />
+                <Typography>{filteredPost.img_description}</Typography>
+              </Grid>
+            </Grid>
+          </DashModalRightComment>
+          <DashModalActualComment>
+            <Grid display="flex" alignItems="center" gap={2}>
+              <Grid
+                sx={{
+                  width: '30px',
+                  height: '30px',
+                  borderRadius: '50%',
+                  borderRadius: '50%',
+                }}
+              >
+                <img
+                  style={{
+                    width: '100%',
+                    objectFit: 'cover',
+                    borderRadius: '50%',
+                  }}
+                  src={profile}
+                ></img>
+              </Grid>
+              <Grid display="flex" alignItems="center" gap={0.4}>
+                <Typography fontSize="12px" fontWeight="bold">
+                  testuser
+                </Typography>
+                <Typography>
+                  Some test comment about this post from other user
+                </Typography>
+              </Grid>
+            </Grid>
+          </DashModalActualComment>
           <Grid>
-            <Grid>
+            <DashModalRightImg>
               <img
                 style={{
                   width: '100%',
@@ -108,7 +210,7 @@ export default function DashCommentModal({
                 }}
                 src={filteredPost.img_url}
               ></img>
-            </Grid>
+            </DashModalRightImg>
           </Grid>
           <Grid
             display="flex"
@@ -169,8 +271,8 @@ export default function DashCommentModal({
               12 HOURS AGO
             </Typography>
           </Grid>
-        </Grid>
-      </Grid>
+        </DashModalRight>
+      </DashModal>
     </Modal>
   );
 }
