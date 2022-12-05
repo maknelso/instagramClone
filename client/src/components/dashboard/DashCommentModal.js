@@ -52,11 +52,12 @@ const DashModalRightImg = styled(Grid)(({ theme }) => ({
 }));
 
 const DashModalRightHeader = styled(Grid)(({ theme }) => ({
-  display: 'flex',
+  display: 'none',
   justifyContent: 'space-between',
   alignItems: 'center',
   padding: '0.8rem',
   [theme.breakpoints.up('lg')]: {
+    display: 'flex',
     borderBottom: '1px solid lightgrey',
   },
 }));
@@ -70,12 +71,21 @@ const DashModalRightComment = styled(Grid)(({ theme }) => ({
 }));
 
 const DashModalActualComment = styled(Grid)(({ theme }) => ({
-  display: 'flex',
+  display: 'none',
   justifyContent: 'space-between',
   alignItems: 'center',
   padding: '0.8rem',
   [theme.breakpoints.up('lg')]: {
+    display: 'flex',
+
     borderBottom: '1px solid lightgrey',
+  },
+}));
+
+const DashModalRightImgDesc = styled(Typography)(({ theme }) => ({
+  display: 'none',
+  [theme.breakpoints.up('lg')]: {
+    display: 'flex',
   },
 }));
 
@@ -167,7 +177,10 @@ export default function DashCommentModal({
                   {filteredPost.username}
                 </Typography>
                 <CheckCircleIcon fontSize="0.4rem" color="primary" />
-                <Typography>{filteredPost.img_description}</Typography>
+
+                <DashModalRightImgDesc>
+                  {filteredPost.img_description}
+                </DashModalRightImgDesc>
               </Grid>
             </Grid>
           </DashModalRightComment>
