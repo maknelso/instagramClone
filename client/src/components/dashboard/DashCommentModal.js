@@ -10,6 +10,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { styled } from '@mui/material/styles';
+import axios from 'axios';
 
 const DashModal = styled(Grid)(({ theme }) => ({
   position: 'absolute',
@@ -77,8 +78,6 @@ const DashModalActualComment = styled(Grid)(({ theme }) => ({
   padding: '0.8rem',
   [theme.breakpoints.up('lg')]: {
     display: 'flex',
-
-    borderBottom: '1px solid lightgrey',
   },
 }));
 
@@ -96,6 +95,7 @@ export default function DashCommentModal({
   userFollowingPosts,
 }) {
   const [filteredPost, setFilteredPost] = useState({});
+  const [comments, setComments] = useState([]);
 
   const handleClose = () => setOpenCommentModal(false);
 
@@ -105,6 +105,16 @@ export default function DashCommentModal({
     });
     setFilteredPost(newPost);
   });
+
+  useEffect(() => {
+    axios.get(`/api/comment/${postId}`).then((res) => {
+      setComments(res.data);
+    });
+  }, [postId]);
+
+  if (comments.length === 0) {
+    return <></>;
+  }
 
   return (
     <Modal
@@ -184,35 +194,37 @@ export default function DashCommentModal({
               </Grid>
             </Grid>
           </DashModalRightComment>
-          <DashModalActualComment>
-            <Grid display="flex" alignItems="center" gap={2}>
-              <Grid
-                sx={{
-                  width: '30px',
-                  height: '30px',
-                  borderRadius: '50%',
-                  borderRadius: '50%',
-                }}
-              >
-                <img
-                  style={{
-                    width: '100%',
-                    objectFit: 'cover',
-                    borderRadius: '50%',
-                  }}
-                  src={profile}
-                ></img>
-              </Grid>
-              <Grid display="flex" alignItems="center" gap={0.4}>
-                <Typography fontSize="12px" fontWeight="bold">
-                  testuser
-                </Typography>
-                <Typography>
-                  Some test comment about this post from other user
-                </Typography>
-              </Grid>
-            </Grid>
-          </DashModalActualComment>
+          {comments.map((comment) => {
+            return (
+              <DashModalActualComment>
+                <Grid display="flex" alignItems="center" gap={2}>
+                  <Grid
+                    sx={{
+                      width: '30px',
+                      height: '30px',
+                      borderRadius: '50%',
+                      borderRadius: '50%',
+                    }}
+                  >
+                    <img
+                      style={{
+                        width: '100%',
+                        objectFit: 'cover',
+                        borderRadius: '50%',
+                      }}
+                      src={comment.avatar}
+                    ></img>
+                  </Grid>
+                  <Grid display="flex" alignItems="center" gap={0.6}>
+                    <Typography fontSize="12px" fontWeight="bold">
+                      {comment.username}
+                    </Typography>
+                    <Typography>{comment.comment_text}</Typography>
+                  </Grid>
+                </Grid>
+              </DashModalActualComment>
+            );
+          })}
           <Grid>
             <DashModalRightImg>
               <img
@@ -252,7 +264,7 @@ export default function DashCommentModal({
                 />
               )} */}
               <FavoriteBorderOutlinedIcon
-                fontSize="medium"
+                fontSize="large"
                 // onClick={() => handleLike(post.post_id)}
                 sx={{
                   color: 'white',
@@ -260,20 +272,20 @@ export default function DashCommentModal({
                 }}
               />
               <ChatBubbleOutlineIcon
-                fontSize="medium"
+                fontSize="large"
                 sx={{
                   cursor: 'pointer',
                 }}
               />
               <ShareIcon
-                fontSize="medium"
+                fontSize="large"
                 sx={{
                   cursor: 'pointer',
                 }}
               />
             </Grid>
             <BookmarkBorderIcon
-              fontSize="medium"
+              fontSize="large"
               sx={{
                 cursor: 'pointer',
               }}
