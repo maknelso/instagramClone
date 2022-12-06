@@ -195,7 +195,7 @@ const DashPosts = ({ handleOpen, userFollowingPosts }) => {
             onClick={() => handleGetPostId(post.post_id)}
             sx={{ color: theme.palette.secondary.main, cursor: 'pointer' }}
           >
-            View all 2 comments
+            View all comments
           </Typography>
           <Typography
             fontSize="12px"
@@ -233,6 +233,7 @@ const DashPosts = ({ handleOpen, userFollowingPosts }) => {
           setOpenCommentModal={setCommentModal}
           postId={postId}
           userFollowingPosts={userFollowingPosts}
+          favicon={favicon}
         />
       </Grid>
     );
