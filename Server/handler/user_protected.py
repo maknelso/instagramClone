@@ -10,6 +10,7 @@ from modals.Account import Account
 from modals.Post import Post
 from modals.Following import Following
 from modals.Like import Like
+from modals.Comment import Comment
 from config import SECRET_KEY, db
 
 
@@ -29,6 +30,7 @@ protectFields = {
         "img_description": fields.String,
         "account_id": fields.Integer,
         "post_id": fields.Integer,
+        # "desc": fields.String
         # "liked_user_name": fields.String,
 
     })),
@@ -60,20 +62,12 @@ class users_protect(Resource):
 
             current_user = Account.query.filter_by(email=data['email']).first()
 
-            # get the current logged in user id
-
             account_id = current_user.account_id
-
-            # user current user id to look up info in post table
 
             posts = Post.query.filter_by(
                 account_id=account_id).all()
 
-            # adding looked up info from post table to output field
-
             current_user.current_post = posts
-
-            # look up info from following table and add to output field
 
             follower = len(Following.query.filter_by(
                 follower_id=account_id).all())
@@ -85,34 +79,33 @@ class users_protect(Resource):
 
             current_user.current_follower = following
 
-            # use account_id to look up following_id, and push these following id to an new array, and then use the following id to look up the associated array of posts.
-
-            # 1. use logged in user account_id to look up for the matching following_id
             following_users = Following.query.filter_by(
                 follower_id=account_id).all()
 
-            # 2. loop over the matching following_id and put those ids in an array
             current_following_id_arr = []
 
             for followingObj in following_users:
                 current_following_id_arr.append(followingObj.following_id)
 
-            # print(current_following_id_arr)
-
             posts = Post.query.filter(
                 Post.account_id.in_(current_following_id_arr)).all()
 
-            # for obj in posts:
-            #     likeObjs = Like.query.filter_by(
-            #         post_id=obj.post_id).first()
-            #     usernames = Account.query.filter_by(
-            #         account_id=likeObjs.account_id).first()
-            #     obj.liked_user_name = usernames.username
+            # query for all comments made by logged in user
+
+            # comments = Comment.query.filter_by(
+            #     account_id=account_id).all()
+
+            # add comment to associated post feed
+
+            # for each_post in posts:
+            #     for each_comment in comments:
+            #         if each_comment.post_id == each_post.post_id:
+            #             each_post.desc = each_comment.comment_text
+
+            current_user.following_posts = posts
 
             users = Account.query.filter(
                 Account.account_id.in_(current_following_id_arr)).all()
-
-            current_user.following_posts = posts
             current_user.users = users
 
             # join like with account and post table
@@ -137,7 +130,6 @@ class users_protect(Resource):
             return jsonify({"message": "Please login"}), 401
 
         auth_token = request.headers.get("Authorization").split(" ")[1]
-        # auth_token = request.headers.get("Authorization")
 
         try:
             jwt_data = jwt.decode(
@@ -152,19 +144,13 @@ class users_protect(Resource):
                 like_info = Like(account_id=current_user.account_id,
                                  post_id=frontend_data['post_id'])
                 db.session.add(like_info)
-                # db.session.commit()
 
             else:
-                # delete
-                # pass
                 like_info = Like.query.filter_by(
                     account_id=current_user.account_id, post_id=frontend_data["post_id"]).first()
                 db.session.delete(like_info)
-                # db.session.commit()
 
             db.session.commit()
-
-            # like_table = Like.query.all()
 
         except Exception as e:
             print("err")
