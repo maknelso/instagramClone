@@ -32,12 +32,5 @@ class users_like(Resource):
     @marshal_with(likeFields)
     def get(self):
         likes = Like.query.all()
-        # print(likes)
-
-        # for obj in likes:
-        #     usernames = Account.query.filter_by(
-        #         account_id=obj.account_id).first()
-        #     # print(usernames.username)
-        #     obj.user_name = usernames.username
 
         return likes
