@@ -10,6 +10,9 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 import { theme } from '../ThemeColor';
 import DashCommentModal from './DashCommentModal';
+import { useNavigate } from 'react-router-dom';
+
+import axios from 'axios';
 
 const DashSinglePost = ({
   post,
@@ -22,10 +25,44 @@ const DashSinglePost = ({
   postId,
   userFollowingPosts,
 }) => {
+  const [failedAuth, setFailedAuth] = useState(false);
   const [commentInput, setCommentInput] = useState('');
+
+  const navigate = useNavigate();
 
   const handleCommentChange = (e) => {
     setCommentInput(e.target.value);
+  };
+
+  const handleClickPost = (post_id) => {
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+      setFailedAuth(true);
+      navigate('/');
+    }
+    // else if(!commentInput) {
+
+    // }
+
+    axios
+      .post(
+        '/api/comment',
+        {
+          post_id: post_id,
+          comment: commentInput,
+        },
+        {
+          headers: {
+            Authorization: 'Bearer ' + token,
+          },
+        }
+      )
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   return (
@@ -185,7 +222,7 @@ const DashSinglePost = ({
             onChange={handleCommentChange}
           />
         </Grid>
-        <Button>Post</Button>
+        <Button onClick={() => handleClickPost(post.post_id)}>Post</Button>
       </Grid>
       <DashCommentModal
         openCommentModal={commentModal}

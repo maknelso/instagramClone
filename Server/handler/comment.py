@@ -49,8 +49,8 @@ class post_comment(Resource):
         if not request.headers.get("Authorization"):
             return jsonify({"message": "Please login"}), 401
 
-        auth_token = request.headers.get("Authorization")
-        # auth_token = request.headers.get("Authorization").split(" ")[1]
+        # auth_token = request.headers.get("Authorization")
+        auth_token = request.headers.get("Authorization").split(" ")[1]
 
         try:
             data = jwt.decode(
