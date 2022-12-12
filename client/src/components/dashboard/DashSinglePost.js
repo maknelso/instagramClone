@@ -58,6 +58,7 @@ const DashSinglePost = ({
         }
       )
       .then(function (response) {
+        setCommentInput('');
         console.log(response);
       })
       .catch(function (error) {

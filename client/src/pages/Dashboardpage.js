@@ -1,41 +1,42 @@
-import { Grid } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import DashFollowing from "../components/dashboard/DashFollowing";
-import DashHeader from "../components/dashboard/DashHeader";
-import DashPosts from "../components/dashboard/DashPosts";
-import DashSidebar from "../components/dashboard/DashSidebar";
-import { styled } from "@mui/material/styles";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import DashModal from "../components/dashboard/DashModal";
+import { Grid } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import DashFollowing from '../components/dashboard/DashFollowing';
+import DashHeader from '../components/dashboard/DashHeader';
+import DashPosts from '../components/dashboard/DashPosts';
+import DashSidebar from '../components/dashboard/DashSidebar';
+import { styled } from '@mui/material/styles';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import DashModal from '../components/dashboard/DashModal';
+import DashFooter from '../components/dashboard/DashFooter';
 
 const DashContainer = styled(Grid)(({ theme }) => ({
-  height: "100%",
-  maxWidth: "400px",
-  margin: "0 auto",
-  [theme.breakpoints.up("md")]: {
-    maxWidth: "1600px",
-    display: "flex",
-    justifyContent: "center",
+  height: '100%',
+  maxWidth: '400px',
+  margin: '0 auto',
+  [theme.breakpoints.up('md')]: {
+    maxWidth: '1600px',
+    display: 'flex',
+    justifyContent: 'center',
   },
 }));
 
 const DashContainerLeft = styled(Grid)(({ theme }) => ({
-  [theme.breakpoints.up("sm")]: {
-    padding: "2rem 0",
+  [theme.breakpoints.up('sm')]: {
+    padding: '2rem 0',
   },
-  [theme.breakpoints.up("md")]: {
-    padding: "2rem 6rem",
-    paddingRight: "2rem",
+  [theme.breakpoints.up('md')]: {
+    padding: '2rem 6rem',
+    paddingRight: '2rem',
   },
 }));
 
 const DashContainerRight = styled(Grid)(({ theme }) => ({
-  [theme.breakpoints.up("md")]: {
-    padding: "3rem 0",
-    width: "28%",
-    maxWidth: "500px",
+  [theme.breakpoints.up('md')]: {
+    padding: '3rem 0',
+    width: '28%',
+    maxWidth: '500px',
   },
 }));
 
@@ -51,7 +52,7 @@ const DashboardPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
+    const token = sessionStorage.getItem('token');
 
     if (!token) {
       setFailedAuth(true);
@@ -59,9 +60,9 @@ const DashboardPage = () => {
     }
 
     axios
-      .get("/api/protect", {
+      .get('/api/protect', {
         headers: {
-          Authorization: "Bearer " + token,
+          Authorization: 'Bearer ' + token,
         },
       })
       .then((response) => {
@@ -86,13 +87,13 @@ const DashboardPage = () => {
   }, []);
 
   const handleLogOut = () => {
-    sessionStorage.removeItem("token");
+    sessionStorage.removeItem('token');
     setUsersInfo(null);
     setFailedAuth(true);
   };
 
   if (failedAuth) {
-    navigate("/");
+    navigate('/');
   }
 
   if (!usersInfo) {
@@ -106,7 +107,7 @@ const DashboardPage = () => {
   // console.log(usersInfo);
 
   return (
-    <Grid sx={{ height: "100%" }}>
+    <Grid sx={{ height: '100%', position: 'relative' }}>
       <DashHeader handleLogOut={handleLogOut} usersInfo={usersInfo} />
       <DashContainer>
         <DashContainerLeft>
@@ -122,6 +123,7 @@ const DashboardPage = () => {
         </DashContainerRight>
       </DashContainer>
       <DashModal open={open} setOpen={setOpen} />
+      <DashFooter />
     </Grid>
   );
 };
