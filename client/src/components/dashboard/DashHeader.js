@@ -181,7 +181,11 @@ const DashDownWrapper = styled(Grid)(({ theme }) => ({
   // [theme.breakpoints.up("md")]: {},
 }));
 
-export default function DashHeader({ handleLogOut, usersInfo }) {
+export default function DashHeader({
+  handleLogOut,
+  usersInfo,
+  setOpenPostModal,
+}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [isDrawerOpen, setIsDrawderOpen] = React.useState(false);
 
@@ -252,6 +256,17 @@ export default function DashHeader({ handleLogOut, usersInfo }) {
               </Grid>
               <DashIconText sx={{ color: theme.palette.black.main }}>
                 Search
+              </DashIconText>
+            </DashIconHover>
+            <DashIconHover
+              className="dash__hover"
+              onClick={() => setOpenPostModal(true)}
+            >
+              <Grid sx={{ color: theme.palette.black.main }}>
+                <AddCircleOutlineIcon fontSize="large" />
+              </Grid>
+              <DashIconText sx={{ color: theme.palette.black.main }}>
+                Create
               </DashIconText>
             </DashIconHover>
             {/* </Link> */}
@@ -331,10 +346,15 @@ const navItems = [
     text: 'Notifications',
     to: '/dashboard',
   },
-  {
-    id: 6,
-    logo: <AddCircleOutlineIcon fontSize="large" />,
-    text: 'Create',
-    to: '/dashboard',
-  },
+  // {
+  //   id: 6,
+  //   logo: (
+  //     <AddCircleOutlineIcon
+  //       fontSize="large"
+  //       onClick={() => openPostModal(true)}
+  //     />
+  //   ),
+  //   text: 'Create',
+  //   to: '/dashboard',
+  // },
 ];

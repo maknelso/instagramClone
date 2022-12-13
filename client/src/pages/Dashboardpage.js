@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import DashModal from '../components/dashboard/DashModal';
 import DashFooter from '../components/dashboard/DashFooter';
+import DashNewPostModal from '../components/dashboard/DashNewPostModal';
 
 const DashContainer = styled(Grid)(({ theme }) => ({
   height: '100%',
@@ -48,6 +49,9 @@ const DashboardPage = () => {
   // modal state in DashModal.js
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
+
+  // modal state in DashNewPostModal.js
+  const [openPostModal, setOpenPostModal] = React.useState(false);
 
   const navigate = useNavigate();
 
@@ -108,7 +112,11 @@ const DashboardPage = () => {
 
   return (
     <Grid sx={{ height: '100%', position: 'relative' }}>
-      <DashHeader handleLogOut={handleLogOut} usersInfo={usersInfo} />
+      <DashHeader
+        handleLogOut={handleLogOut}
+        usersInfo={usersInfo}
+        setOpenPostModal={setOpenPostModal}
+      />
       <DashContainer>
         <DashContainerLeft>
           <DashFollowing userFollowingPosts={userFollowingPosts} />
@@ -123,6 +131,10 @@ const DashboardPage = () => {
         </DashContainerRight>
       </DashContainer>
       <DashModal open={open} setOpen={setOpen} />
+      <DashNewPostModal
+        openPostModal={openPostModal}
+        setOpenPostModal={setOpenPostModal}
+      />
       <DashFooter />
     </Grid>
   );
