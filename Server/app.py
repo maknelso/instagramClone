@@ -33,6 +33,7 @@ api = Api(app)
 migrate = Migrate(app, db)
 
 
+# create db
 with app.app_context():
     db.create_all()
 
