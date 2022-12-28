@@ -1,10 +1,11 @@
-import * as React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { Grid } from '@mui/material';
 import postIcon from '../../assets/images/dashboard/post_icon.png';
+import axios from 'axios';
 
 const style = {
   position: 'absolute',
@@ -23,9 +24,37 @@ const style = {
 };
 
 export default function DashNewPostModal({ openPostModal, setOpenPostModal }) {
+  const uploadRef = useRef(null);
+  const [files, setFiles] = useState([]);
   // const [openPostModal, setOpenPostModal] = React.useState(false);
   const handleOpenPostModal = () => setOpenPostModal(true);
   const handleClosePostModal = () => setOpenPostModal(false);
+
+  const handleFileUpload = () => {
+    uploadRef.current.click();
+  };
+
+  const handleAddFileToState = (e) => {
+    console.log(e);
+    // user upload multiple files
+    setFiles([...files, ...e.target.files]);
+  };
+
+  const handleUploadPost = () => {
+    axios.get(`/api/upload-s3-url?filename=${files[0].name}`).then((res) => {
+      console.log(res.data.url);
+      axios
+        .put(res.data.url, {
+          header: {
+            "content-type": "image/png"
+          },
+          data: files[0],
+        })
+        .then((res) => {
+          console.log(res);
+        });
+    });
+  };
 
   return (
     <div>
@@ -58,7 +87,16 @@ export default function DashNewPostModal({ openPostModal, setOpenPostModal }) {
             <Typography id="modal-modal-title" variant="h5" component="h2">
               Grag photos and videos here
             </Typography>
-            <Button variant="contained">Select from computer</Button>
+            <Button onClick={handleFileUpload} variant="contained">
+              Select from computer
+            </Button>
+            <input
+              onChange={handleAddFileToState}
+              style={{ display: 'none' }}
+              type="file"
+              ref={uploadRef}
+            />
+            <Button onClick={handleUploadPost}>Upload</Button>
           </Grid>
         </Box>
       </Modal>

@@ -3,6 +3,7 @@ from flask import Flask, request, jsonify
 from flask_restful import Resource, Api, marshal_with, fields
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, ForeignKey, Integer, Table
+
 # from sqlalchemy.orm import declarative_base, relationship
 from flask_bcrypt import Bcrypt
 from flask_migrate import Migrate
@@ -17,6 +18,7 @@ from handler.get_comments import get_comments
 from handler.comment import get_comment
 from handler.comment import post_comment
 from handler.users_search import users_search
+from handler.generate_upload_URL import generate_upload_URL
 from config import db, bcrypt
 from modals.Account import Account
 from modals.Following import Following
@@ -40,15 +42,16 @@ with app.app_context():
 # users_reg route is used to register new users
 
 
-api.add_resource(users_reg, '/api/register')
-api.add_resource(users_login, '/api/login')
-api.add_resource(users_protect, '/api/protect')
-api.add_resource(users_like, '/api/like')
-api.add_resource(get_comments, '/api/comments')
-api.add_resource(get_comment, '/api/comment/<postid>')
-api.add_resource(post_comment, '/api/comment')
-api.add_resource(users_search, '/api/instagram/<username>')
+api.add_resource(users_reg, "/api/register")
+api.add_resource(users_login, "/api/login")
+api.add_resource(users_protect, "/api/protect")
+api.add_resource(users_like, "/api/like")
+api.add_resource(get_comments, "/api/comments")
+api.add_resource(get_comment, "/api/comment/<postid>")
+api.add_resource(post_comment, "/api/comment")
+api.add_resource(users_search, "/api/instagram/<username>")
+api.add_resource(generate_upload_URL, "/api/upload-s3-url")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)
