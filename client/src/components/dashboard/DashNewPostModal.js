@@ -42,17 +42,26 @@ export default function DashNewPostModal({ openPostModal, setOpenPostModal }) {
 
   const handleUploadPost = () => {
     axios.get(`/api/upload-s3-url?filename=${files[0].name}`).then((res) => {
-      console.log(res.data.url);
-      axios
-        .put(res.data.url, {
-          header: {
-            "content-type": "image/png"
-          },
-          data: files[0],
-        })
-        .then((res) => {
-          console.log(res);
-        });
+      // axios
+      //   .put(res.data.url, files[0], {
+      //     headers: {
+      //       "Content-Type": files[0].type
+      //       // 'Content-Type': 'multipart/form-data',
+      //       // "Content-Type": "application/octet-stream"
+      //     }
+      //   })
+      //   .then((res) => {
+      //     console.log(res);
+      //   });
+      fetch(res.data.url, {
+        method: "PUT",
+        body: files[0],
+        headers: {
+          "Content-Type": files[0].type
+          // 'Content-Type': 'multipart/form-data',
+          // "Content-Type": "application/octet-stream"
+        }
+      })
     });
   };
 

@@ -26,9 +26,10 @@ class generate_upload_URL(Resource):
         s3_client = boto3.client("s3")
         try:
             response = s3_client.generate_presigned_url(
-                "get_object",
+                "put_object",
                 Params={"Bucket": "instagramclone-2022", "Key": object_name},
                 ExpiresIn=3600,
+                HttpMethod="put"
             )
         except ClientError as e:
             logging.error(e)
