@@ -35,33 +35,43 @@ export default function DashNewPostModal({ openPostModal, setOpenPostModal }) {
   };
 
   const handleAddFileToState = (e) => {
-    console.log(e);
+    // console.log(e);
     // user upload multiple files
     setFiles([...files, ...e.target.files]);
   };
 
   const handleUploadPost = () => {
-    axios.get(`/api/upload-s3-url?filename=${files[0].name}`).then((res) => {
-      // axios
-      //   .put(res.data.url, files[0], {
-      //     headers: {
-      //       "Content-Type": files[0].type
-      //       // 'Content-Type': 'multipart/form-data',
-      //       // "Content-Type": "application/octet-stream"
-      //     }
-      //   })
-      //   .then((res) => {
-      //     console.log(res);
-      //   });
-      fetch(res.data.url, {
-        method: "PUT",
-        body: files[0],
-        headers: {
-          "Content-Type": files[0].type
-          // 'Content-Type': 'multipart/form-data',
-          // "Content-Type": "application/octet-stream"
-        }
-      })
+    // send file to backend
+    axios.get('/api/upload-s3-url?filename=' + files[0].name).then((res) => {
+      // make form data as a container to include files and fields
+      const formData = new FormData();
+      console.log(res);
+
+      // extract url and fields from response
+      const { url, fields } = JSON.parse(res.data.res);
+      Object.keys(fields).forEach((key) => {
+        console.log(key);
+        formData.append(key, fields[key]);
+      });
+
+      // add file into form data
+      formData.append('file', files[0]);
+
+      // upload file to s3
+      axios
+        .post(url, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+        .then((res) => {
+          // handle success
+          console.log('uploaded successfully');
+        })
+        .catch((err) => {
+          // handle API error
+          console.log('upload failed: ' + err.message);
+        });
     });
   };
 

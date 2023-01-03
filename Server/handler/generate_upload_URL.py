@@ -23,6 +23,7 @@ class generate_upload_URL(Resource):
             response = s3_client.generate_presigned_post(
                 "instagramclone-2022", "upload/" + filename, ExpiresIn=3600
             )
+            # separate the folder name after upload/ so on AWS S3 there will be a folder for each user
             print(response)
         # handle error
         except ClientError as e:
