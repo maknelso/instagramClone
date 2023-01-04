@@ -26,18 +26,23 @@ const style = {
 export default function DashNewPostModal({ openPostModal, setOpenPostModal }) {
   const uploadRef = useRef(null);
   const [files, setFiles] = useState([]);
-  // const [openPostModal, setOpenPostModal] = React.useState(false);
-  const handleOpenPostModal = () => setOpenPostModal(true);
-  const handleClosePostModal = () => setOpenPostModal(false);
+  const [showUpload, setShowUpload] = useState(false);
+
+  // const handleOpenPostModal = () => setOpenPostModal(true);
+  const handleClosePostModal = () => {
+    setOpenPostModal(false);
+    setShowUpload(false);
+  };
 
   const handleFileUpload = () => {
     uploadRef.current.click();
   };
 
   const handleAddFileToState = (e) => {
-    // console.log(e);
+    console.log(e);
     // user upload multiple files
     setFiles([...files, ...e.target.files]);
+    setShowUpload(true);
   };
 
   const handleUploadPost = () => {
@@ -74,6 +79,8 @@ export default function DashNewPostModal({ openPostModal, setOpenPostModal }) {
         });
     });
   };
+
+  console.log(files);
 
   return (
     <div>
@@ -115,7 +122,12 @@ export default function DashNewPostModal({ openPostModal, setOpenPostModal }) {
               type="file"
               ref={uploadRef}
             />
-            <Button onClick={handleUploadPost}>Upload</Button>
+            <Button
+              className={showUpload ? '' : 'toggle__upload__btn'}
+              onClick={handleUploadPost}
+            >
+              Upload
+            </Button>
           </Grid>
         </Box>
       </Modal>

@@ -95,3 +95,7 @@
   position: absolute !important;
   left: 5rem !important;
 } */
+
+.toggle__upload__btn {
+  display: none !important;
+}
