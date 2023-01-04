@@ -46,41 +46,52 @@ export default function DashNewPostModal({ openPostModal, setOpenPostModal }) {
   };
 
   const handleUploadPost = () => {
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+      // setFailedAuth(true);
+      return;
+    }
     // send file to backend
-    axios.get('/api/upload-s3-url?filename=' + files[0].name).then((res) => {
-      // make form data as a container to include files and fields
-      const formData = new FormData();
-      console.log(res);
+    axios
+      .get('/api/upload-s3-url?filename=' + files[0].name, {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      })
+      .then((res) => {
+        // make form data as a container to include files and fields
+        const formData = new FormData();
+        console.log(res);
 
-      // extract url and fields from response
-      const { url, fields } = JSON.parse(res.data.res);
-      Object.keys(fields).forEach((key) => {
-        console.log(key);
-        formData.append(key, fields[key]);
-      });
-
-      // add file into form data
-      formData.append('file', files[0]);
-
-      // upload file to s3
-      axios
-        .post(url, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        })
-        .then((res) => {
-          // handle success
-          console.log('uploaded successfully');
-        })
-        .catch((err) => {
-          // handle API error
-          console.log('upload failed: ' + err.message);
+        // extract url and fields from response
+        const { url, fields } = JSON.parse(res.data.res);
+        Object.keys(fields).forEach((key) => {
+          console.log(key);
+          formData.append(key, fields[key]);
         });
-    });
-  };
 
-  console.log(files);
+        // add file into form data
+        formData.append('file', files[0]);
+
+        // upload file to s3
+
+        axios
+          .post(url, formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          })
+          .then((res) => {
+            console.log(res);
+            // handle success
+            console.log('uploaded successfully');
+          })
+          .catch((err) => {
+            // handle API error
+            console.log('upload failed: ' + err.message);
+          });
+      });
+  };
 
   return (
     <div>

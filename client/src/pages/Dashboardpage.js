@@ -72,7 +72,6 @@ const DashboardPage = () => {
       .then((response) => {
         setUsersInfo(response.data);
         const { following_posts, users } = response.data;
-
         let userPosts = [];
         following_posts.forEach((post) => {
           const userData = users.find((user) => {

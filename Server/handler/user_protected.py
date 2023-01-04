@@ -3,6 +3,7 @@ from flask import Flask, request, jsonify
 from flask_restful import Resource, Api, marshal_with, fields
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, ForeignKey, Integer, Table
+
 # from sqlalchemy.orm import declarative_base, relationship
 from flask_bcrypt import Bcrypt
 import jwt
@@ -19,26 +20,32 @@ protectFields = {
     "email": fields.String,
     "name": fields.String,
     "username": fields.String,
-    "current_post": fields.List(fields.Nested({
-        "img_url": fields.String,
-        "img_description": fields.String
-    })),
+    "current_post": fields.List(
+        fields.Nested({"img_url": fields.String, "img_description": fields.String})
+    ),
     "current_follower": fields.Integer,
     "current_following": fields.Integer,
-    "following_posts": fields.List(fields.Nested({
-        "img_url": fields.String,
-        "img_description": fields.String,
-        "account_id": fields.Integer,
-        "post_id": fields.Integer,
-        # "desc": fields.String
-        # "liked_user_name": fields.String,
-
-    })),
-    "users": fields.List(fields.Nested({
-        "username": fields.String,
-        "account_id": fields.Integer,
-        "avatar": fields.String
-    })),
+    "following_posts": fields.List(
+        fields.Nested(
+            {
+                "img_url": fields.String,
+                "img_description": fields.String,
+                "account_id": fields.Integer,
+                "post_id": fields.Integer,
+                # "desc": fields.String
+                # "liked_user_name": fields.String,
+            }
+        )
+    ),
+    "users": fields.List(
+        fields.Nested(
+            {
+                "username": fields.String,
+                "account_id": fields.Integer,
+                "avatar": fields.String,
+            }
+        )
+    ),
     "avatar": fields.String,
 }
 
@@ -49,7 +56,7 @@ likeFields = {
 
 
 class users_protect(Resource):
-    @ marshal_with(protectFields)
+    @marshal_with(protectFields)
     def get(self):
         if not request.headers.get("Authorization"):
             return jsonify({"message": "Please login"}), 401
@@ -57,30 +64,25 @@ class users_protect(Resource):
         auth_token = request.headers.get("Authorization").split(" ")[1]
 
         try:
-            data = jwt.decode(
-                auth_token, SECRET_KEY, algorithms="HS256")
+            data = jwt.decode(auth_token, SECRET_KEY, algorithms="HS256")
 
-            current_user = Account.query.filter_by(email=data['email']).first()
+            current_user = Account.query.filter_by(email=data["email"]).first()
 
             account_id = current_user.account_id
 
-            posts = Post.query.filter_by(
-                account_id=account_id).all()
+            posts = Post.query.filter_by(account_id=account_id).all()
 
             current_user.current_post = posts
 
-            follower = len(Following.query.filter_by(
-                follower_id=account_id).all())
+            follower = len(Following.query.filter_by(follower_id=account_id).all())
 
             current_user.current_following = follower
 
-            following = len(Following.query.filter_by(
-                following_id=account_id).all())
+            following = len(Following.query.filter_by(following_id=account_id).all())
 
             current_user.current_follower = following
 
-            following_users = Following.query.filter_by(
-                follower_id=account_id).all()
+            following_users = Following.query.filter_by(follower_id=account_id).all()
 
             current_following_id_arr = []
 
@@ -88,7 +90,8 @@ class users_protect(Resource):
                 current_following_id_arr.append(followingObj.following_id)
 
             posts = Post.query.filter(
-                Post.account_id.in_(current_following_id_arr)).all()
+                Post.account_id.in_(current_following_id_arr)
+            ).all()
 
             # query for all comments made by logged in user
 
@@ -105,7 +108,8 @@ class users_protect(Resource):
             current_user.following_posts = posts
 
             users = Account.query.filter(
-                Account.account_id.in_(current_following_id_arr)).all()
+                Account.account_id.in_(current_following_id_arr)
+            ).all()
             current_user.users = users
 
             # join like with account and post table
@@ -124,7 +128,7 @@ class users_protect(Resource):
 
         return current_user
 
-    @ marshal_with(likeFields)
+    @marshal_with(likeFields)
     def post(self):
         if not request.headers.get("Authorization"):
             return jsonify({"message": "Please login"}), 401
@@ -132,22 +136,22 @@ class users_protect(Resource):
         auth_token = request.headers.get("Authorization").split(" ")[1]
 
         try:
-            jwt_data = jwt.decode(
-                auth_token, SECRET_KEY, algorithms="HS256")
+            jwt_data = jwt.decode(auth_token, SECRET_KEY, algorithms="HS256")
 
             frontend_data = json.loads(request.get_data())
 
-            current_user = Account.query.filter_by(
-                email=jwt_data['email']).first()
+            current_user = Account.query.filter_by(email=jwt_data["email"]).first()
 
             if frontend_data["like"]:
-                like_info = Like(account_id=current_user.account_id,
-                                 post_id=frontend_data['post_id'])
+                like_info = Like(
+                    account_id=current_user.account_id, post_id=frontend_data["post_id"]
+                )
                 db.session.add(like_info)
 
             else:
                 like_info = Like.query.filter_by(
-                    account_id=current_user.account_id, post_id=frontend_data["post_id"]).first()
+                    account_id=current_user.account_id, post_id=frontend_data["post_id"]
+                ).first()
                 db.session.delete(like_info)
 
             db.session.commit()
