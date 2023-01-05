@@ -30,6 +30,7 @@ class generate_upload_URL(Resource):
         current_user_name = current_user.username
         # get filename
         filename = request.args.get("filename")
+        print(filename)
 
         # init s3 client
         s3_client = boto3.client("s3")

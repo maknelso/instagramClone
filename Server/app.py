@@ -19,6 +19,7 @@ from handler.comment import get_comment
 from handler.comment import post_comment
 from handler.users_search import users_search
 from handler.generate_upload_URL import generate_upload_URL
+from handler.generate_post import generate_post
 from config import db, bcrypt
 from modals.Account import Account
 from modals.Following import Following
@@ -51,6 +52,7 @@ api.add_resource(get_comment, "/api/comment/<postid>")
 api.add_resource(post_comment, "/api/comment")
 api.add_resource(users_search, "/api/instagram/<username>")
 api.add_resource(generate_upload_URL, "/api/upload-s3-url")
+api.add_resource(generate_post, "/api/generate-post")
 
 
 if __name__ == "__main__":

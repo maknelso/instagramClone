@@ -41,7 +41,8 @@ export default function DashNewPostModal({ openPostModal, setOpenPostModal }) {
   const handleAddFileToState = (e) => {
     console.log(e);
     // user upload multiple files
-    setFiles([...files, ...e.target.files]);
+    // setFiles([...files, ...e.target.files]);
+    setFiles(e.target.files);
     setShowUpload(true);
   };
 
@@ -52,6 +53,7 @@ export default function DashNewPostModal({ openPostModal, setOpenPostModal }) {
       return;
     }
     // send file to backend
+
     axios
       .get('/api/upload-s3-url?filename=' + files[0].name, {
         headers: {
@@ -78,7 +80,9 @@ export default function DashNewPostModal({ openPostModal, setOpenPostModal }) {
         axios
           .post(url, formData, {
             headers: {
-              'Content-Type': 'multipart/form-data',
+              // ContentType: 'multipart/form-data',
+              // ContentType: 'multerS3.AUTO_CONTENT_TYPE',
+              content_type: 'image/png',
             },
           })
           .then((res) => {
@@ -92,6 +96,8 @@ export default function DashNewPostModal({ openPostModal, setOpenPostModal }) {
           });
       });
   };
+
+  console.log(files);
 
   return (
     <div>
