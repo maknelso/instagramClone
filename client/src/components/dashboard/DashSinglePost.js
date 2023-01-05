@@ -122,7 +122,7 @@ const DashSinglePost = ({
         />
       </Grid>
       <Grid>
-        <Grid>
+        <Grid sx={{ maxWidth: '360px' }}>
           <img
             style={{ width: '100%', maxHeight: '470px', objectFit: 'cover' }}
             src={post.img_url}

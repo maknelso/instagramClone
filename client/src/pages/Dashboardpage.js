@@ -82,6 +82,7 @@ const DashboardPage = () => {
           userPosts.push(post);
           // userFollowingPosts.push(post);
         });
+        console.log(following_posts);
         setUserFollowingPosts(userPosts);
       })
       .catch(() => {

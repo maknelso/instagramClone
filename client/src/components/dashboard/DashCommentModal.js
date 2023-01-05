@@ -130,9 +130,13 @@ export default function DashCommentModal({
   const handleClose = () => setOpenCommentModal(false);
 
   useEffect(() => {
+    console.log(postId);
+
     const newPost = userFollowingPosts.find((post) => {
+      console.log(post.post_id);
       return post.post_id === postId;
     });
+    console.log(newPost);
     setFilteredPost(newPost);
   });
 
@@ -161,7 +165,7 @@ export default function DashCommentModal({
               width: '100%',
               objectFit: 'cover',
             }}
-            src={filteredPost.img_url}
+            src={filteredPost && filteredPost.img_url}
           ></img>
         </DashModalLeft>
         <DashModalRight item lg={6}>
@@ -182,12 +186,12 @@ export default function DashCommentModal({
                       objectFit: 'cover',
                       borderRadius: '50%',
                     }}
-                    src={filteredPost.avatar}
+                    src={filteredPost && filteredPost.avatar}
                   ></img>
                 </Grid>
                 <Grid display="flex" alignItems="center" gap={0.4}>
                   <Typography fontSize="12px" fontWeight="bold">
-                    {filteredPost.username}
+                    {filteredPost && filteredPost.username}
                   </Typography>
                   <CheckCircleIcon fontSize="0.4rem" color="primary" />
                 </Grid>
@@ -210,17 +214,17 @@ export default function DashCommentModal({
                       objectFit: 'cover',
                       borderRadius: '50%',
                     }}
-                    src={filteredPost.avatar}
+                    src={filteredPost && filteredPost.avatar}
                   ></img>
                 </Grid>
                 <Grid display="flex" alignItems="center" gap={0.4}>
                   <Typography fontSize="12px" fontWeight="bold">
-                    {filteredPost.username}
+                    {filteredPost && filteredPost.username}
                   </Typography>
                   <CheckCircleIcon fontSize="0.4rem" color="primary" />
 
                   <DashModalRightImgDesc>
-                    {filteredPost.img_description}
+                    {filteredPost && filteredPost.img_description}
                   </DashModalRightImgDesc>
                 </Grid>
               </Grid>
@@ -264,7 +268,7 @@ export default function DashCommentModal({
                     maxHeight: '470px',
                     objectFit: 'cover',
                   }}
-                  src={filteredPost.img_url}
+                  src={filteredPost && filteredPost.img_url}
                 ></img>
               </DashModalRightImg>
             </Grid>
