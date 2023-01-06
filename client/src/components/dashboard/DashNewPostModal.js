@@ -52,6 +52,30 @@ export default function DashNewPostModal({ openPostModal, setOpenPostModal }) {
       // setFailedAuth(true);
       return;
     }
+
+    // write post record to db
+    axios
+      .post(
+        '/api/generate-post',
+        {
+          filename: files[0].name,
+        },
+        {
+          headers: {
+            Authorization: 'Bearer ' + token,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        // handle success
+        console.log('data successfully saved to db');
+      })
+      .catch((err) => {
+        // handle API error
+        console.log('save failed: ' + err.message);
+      });
+
     // send file to backend
 
     axios
@@ -80,9 +104,7 @@ export default function DashNewPostModal({ openPostModal, setOpenPostModal }) {
         axios
           .post(url, formData, {
             headers: {
-              // ContentType: 'multipart/form-data',
-              // ContentType: 'multerS3.AUTO_CONTENT_TYPE',
-              content_type: 'image/png',
+              ContentType: 'multipart/form-data',
             },
           })
           .then((res) => {

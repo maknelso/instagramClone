@@ -130,13 +130,9 @@ export default function DashCommentModal({
   const handleClose = () => setOpenCommentModal(false);
 
   useEffect(() => {
-    console.log(postId);
-
     const newPost = userFollowingPosts.find((post) => {
-      console.log(post.post_id);
       return post.post_id === postId;
     });
-    console.log(newPost);
     setFilteredPost(newPost);
   });
 

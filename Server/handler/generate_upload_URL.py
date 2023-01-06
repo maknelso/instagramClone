@@ -25,12 +25,10 @@ class generate_upload_URL(Resource):
         data = jwt.decode(auth_token, SECRET_KEY, algorithms="HS256")
 
         current_user = Account.query.filter_by(email=data["email"]).first()
-        print(current_user.username)
 
         current_user_name = current_user.username
         # get filename
         filename = request.args.get("filename")
-        print(filename)
 
         # init s3 client
         s3_client = boto3.client("s3")
@@ -42,7 +40,7 @@ class generate_upload_URL(Resource):
                 ExpiresIn=3600,
             )
             # separate the folder name after upload/ so on AWS S3 there will be a folder for each user
-            print(response)
+            # print(response)
         # handle error
         except ClientError as e:
             logging.error(e)
