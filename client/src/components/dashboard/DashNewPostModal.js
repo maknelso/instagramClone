@@ -26,7 +26,24 @@ const style = {
 export default function DashNewPostModal({ openPostModal, setOpenPostModal }) {
   const uploadRef = useRef(null);
   const [files, setFiles] = useState([]);
+  const [preview, setPreivew] = useState();
   const [showUpload, setShowUpload] = useState(false);
+
+  console.log(Boolean(files.length > 0));
+
+  useEffect(() => {
+    if (files.length === 0) {
+      setPreivew(undefined);
+      return;
+    }
+
+    const objectUrl = URL.createObjectURL(files[0]);
+    setPreivew(objectUrl);
+
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [files]);
+
+  console.log(preview);
 
   // const handleOpenPostModal = () => setOpenPostModal(true);
   const handleClosePostModal = () => {
@@ -39,7 +56,7 @@ export default function DashNewPostModal({ openPostModal, setOpenPostModal }) {
   };
 
   const handleAddFileToState = (e) => {
-    console.log(e);
+    console.log(e.target.files[0]);
     // user upload multiple files
     // setFiles([...files, ...e.target.files]);
     setFiles(e.target.files);
@@ -123,7 +140,6 @@ export default function DashNewPostModal({ openPostModal, setOpenPostModal }) {
 
   return (
     <div>
-      {/* <Button onClick={handleOpenPostModal}>Open modal</Button> */}
       <Modal
         open={openPostModal}
         onClose={handleClosePostModal}
@@ -132,11 +148,6 @@ export default function DashNewPostModal({ openPostModal, setOpenPostModal }) {
         disableAutoFocus={true}
       >
         <Box sx={style}>
-          {/* <Grid>
-            <Typography variant="body1" component="h2">
-              Create new post
-            </Typography>
-          </Grid> */}
           <Grid
             sx={{
               display: 'flex',
@@ -167,6 +178,9 @@ export default function DashNewPostModal({ openPostModal, setOpenPostModal }) {
             >
               Upload
             </Button>
+            {files.length > 0 && (
+              <img style={{ width: '100px' }} src={preview}></img>
+            )}
           </Grid>
         </Box>
       </Modal>
