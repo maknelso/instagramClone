@@ -85,7 +85,7 @@ export default function DashNewPostModal({
   // const handleOpenPostModal = () => setOpenPostModal(true);
   const handleClosePostModal = () => {
     setOpenPostModal(false);
-    setShowUpload(false);
+    // setShowUpload(false);
   };
 
   const handleChangeImgDesc = (e) => {
@@ -167,6 +167,9 @@ export default function DashNewPostModal({
             },
           })
           .then((res) => {
+            setFeedDesc('');
+            setOpenPostModal(false);
+
             console.log(res);
             // handle success
             console.log('uploaded successfully');
@@ -303,7 +306,14 @@ export default function DashNewPostModal({
             </Grid>
             <Grid container display="flex" justifyContent="space-between">
               <Grid item xs={9} sx={{ borderRight: '1px solid lightgrey' }}>
-                <img style={{ width: '100%' }} src={preview}></img>
+                <img
+                  style={{
+                    width: '100%',
+                    maxHeight: '550px',
+                    objectFit: 'cover',
+                  }}
+                  src={preview}
+                ></img>
               </Grid>
               <Grid
                 item
