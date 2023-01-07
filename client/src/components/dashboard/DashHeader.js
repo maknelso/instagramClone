@@ -15,7 +15,7 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import SearchIcon from '@mui/icons-material/Search';
 import ExploreIcon from '@mui/icons-material/Explore';
 import { theme } from '../ThemeColor';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import DashHamBtn from './DashHamBtn';
 import DashSearchMobile from './DashSearchMobile';
 import DashSearchDrawer from './DashSearchDrawer';
@@ -185,6 +185,7 @@ export default function DashHeader({
   handleLogOut,
   usersInfo,
   setOpenPostModal,
+  setOpenPreviewModal,
 }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [isDrawerOpen, setIsDrawderOpen] = React.useState(false);

@@ -3,9 +3,11 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { Grid } from '@mui/material';
+import { Grid, Paper, TextField } from '@mui/material';
 import postIcon from '../../assets/images/dashboard/post_icon.png';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import axios from 'axios';
+import { theme } from '../ThemeColor';
 
 const style = {
   position: 'absolute',
@@ -23,13 +25,45 @@ const style = {
   justifyContent: 'center',
 };
 
-export default function DashNewPostModal({ openPostModal, setOpenPostModal }) {
+const stylePreview = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 450,
+  minHeight: 500,
+  bgcolor: 'background.paper',
+  boxShadow: 24,
+  borderRadius: '10px',
+  display: 'flex',
+  flexDirection: 'column',
+};
+
+const styleUpload = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 950,
+  minHeight: 500,
+  bgcolor: 'background.paper',
+  boxShadow: 24,
+  borderRadius: '10px',
+  display: 'flex',
+  flexDirection: 'column',
+};
+
+export default function DashNewPostModal({
+  openPostModal,
+  setOpenPostModal,
+  openPreviewModal,
+  setOpenPreviewModal,
+}) {
   const uploadRef = useRef(null);
   const [files, setFiles] = useState([]);
   const [preview, setPreivew] = useState();
   const [showUpload, setShowUpload] = useState(false);
-
-  console.log(Boolean(files.length > 0));
+  const [step, setStep] = useState(0);
 
   useEffect(() => {
     if (files.length === 0) {
@@ -43,12 +77,18 @@ export default function DashNewPostModal({ openPostModal, setOpenPostModal }) {
     return () => URL.revokeObjectURL(objectUrl);
   }, [files]);
 
+  useEffect(() => {}, [step]);
+
   console.log(preview);
 
   // const handleOpenPostModal = () => setOpenPostModal(true);
   const handleClosePostModal = () => {
     setOpenPostModal(false);
     setShowUpload(false);
+  };
+
+  const handleClosePreviewModal = () => {
+    setOpenPreviewModal(false);
   };
 
   const handleFileUpload = () => {
@@ -60,7 +100,7 @@ export default function DashNewPostModal({ openPostModal, setOpenPostModal }) {
     // user upload multiple files
     // setFiles([...files, ...e.target.files]);
     setFiles(e.target.files);
-    setShowUpload(true);
+    setStep(1);
   };
 
   const handleUploadPost = () => {
@@ -147,42 +187,133 @@ export default function DashNewPostModal({ openPostModal, setOpenPostModal }) {
         aria-describedby="modal-modal-description"
         disableAutoFocus={true}
       >
-        <Box sx={style}>
-          <Grid
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '1.2rem',
-            }}
-          >
-            <Grid>
-              <img src={postIcon}></img>
-            </Grid>
-            <Typography id="modal-modal-title" variant="h5" component="h2">
-              Grag photos and videos here
-            </Typography>
-            <Button onClick={handleFileUpload} variant="contained">
-              Select from computer
-            </Button>
-            <input
-              onChange={handleAddFileToState}
-              style={{ display: 'none' }}
-              type="file"
-              ref={uploadRef}
-            />
-            <Button
-              className={showUpload ? '' : 'toggle__upload__btn'}
-              onClick={handleUploadPost}
+        {step === 0 ? (
+          <Box sx={style}>
+            <Grid
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '1.2rem',
+              }}
             >
-              Upload
-            </Button>
-            {files.length > 0 && (
-              <img style={{ width: '100px' }} src={preview}></img>
-            )}
-          </Grid>
-        </Box>
+              <Grid>
+                <img src={postIcon}></img>
+              </Grid>
+              <Typography id="modal-modal-title" variant="h5" component="h2">
+                Grag photos and videos here
+              </Typography>
+              <Button onClick={handleFileUpload} variant="contained">
+                Select from computer
+              </Button>
+              <input
+                onChange={handleAddFileToState}
+                style={{ display: 'none' }}
+                type="file"
+                ref={uploadRef}
+              />
+            </Grid>
+          </Box>
+        ) : step === 1 ? (
+          <Box sx={stylePreview}>
+            <Paper
+              sx={{
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'space-between',
+              }}
+            >
+              <Typography
+                variant="h6"
+                // textAlign="center"
+                sx={{ p: '1rem', fontWeight: 500 }}
+              >
+                <KeyboardBackspaceIcon
+                  fontSize="large"
+                  onClick={() => setStep(0)}
+                />
+              </Typography>
+              <Typography
+                variant="h5"
+                // textAlign="center"
+                sx={{ p: '1rem', fontWeight: 700 }}
+              >
+                Preview
+              </Typography>
+              <Typography
+                variant="h6"
+                // textAlign="center"
+                sx={{
+                  p: '1rem',
+                  fontWeight: 500,
+                  color: theme.palette.primary.main,
+                  cursor: 'pointer',
+                }}
+                onClick={() => setStep(2)}
+              >
+                Next
+              </Typography>
+            </Paper>
+            <Grid>
+              <img
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                src={preview}
+              ></img>
+            </Grid>
+          </Box>
+        ) : step === 2 ? (
+          <Box sx={styleUpload}>
+            <Grid
+              sx={{
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'space-between',
+              }}
+            >
+              <Typography
+                variant="h6"
+                // textAlign="center"
+                sx={{ p: '1rem', fontWeight: 500 }}
+              >
+                <KeyboardBackspaceIcon
+                  fontSize="large"
+                  onClick={() => setStep(0)}
+                />
+              </Typography>
+              <Typography
+                variant="h5"
+                // textAlign="center"
+                sx={{ p: '1rem', fontWeight: 700 }}
+              >
+                Preview
+              </Typography>
+              <Typography
+                variant="h6"
+                // textAlign="center"
+                sx={{
+                  p: '1rem',
+                  fontWeight: 500,
+                  color: theme.palette.primary.main,
+                }}
+                onClick={handleUploadPost}
+              >
+                Share
+              </Typography>
+            </Grid>
+            <Grid container display="flex" justifyContent="space-between">
+              <Grid item xs={9}>
+                <img style={{ width: '100%' }} src={preview}></img>
+              </Grid>
+              <Grid item xs={3}>
+                <Grid></Grid>
+                <TextField></TextField>
+              </Grid>
+            </Grid>
+          </Box>
+        ) : (
+          <Grid></Grid>
+        )}
       </Modal>
     </div>
   );

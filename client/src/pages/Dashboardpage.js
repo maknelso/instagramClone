@@ -52,6 +52,7 @@ const DashboardPage = () => {
 
   // modal state in DashNewPostModal.js
   const [openPostModal, setOpenPostModal] = React.useState(false);
+  const [openPreviewModal, setOpenPreviewModal] = React.useState(false);
 
   const navigate = useNavigate();
 
@@ -115,6 +116,7 @@ const DashboardPage = () => {
         handleLogOut={handleLogOut}
         usersInfo={usersInfo}
         setOpenPostModal={setOpenPostModal}
+        setOpenPreviewModal={setOpenPreviewModal}
       />
       <DashContainer>
         <DashContainerLeft>
@@ -133,6 +135,8 @@ const DashboardPage = () => {
       <DashNewPostModal
         openPostModal={openPostModal}
         setOpenPostModal={setOpenPostModal}
+        openPreviewModal={openPreviewModal}
+        setOpenPreviewModal={setOpenPreviewModal}
       />
       <DashFooter />
     </Grid>
