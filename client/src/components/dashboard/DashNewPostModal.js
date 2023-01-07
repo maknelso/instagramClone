@@ -6,6 +6,7 @@ import Modal from '@mui/material/Modal';
 import { Grid, Paper, TextField } from '@mui/material';
 import postIcon from '../../assets/images/dashboard/post_icon.png';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import profile from '../../assets/images/profilepage/profile.jpg';
 import axios from 'axios';
 import { theme } from '../ThemeColor';
 
@@ -79,17 +80,15 @@ export default function DashNewPostModal({
 
   useEffect(() => {}, [step]);
 
-  console.log(preview);
-
   // const handleOpenPostModal = () => setOpenPostModal(true);
   const handleClosePostModal = () => {
     setOpenPostModal(false);
     setShowUpload(false);
   };
 
-  const handleClosePreviewModal = () => {
-    setOpenPreviewModal(false);
-  };
+  // const handleClosePreviewModal = () => {
+  //   setOpenPreviewModal(false);
+  // };
 
   const handleFileUpload = () => {
     uploadRef.current.click();
@@ -243,10 +242,9 @@ export default function DashNewPostModal({
               </Typography>
               <Typography
                 variant="h6"
-                // textAlign="center"
                 sx={{
                   p: '1rem',
-                  fontWeight: 500,
+                  fontWeight: 700,
                   color: theme.palette.primary.main,
                   cursor: 'pointer',
                 }}
@@ -286,14 +284,14 @@ export default function DashNewPostModal({
                 // textAlign="center"
                 sx={{ p: '1rem', fontWeight: 700 }}
               >
-                Preview
+                Create new post
               </Typography>
               <Typography
                 variant="h6"
                 // textAlign="center"
                 sx={{
                   p: '1rem',
-                  fontWeight: 500,
+                  fontWeight: 700,
                   color: theme.palette.primary.main,
                 }}
                 onClick={handleUploadPost}
@@ -305,9 +303,28 @@ export default function DashNewPostModal({
               <Grid item xs={9}>
                 <img style={{ width: '100%' }} src={preview}></img>
               </Grid>
-              <Grid item xs={3}>
-                <Grid></Grid>
-                <TextField></TextField>
+              <Grid
+                item
+                xs={3}
+                sx={{ p: '1rem' }}
+                display="flex"
+                flexDirection="column"
+                gap={1}
+              >
+                <Grid display="flex" alignItems="center" gap={1.6}>
+                  <img style={{ width: '30px' }} src={profile}></img>
+                  <Typography variant="h6" fontWeight={700}>
+                    accountname
+                  </Typography>
+                </Grid>
+                <TextField
+                  variant="standard"
+                  placeholder="Write a caption..."
+                  autoFocus
+                  InputProps={{
+                    disableUnderline: true,
+                  }}
+                ></TextField>
               </Grid>
             </Grid>
           </Box>
