@@ -6,7 +6,7 @@ import Modal from '@mui/material/Modal';
 import { Grid, Paper, TextField } from '@mui/material';
 import postIcon from '../../assets/images/dashboard/post_icon.png';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import profile from '../../assets/images/profilepage/profile.jpg';
+
 import axios from 'axios';
 import { theme } from '../ThemeColor';
 
@@ -59,10 +59,12 @@ export default function DashNewPostModal({
   setOpenPostModal,
   openPreviewModal,
   setOpenPreviewModal,
+  usersInfo,
 }) {
   const uploadRef = useRef(null);
   const [files, setFiles] = useState([]);
   const [preview, setPreivew] = useState();
+  const [feedDesc, setFeedDesc] = useState('');
   const [showUpload, setShowUpload] = useState(false);
   const [step, setStep] = useState(0);
 
@@ -86,16 +88,16 @@ export default function DashNewPostModal({
     setShowUpload(false);
   };
 
-  // const handleClosePreviewModal = () => {
-  //   setOpenPreviewModal(false);
-  // };
+  const handleChangeImgDesc = (e) => {
+    setFeedDesc(e.target.value);
+  };
 
   const handleFileUpload = () => {
     uploadRef.current.click();
   };
 
   const handleAddFileToState = (e) => {
-    console.log(e.target.files[0]);
+    // console.log(e.target.files[0]);
     // user upload multiple files
     // setFiles([...files, ...e.target.files]);
     setFiles(e.target.files);
@@ -115,6 +117,7 @@ export default function DashNewPostModal({
         '/api/generate-post',
         {
           filename: files[0].name,
+          feedDesc: feedDesc,
         },
         {
           headers: {
@@ -174,8 +177,6 @@ export default function DashNewPostModal({
           });
       });
   };
-
-  console.log(files);
 
   return (
     <div>
@@ -267,6 +268,7 @@ export default function DashNewPostModal({
                 width: '100%',
                 display: 'flex',
                 justifyContent: 'space-between',
+                borderBottom: '1px solid lightgrey',
               }}
             >
               <Typography
@@ -288,11 +290,11 @@ export default function DashNewPostModal({
               </Typography>
               <Typography
                 variant="h6"
-                // textAlign="center"
                 sx={{
                   p: '1rem',
                   fontWeight: 700,
                   color: theme.palette.primary.main,
+                  cursor: 'pointer',
                 }}
                 onClick={handleUploadPost}
               >
@@ -300,7 +302,7 @@ export default function DashNewPostModal({
               </Typography>
             </Grid>
             <Grid container display="flex" justifyContent="space-between">
-              <Grid item xs={9}>
+              <Grid item xs={9} sx={{ borderRight: '1px solid lightgrey' }}>
                 <img style={{ width: '100%' }} src={preview}></img>
               </Grid>
               <Grid
@@ -312,14 +314,18 @@ export default function DashNewPostModal({
                 gap={1}
               >
                 <Grid display="flex" alignItems="center" gap={1.6}>
-                  <img style={{ width: '30px' }} src={profile}></img>
+                  <img
+                    style={{ width: '30px', borderRadius: '50%' }}
+                    src={usersInfo.avatar}
+                  ></img>
                   <Typography variant="h6" fontWeight={700}>
-                    accountname
+                    {usersInfo.username}
                   </Typography>
                 </Grid>
                 <TextField
                   variant="standard"
                   placeholder="Write a caption..."
+                  onChange={handleChangeImgDesc}
                   autoFocus
                   InputProps={{
                     disableUnderline: true,

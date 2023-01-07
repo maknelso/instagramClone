@@ -137,6 +137,7 @@ const DashboardPage = () => {
         setOpenPostModal={setOpenPostModal}
         openPreviewModal={openPreviewModal}
         setOpenPreviewModal={setOpenPreviewModal}
+        usersInfo={usersInfo}
       />
       <DashFooter />
     </Grid>

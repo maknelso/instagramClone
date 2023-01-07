@@ -33,8 +33,9 @@ class generate_post(Resource):
 
         # get iamge url
         filename = frontend_data["filename"]
+        feedDesc = frontend_data["feedDesc"]
         img_url = f"https://instagramclone-2022.s3.us-west-1.amazonaws.com/upload/123/{filename}"
-        img_description = "some test image desc"
+        img_description = feedDesc
 
         current_post = Post(
             account_id=account_id,
