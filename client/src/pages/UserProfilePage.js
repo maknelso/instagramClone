@@ -16,7 +16,7 @@ const ProfileWrapper = styled(Grid)(({ theme }) => ({
 }));
 
 const ProfileContainer = styled(Grid)(({ theme }) => ({
-  height: "100vh",
+  height: "100%",
   [theme.breakpoints.up("sm")]: {
     marginLeft: "65px",
   },
