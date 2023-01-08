@@ -1,33 +1,39 @@
-import { Grid, Typography } from "@mui/material";
-import React from "react";
-import alex from "../../assets/images/dashboard/alex-suprun-ZHvM3XIOHoE-unsplash.jpg";
-import jake from "../../assets/images/dashboard/jake-nackos-IF9TK5Uy-KI-unsplash.jpg";
-import { styled } from "@mui/material/styles";
+import { Grid, Typography } from '@mui/material';
+import React from 'react';
+import alex from '../../assets/images/dashboard/alex-suprun-ZHvM3XIOHoE-unsplash.jpg';
+import jake from '../../assets/images/dashboard/jake-nackos-IF9TK5Uy-KI-unsplash.jpg';
+import { styled } from '@mui/material/styles';
 
 const DashFollowContainer = styled(Grid)(({ theme }) => ({
-  display: "flex",
-  gap: "1rem",
-  padding: "0.6rem",
-  border: "1px solid lightgrey",
-  background: "white",
-  marginBottom: "1rem",
-  marginTop: "1rem",
-  borderRadius: "4px",
+  display: 'flex',
+  gap: '1rem',
+  padding: '0.6rem',
+  border: '1px solid lightgrey',
+  background: 'white',
+  marginBottom: '1rem',
+  marginTop: '1rem',
+  borderRadius: '4px',
 
-  [theme.breakpoints.up("sm")]: {
+  [theme.breakpoints.up('sm')]: {
     marginTop: 0,
   },
 
-  [theme.breakpoints.up("md")]: {
-    margin: "0",
-    marginBottom: "1rem",
+  [theme.breakpoints.up('md')]: {
+    margin: '0',
+    marginBottom: '1rem',
   },
 }));
 
 const DashFollowing = ({ userFollowingPosts }) => {
+  const key = 'username';
+
+  const arrayUniqueByKey = [
+    ...new Map(userFollowingPosts.map((item) => [item[key], item])).values(),
+  ];
+
   return (
     <DashFollowContainer>
-      {userFollowingPosts.map((user, index) => {
+      {arrayUniqueByKey.map((user, index) => {
         return (
           <Grid
             display="flex"
@@ -37,24 +43,24 @@ const DashFollowing = ({ userFollowingPosts }) => {
           >
             <Grid
               sx={{
-                width: "50px",
-                height: "50px",
-                padding: "0.2rem",
-                border: "double 2px transparent",
+                width: '50px',
+                height: '50px',
+                padding: '0.2rem',
+                border: 'double 2px transparent',
                 backgroundImage:
-                  "linear-gradient(white, white), radial-gradient(circle at top left, #f00,#F4D35E)",
+                  'linear-gradient(white, white), radial-gradient(circle at top left, #f00,#F4D35E)',
 
-                backgroundOrigin: "border-box",
-                backgroundClip: "padding-box, border-box",
-                borderRadius: "50%",
+                backgroundOrigin: 'border-box',
+                backgroundClip: 'padding-box, border-box',
+                borderRadius: '50%',
               }}
             >
               <img
                 style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  borderRadius: "50%",
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  borderRadius: '50%',
                 }}
                 src={user.avatar}
               ></img>
