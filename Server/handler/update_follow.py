@@ -47,3 +47,27 @@ class update_follow(Resource):
 
         follows_table = Following.query.all()
         return follows_table
+
+    def delete(self):
+        if not request.headers.get("Authorization"):
+            return jsonify({"message": "Please login"}), 401
+        auth_token = request.headers.get("Authorization").split(" ")[1]
+
+        data = jwt.decode(auth_token, SECRET_KEY, algorithms="HS256")
+
+        current_user = Account.query.filter_by(email=data["email"]).first()
+
+        # get account id
+        account_id = current_user.account_id
+
+        frontend_data = json.loads(request.get_data())
+        following_id = frontend_data["followingId"]
+
+        follow_data = Following.query.filter_by(
+            follower_id=account_id, following_id=following_id
+        ).first()
+
+        db.session.delete(follow_data)
+        db.session.commit()
+
+        return "following record has been deleted"
