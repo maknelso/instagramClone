@@ -1,48 +1,48 @@
-import React, { useEffect, useState } from "react";
-import Drawer from "@mui/material/Drawer";
-import Divider from "@mui/material/Divider";
-import { Grid, Typography } from "@mui/material";
-import { styled } from "@mui/material/styles";
-import InputBase from "@mui/material/InputBase";
-import CloseIcon from "@mui/icons-material/Close";
-import Avatar from "@mui/material/Avatar";
-import MenuItem from "@mui/material/MenuItem";
-import axios from "axios";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import Drawer from '@mui/material/Drawer';
+import Divider from '@mui/material/Divider';
+import { Grid, Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import InputBase from '@mui/material/InputBase';
+import CloseIcon from '@mui/icons-material/Close';
+import Avatar from '@mui/material/Avatar';
+import MenuItem from '@mui/material/MenuItem';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const DashDrawer = styled(Drawer)(({ theme }) => ({
-  "& .MuiDrawer-paper": {
-    position: "absolute",
-    left: "65px",
-    boxShadow: "none",
-    borderRight: "1px solid lightgrey",
+  '& .MuiDrawer-paper': {
+    position: 'absolute',
+    left: '65px',
+    boxShadow: 'none',
+    borderRight: '1px solid lightgrey',
 
-    [theme.breakpoints.up("lg")]: {
-      left: "200px",
+    [theme.breakpoints.up('lg')]: {
+      left: '200px',
     },
   },
 }));
 
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
+const Search = styled('div')(({ theme }) => ({
+  position: 'relative',
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: "#F7F8FA",
+  backgroundColor: '#F7F8FA',
   marginLeft: 0,
-  width: "100%",
+  width: '100%',
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
+  color: 'inherit',
+  '& .MuiInputBase-input': {
     // padding: theme.spacing(1, 1, 1, 0),
-    padding: "1rem",
-    transition: theme.transitions.create("width"),
-    color: "black",
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      width: "40ch",
-      "&:focus": {
-        width: "20ch",
+    padding: '1rem',
+    transition: theme.transitions.create('width'),
+    color: 'black',
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: '40ch',
+      '&:focus': {
+        width: '20ch',
       },
     },
   },
@@ -50,11 +50,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function DashSearchDrawer({ isDrawerOpen, setIsDrawderOpen }) {
   const [searchDb, setSearchDb] = useState([]);
-  const [searchItem, setSearchItem] = useState("");
+  const [searchItem, setSearchItem] = useState('');
 
   useEffect(() => {
     axios
-      .get("/api/login")
+      .get('/api/login')
       .then((response) => {
         setSearchDb(response.data);
         // console.log(response.data);
@@ -65,7 +65,7 @@ export default function DashSearchDrawer({ isDrawerOpen, setIsDrawderOpen }) {
         setSearchDb(filteredArr);
       })
       .catch(() => {});
-  }, [searchItem]);
+  }, [searchItem, searchDb]);
 
   const handleSearchOnChange = (e) => {
     setSearchItem(e.target.value);
@@ -79,9 +79,9 @@ export default function DashSearchDrawer({ isDrawerOpen, setIsDrawderOpen }) {
         open={isDrawerOpen}
         onClose={() => setIsDrawderOpen(false)}
       >
-        <Grid sx={{ width: "350px" }}>
+        <Grid sx={{ width: '350px' }}>
           <Grid
-            sx={{ p: "1rem" }}
+            sx={{ p: '1rem' }}
             display="flex"
             flexDirection="column"
             gap={3}
@@ -92,8 +92,8 @@ export default function DashSearchDrawer({ isDrawerOpen, setIsDrawderOpen }) {
                 onChange={handleSearchOnChange}
                 value={searchItem}
                 placeholder="Enter username…"
-                inputProps={{ "aria-label": "search" }}
-                sx={{ width: "100%" }}
+                inputProps={{ 'aria-label': 'search' }}
+                sx={{ width: '100%' }}
               />
             </Search>
           </Grid>
@@ -101,9 +101,9 @@ export default function DashSearchDrawer({ isDrawerOpen, setIsDrawderOpen }) {
           <Grid>
             <Grid
               sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                p: "1rem",
+                display: 'flex',
+                justifyContent: 'space-between',
+                p: '1rem',
               }}
             >
               <Typography fontWeight={500}>Recent</Typography>
@@ -113,21 +113,21 @@ export default function DashSearchDrawer({ isDrawerOpen, setIsDrawderOpen }) {
               return (
                 <Link
                   style={{
-                    textDecoration: "none",
-                    color: "black",
-                    cursor: "pointer",
+                    textDecoration: 'none',
+                    color: 'black',
+                    cursor: 'pointer',
                   }}
                   key={index}
                   to={`/instagram/${user.username}`}
                 >
                   <MenuItem
-                    sx={{ display: "flex", justifyContent: "space-between" }}
+                    sx={{ display: 'flex', justifyContent: 'space-between' }}
                   >
                     <Grid
                       sx={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        gap: "1rem",
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        gap: '1rem',
                       }}
                     >
                       <Avatar src={user.avatar} />
