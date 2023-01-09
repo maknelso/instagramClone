@@ -194,14 +194,9 @@ export default function DashHeader({
     setAnchorEl(event.currentTarget);
   };
 
-  // if (!usersInfo) {
-  //   return <p>Loading...</p>;
-  // }
-
   console.log(usersInfo);
 
   return (
-    // <Box sx={{ flexGrow: 1 }}>
     <DashAppBar>
       <DashToolBar>
         <DashLogoWrapper>

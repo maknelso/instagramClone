@@ -11,6 +11,7 @@ import axios from 'axios';
 import DashModal from '../components/dashboard/DashModal';
 import DashFooter from '../components/dashboard/DashFooter';
 import DashNewPostModal from '../components/dashboard/DashNewPostModal';
+import Loader from '../components/loader/Loader';
 
 const DashContainer = styled(Grid)(({ theme }) => ({
   height: '100%',
@@ -101,11 +102,7 @@ const DashboardPage = () => {
   }
 
   if (!usersInfo) {
-    return (
-      <main>
-        <p>Loading...</p>
-      </main>
-    );
+    return <Loader />;
   }
 
   // console.log(usersInfo);

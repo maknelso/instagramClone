@@ -7,6 +7,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import ProfileBottom from '../components/profilepage/ProfileBottom';
 import DashHeader from '../components/dashboard/DashHeader';
 import { styled } from '@mui/material/styles';
+import Loader from '../components/loader/Loader';
 
 const ProfileWrapper = styled(Grid)(({ theme }) => ({
   [theme.breakpoints.up('lg')]: {
@@ -61,11 +62,7 @@ const UserProfilePage = () => {
   // }
 
   if (!user) {
-    return (
-      <main>
-        <p>Loading...</p>
-      </main>
-    );
+    return <Loader />;
   }
 
   const {
