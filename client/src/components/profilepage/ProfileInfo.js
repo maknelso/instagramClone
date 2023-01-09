@@ -4,6 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { styled } from '@mui/material/styles';
 import profile from '../../assets/images/profilepage/profile.jpg';
+import axios from 'axios';
 
 const ProfileInfoWrapper = styled(Grid)(({ theme }) => ({
   borderBottom: '1px solid lightgrey',
@@ -70,6 +71,7 @@ const ProfileInfoBtn = styled(Button)(({ theme }) => ({
 }));
 
 const ProfileInfo = ({
+  account_id,
   username,
   name,
   current_follower,
@@ -77,6 +79,36 @@ const ProfileInfo = ({
   currentpost,
   avatar,
 }) => {
+  const handlePostFollow = () => {
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+      // setFailedAuth(true);
+      return;
+    }
+    // write follow record to db
+    axios
+      .post(
+        '/api/update-follow',
+        {
+          followingId: account_id,
+        },
+        {
+          headers: {
+            Authorization: 'Bearer ' + token,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        // handle success
+        console.log('data successfully saved to db');
+      })
+      .catch((err) => {
+        // handle API error
+        console.log('save failed: ' + err.message);
+      });
+  };
+
   return (
     <ProfileInfoWrapper container item display="flex">
       <Grid item xs={3} sm={4} display="flex" flexDirection="column" gap={2}>
@@ -101,7 +133,9 @@ const ProfileInfo = ({
               <SettingsIcon fontSize="large" />
             </IconButton>
           </Grid>
-          <Button variant="contained">Follow</Button>
+          <Button variant="contained" onClick={handlePostFollow}>
+            Follow
+          </Button>
           <ProfileInfoBtn variant="outlined" fullWidth color="secondary">
             Edit Profile
           </ProfileInfoBtn>

@@ -31,7 +31,6 @@ const UserProfilePage = () => {
   // const [failedAuth, setFailedAuth] = useState(false);
 
   // const navigate = useNavigate();
-
   const { user_name } = useParams();
 
   useEffect(() => {
@@ -66,6 +65,7 @@ const UserProfilePage = () => {
   }
 
   const {
+    account_id,
     name,
     username,
     avatar,
@@ -85,6 +85,7 @@ const UserProfilePage = () => {
           current_following={current_following}
           currentpost={current_post}
           avatar={avatar}
+          account_id={account_id}
         />
         <ProfilePosts
           currentpost={current_post}
