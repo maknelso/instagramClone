@@ -65,7 +65,7 @@ export default function DashSearchDrawer({ isDrawerOpen, setIsDrawderOpen }) {
         setSearchDb(filteredArr);
       })
       .catch(() => {});
-  }, [searchItem, searchDb]);
+  }, [searchItem]);
 
   const handleSearchOnChange = (e) => {
     setSearchItem(e.target.value);

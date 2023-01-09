@@ -1,71 +1,71 @@
-import * as React from "react";
-import { Typography, Grid, Button } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
-import SettingsIcon from "@mui/icons-material/Settings";
-import { styled } from "@mui/material/styles";
-import profile from "../../assets/images/profilepage/profile.jpg";
+import * as React from 'react';
+import { Typography, Grid, Button } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import SettingsIcon from '@mui/icons-material/Settings';
+import { styled } from '@mui/material/styles';
+import profile from '../../assets/images/profilepage/profile.jpg';
 
 const ProfileInfoWrapper = styled(Grid)(({ theme }) => ({
-  borderBottom: "1px solid lightgrey",
-  padding: "3rem",
-  [theme.breakpoints.up("sm")]: {},
+  borderBottom: '1px solid lightgrey',
+  padding: '3rem',
+  [theme.breakpoints.up('sm')]: {},
 }));
 
 const ProfileInfoImgWrapper = styled(Grid)(({ theme }) => ({
-  maxWidth: "77px",
-  [theme.breakpoints.up("sm")]: {
-    maxWidth: "150px",
+  maxWidth: '77px',
+  [theme.breakpoints.up('sm')]: {
+    maxWidth: '150px',
   },
 }));
 
 const ProfileMobileName = styled(Typography)(({ theme }) => ({
-  [theme.breakpoints.up("sm")]: {
-    display: "none",
+  [theme.breakpoints.up('sm')]: {
+    display: 'none',
   },
 }));
 
 const ProfileInfoRight = styled(Grid)(({ theme }) => ({
-  [theme.breakpoints.up("sm")]: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "1.6rem",
+  [theme.breakpoints.up('sm')]: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '1.6rem',
   },
 }));
 
 const ProfileInfoRightFirst = styled(Grid)(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  [theme.breakpoints.up("sm")]: {
-    flexDirection: "row",
-    alignItems: "center",
-    maxWidth: "300px",
-    justifyContent: "space-between",
+  display: 'flex',
+  flexDirection: 'column',
+  [theme.breakpoints.up('sm')]: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    maxWidth: '300px',
+    justifyContent: 'space-between',
   },
 }));
 
 const ProfileInfoRightSecond = styled(Grid)(({ theme }) => ({
-  display: "none",
+  display: 'none',
 
-  [theme.breakpoints.up("sm")]: {
-    display: "flex",
-    justifyContent: "space-between",
-    width: "300px",
+  [theme.breakpoints.up('sm')]: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '300px',
   },
 }));
 
 const ProfileInfoRightThird = styled(Grid)(({ theme }) => ({
-  display: "none",
-  [theme.breakpoints.up("sm")]: {
-    display: "block",
+  display: 'none',
+  [theme.breakpoints.up('sm')]: {
+    display: 'block',
   },
 }));
 
 const ProfileInfoBtn = styled(Button)(({ theme }) => ({
-  maxWidth: "250px",
-  maxHeight: "30px",
-  [theme.breakpoints.up("sm")]: {
-    maxWidth: "110px",
-    padding: "0.3rem 0",
+  maxWidth: '250px',
+  maxHeight: '30px',
+  [theme.breakpoints.up('sm')]: {
+    maxWidth: '110px',
+    padding: '0.3rem 0',
   },
 }));
 
@@ -83,7 +83,7 @@ const ProfileInfo = ({
         <ProfileInfoImgWrapper>
           <img
             src={avatar}
-            style={{ borderRadius: "50%", width: "100%" }}
+            style={{ borderRadius: '50%', width: '100%' }}
           ></img>
         </ProfileInfoImgWrapper>
         <ProfileMobileName variant="h6">{name}</ProfileMobileName>
@@ -101,28 +101,29 @@ const ProfileInfo = ({
               <SettingsIcon fontSize="large" />
             </IconButton>
           </Grid>
+          <Button variant="contained">Follow</Button>
           <ProfileInfoBtn variant="outlined" fullWidth color="secondary">
             Edit Profile
           </ProfileInfoBtn>
         </ProfileInfoRightFirst>
         <ProfileInfoRightSecond>
           <Grid display="flex" alignItems="center" gap={0.6}>
-            <Typography sx={{ fontSize: "1.6rem" }}>
+            <Typography sx={{ fontSize: '1.6rem' }}>
               {currentpost.length}
             </Typography>
-            <Typography sx={{ fontSize: "1.4rem" }}>post</Typography>
+            <Typography sx={{ fontSize: '1.4rem' }}>post</Typography>
           </Grid>
           <Grid display="flex" alignItems="center" gap={0.6}>
-            <Typography sx={{ fontSize: "1.6rem" }}>
+            <Typography sx={{ fontSize: '1.6rem' }}>
               {current_follower}
             </Typography>
-            <Typography sx={{ fontSize: "1.4rem" }}>followers</Typography>
+            <Typography sx={{ fontSize: '1.4rem' }}>followers</Typography>
           </Grid>
           <Grid display="flex" alignItems="center" gap={0.6}>
-            <Typography sx={{ fontSize: "1.6rem" }}>
+            <Typography sx={{ fontSize: '1.6rem' }}>
               {current_following}
             </Typography>
-            <Typography sx={{ fontSize: "1.4rem" }}>follwing</Typography>
+            <Typography sx={{ fontSize: '1.4rem' }}>follwing</Typography>
           </Grid>
         </ProfileInfoRightSecond>
         <ProfileInfoRightThird>

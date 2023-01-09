@@ -84,13 +84,7 @@ const ProfilePosts = ({ currentpost, current_follower, current_following }) => {
       <Grid container item display="flex" justifyContent="space-between">
         {currentpost.map((post, index) => {
           return (
-            <Grid
-              key={index}
-              item
-              xs={3.6}
-              display="flex"
-              justifyContent="space-around"
-            >
+            <Grid key={index} item xs={3.6} display="flex">
               <img
                 style={{
                   width: '100%',

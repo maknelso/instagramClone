@@ -105,8 +105,6 @@ const DashboardPage = () => {
     return <Loader />;
   }
 
-  // console.log(usersInfo);
-
   return (
     <Grid sx={{ height: '100%', position: 'relative' }}>
       <DashHeader
