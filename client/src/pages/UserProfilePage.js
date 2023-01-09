@@ -1,27 +1,27 @@
-import { Grid } from "@mui/material";
-import React, { useState, useEffect } from "react";
-import ProfileInfo from "../components/profilepage/ProfileInfo";
-import ProfilePosts from "../components/profilepage/ProfilePosts";
-import axios from "axios";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import ProfileBottom from "../components/profilepage/ProfileBottom";
-import DashHeader from "../components/dashboard/DashHeader";
-import { styled } from "@mui/material/styles";
+import { Grid } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import ProfileInfo from '../components/profilepage/ProfileInfo';
+import ProfilePosts from '../components/profilepage/ProfilePosts';
+import axios from 'axios';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import ProfileBottom from '../components/profilepage/ProfileBottom';
+import DashHeader from '../components/dashboard/DashHeader';
+import { styled } from '@mui/material/styles';
 
 const ProfileWrapper = styled(Grid)(({ theme }) => ({
-  [theme.breakpoints.up("lg")]: {
-    marginLeft: "5rem",
-    marginRight: "5rem",
+  [theme.breakpoints.up('lg')]: {
+    marginLeft: '5rem',
+    marginRight: '5rem',
   },
 }));
 
 const ProfileContainer = styled(Grid)(({ theme }) => ({
-  height: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: "65px",
+  height: '100vh',
+  [theme.breakpoints.up('sm')]: {
+    marginLeft: '65px',
   },
-  [theme.breakpoints.up("lg")]: {
-    marginLeft: "200px",
+  [theme.breakpoints.up('lg')]: {
+    marginLeft: '200px',
   },
 }));
 

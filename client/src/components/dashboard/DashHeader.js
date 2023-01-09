@@ -15,10 +15,10 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import SearchIcon from '@mui/icons-material/Search';
 import ExploreIcon from '@mui/icons-material/Explore';
 import { theme } from '../ThemeColor';
-import { Link } from 'react-router-dom';
 import DashHamBtn from './DashHamBtn';
 import DashSearchMobile from './DashSearchMobile';
 import DashSearchDrawer from './DashSearchDrawer';
+import { Link } from 'react-router-dom';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -194,6 +194,12 @@ export default function DashHeader({
     setAnchorEl(event.currentTarget);
   };
 
+  // if (!usersInfo) {
+  //   return <p>Loading...</p>;
+  // }
+
+  console.log(usersInfo);
+
   return (
     // <Box sx={{ flexGrow: 1 }}>
     <DashAppBar>
@@ -291,31 +297,33 @@ export default function DashHeader({
             })}
           </DashMobileDisappear>
 
-          <Link
-            // to={`/instagram/${usersInfo.username}`}
-            style={{ color: 'black', textDecoration: 'none' }}
-          >
-            <DashIconHover
-              className="dash__hover"
-              display="flex"
-              gap={1}
-              alignItems="center"
+          {usersInfo && (
+            <Link
+              to={`/instagram/${usersInfo.username}`}
+              style={{ color: 'black', textDecoration: 'none' }}
             >
-              <img
-                src={profile}
-                style={{
-                  width: '20px',
-                  borderRadius: '50%',
-                  border: '1px solid black',
-                }}
-              ></img>
-              <DashIconText
-                sx={{ color: theme.palette.black.main, fontWeight: 'bold' }}
+              <DashIconHover
+                className="dash__hover"
+                display="flex"
+                gap={1}
+                alignItems="center"
               >
-                Profile
-              </DashIconText>
-            </DashIconHover>
-          </Link>
+                <img
+                  src={profile}
+                  style={{
+                    width: '20px',
+                    borderRadius: '50%',
+                    border: '1px solid black',
+                  }}
+                ></img>
+                <DashIconText
+                  sx={{ color: theme.palette.black.main, fontWeight: 'bold' }}
+                >
+                  Profile
+                </DashIconText>
+              </DashIconHover>
+            </Link>
+          )}
         </DashIconWrapper>
       </DashToolBar>
       <DashSearchDrawer
