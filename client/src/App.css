@@ -99,3 +99,7 @@
 .toggle__upload__btn {
   display: none !important;
 }
+
+.follow__btn {
+  display: none !important;
+}

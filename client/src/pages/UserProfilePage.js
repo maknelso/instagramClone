@@ -28,6 +28,8 @@ const ProfileContainer = styled(Grid)(({ theme }) => ({
 
 const UserProfilePage = () => {
   const [user, setUser] = useState(null);
+  const [followStatus, setFollowStatus] = useState(false);
+
   // const [failedAuth, setFailedAuth] = useState(false);
 
   // const navigate = useNavigate();
@@ -54,7 +56,7 @@ const UserProfilePage = () => {
       .catch(() => {
         // setFailedAuth(false);
       });
-  }, []);
+  }, [followStatus]);
 
   // if (failedAuth) {
   //   navigate("/");
@@ -86,6 +88,8 @@ const UserProfilePage = () => {
           currentpost={current_post}
           avatar={avatar}
           account_id={account_id}
+          followStatus={followStatus}
+          setFollowStatus={setFollowStatus}
         />
         <ProfilePosts
           currentpost={current_post}

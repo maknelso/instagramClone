@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Typography, Grid, Button } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -78,7 +78,11 @@ const ProfileInfo = ({
   current_following,
   currentpost,
   avatar,
+  followStatus,
+  setFollowStatus,
 }) => {
+  useEffect(() => {}, [followStatus]);
+
   const handlePostFollow = () => {
     const token = sessionStorage.getItem('token');
     if (!token) {
@@ -100,12 +104,41 @@ const ProfileInfo = ({
       )
       .then((res) => {
         console.log(res);
+        setFollowStatus(true);
         // handle success
         console.log('data successfully saved to db');
       })
       .catch((err) => {
         // handle API error
         console.log('save failed: ' + err.message);
+      });
+  };
+
+  const handleDeleteFollow = () => {
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+      // setFailedAuth(true);
+      return;
+    }
+    // write follow record to db
+    axios
+      .delete('/api/update-follow', {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+        data: {
+          followingId: account_id,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        setFollowStatus(true);
+        // handle success
+        console.log('data successfully deleted from db');
+      })
+      .catch((err) => {
+        // handle API error
+        console.log('delete failed: ' + err.message);
       });
   };
 
@@ -124,18 +157,22 @@ const ProfileInfo = ({
         <ProfileInfoRightFirst>
           <Grid display="flex" alignItems="center">
             <Typography variant="h4">{username}</Typography>
-            <IconButton
-              size="large"
-              // edge="start"
-              color="black"
-              aria-label="menu"
-            >
+            <IconButton size="large" color="black" aria-label="menu">
               <SettingsIcon fontSize="large" />
             </IconButton>
           </Grid>
-          <Button variant="contained" onClick={handlePostFollow}>
+          <Button
+            className={followStatus ? 'follow__btn' : ''}
+            variant="contained"
+            onClick={handlePostFollow}
+          >
             Follow
           </Button>
+          {followStatus && (
+            <Button variant="contained" onClick={handleDeleteFollow}>
+              Unfollow
+            </Button>
+          )}
           <ProfileInfoBtn variant="outlined" fullWidth color="secondary">
             Edit Profile
           </ProfileInfoBtn>
