@@ -1,15 +1,15 @@
-    "email": "123@gmail.com",
-    "name": "Nelson ",
-    "username": "123",
-    "password": "abc"
-
-    "email": "tony321@gmail.com",
-    "name": "TonyTest",
-    "username": "tonytest123321",
+    "email": "johns@gmail.com",
+    "name": "John Smith",
+    "username": "Johnsmith123",
     "password": "Password123!"
 
-    "email": "josh1992@gmail.com",
-    "name": "Josh",
-    "username": "josh1992",
+    "email": "janes@gmail.com",
+    "name": "Jane Smith",
+    "username": "Janesmith123",
+    "password": "Password123!"
+
+    "email": "jasons@gmail.com",
+    "name": "Jason Smith",
+    "username": "Jasonsmith123",
     "password": "Password123!"
 

@@ -28,13 +28,14 @@ class generate_post(Resource):
 
         # get account id
         account_id = current_user.account_id
+        username = current_user.username
 
         frontend_data = json.loads(request.get_data())
 
         # get iamge url
         filename = frontend_data["filename"]
         feedDesc = frontend_data["feedDesc"]
-        img_url = f"https://instagramclone-2022.s3.us-west-1.amazonaws.com/upload/123/{filename}"
+        img_url = f"https://instagramclone-2022.s3.us-west-1.amazonaws.com/upload/{username}/{filename}"
         img_description = feedDesc
 
         current_post = Post(

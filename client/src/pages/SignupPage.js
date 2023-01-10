@@ -1,42 +1,49 @@
-import React, { useEffect, useState } from "react";
-import { Button, Divider, Grid, TextField, Typography } from "@mui/material";
-import { styled } from "@mui/material/styles";
-import heroImg from "../assets/images/d2529dbef8ed.png";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import appleStore from "../assets/images/apple_store.png";
-import googleStore from "../assets/images/google_store.png";
-import axios from "axios";
-import { theme } from "../components/ThemeColor";
-import { Link } from "react-router-dom";
-import validator from "validator";
+import React, { useEffect, useState } from 'react';
+import { Button, Divider, Grid, TextField, Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import heroImg from '../assets/images/d2529dbef8ed.png';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import appleStore from '../assets/images/apple_store.png';
+import googleStore from '../assets/images/google_store.png';
+import axios from 'axios';
+import { theme } from '../components/ThemeColor';
+import { Link } from 'react-router-dom';
+import validator from 'validator';
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Container = styled(Grid)(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  alignItems: "center",
-  padding: "0 2rem",
-  height: "100vh",
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  padding: '0 2rem',
+  height: '100vh',
 }));
 
 const ContainerInner = styled(Grid)(({ theme }) => ({
-  maxWidth: "330px",
-  [theme.breakpoints.up("sm")]: {
-    border: "1px solid lightgrey",
-    padding: "1rem 2rem",
-    background: "white",
+  maxWidth: '330px',
+  [theme.breakpoints.up('sm')]: {
+    border: '1px solid lightgrey',
+    padding: '1rem 2rem',
+    background: 'white',
   },
 }));
 
 const SignupPage = () => {
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [phoneNumberErr, setPhoneNumberErr] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [fullNameErr, setFullNameErr] = useState("");
-  const [userName, setUserName] = useState("");
-  const [userNameErr, setUserNameErr] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordErr, setPasswordErr] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [phoneNumberErr, setPhoneNumberErr] = useState('');
+  const [fullName, setFullName] = useState('');
+  const [fullNameErr, setFullNameErr] = useState('');
+  const [userName, setUserName] = useState('');
+  const [userNameErr, setUserNameErr] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordErr, setPasswordErr] = useState('');
+
+  const notify = () => toast('Successfully signed up!');
+
+  const navigate = useNavigate();
 
   const handleOnChangePhone = (e) => {
     setPhoneNumber(e.target.value);
@@ -57,6 +64,10 @@ const SignupPage = () => {
   const handleUserRegister = (e) => {
     e.preventDefault();
     validate();
+    notify();
+    setTimeout(() => {
+      navigate('/');
+    }, '2000');
 
     const fetchRegisterApi = async () => {
       const payload = {
@@ -67,7 +78,7 @@ const SignupPage = () => {
       };
       try {
         if (!phoneNumberErr && !userNameErr && !fullNameErr && !passwordErr) {
-          const res = await axios.post("/api/register", payload);
+          const res = await axios.post('/api/register', payload);
           console.log(res);
         } else {
           return null;
@@ -82,37 +93,37 @@ const SignupPage = () => {
   const validate = () => {
     // email and phone number validation
     if (!phoneNumber) {
-      setPhoneNumberErr("Please enter your email or phone number");
+      setPhoneNumberErr('Please enter your email or phone number');
     } else if (!validator.isEmail(phoneNumber)) {
-      if (validator.isMobilePhone(phoneNumber, "en-CA")) {
-        setPhoneNumberErr("");
+      if (validator.isMobilePhone(phoneNumber, 'en-CA')) {
+        setPhoneNumberErr('');
       } else {
-        setPhoneNumberErr("Please enter a valid email address or phone number");
+        setPhoneNumberErr('Please enter a valid email address or phone number');
       }
     } else if (validator.isEmail(phoneNumber)) {
-      setPhoneNumberErr("");
+      setPhoneNumberErr('');
     }
     // full name validation
     if (!fullName) {
-      setFullNameErr("Please enter your full name");
+      setFullNameErr('Please enter your full name');
     } else if (fullName) {
-      setFullNameErr("");
+      setFullNameErr('');
     }
     // user name validation
     if (!userName) {
-      setUserNameErr("Please enter your user name");
+      setUserNameErr('Please enter your user name');
     } else if (userName) {
-      setUserNameErr("");
+      setUserNameErr('');
     }
     if (!password) {
-      setPasswordErr("Please enter your password");
+      setPasswordErr('Please enter your password');
     } else if (password) {
       if (!validator.isStrongPassword(password)) {
         setPasswordErr(
-          "Please enter at least 8 digit, and include at least  1 lowercase, 1 uppercase, 1 number, and a symbol"
+          'Please enter at least 8 digit, and include at least  1 lowercase, 1 uppercase, 1 number, and a symbol'
         );
       } else {
-        setPasswordErr("");
+        setPasswordErr('');
       }
     }
   };
@@ -121,14 +132,14 @@ const SignupPage = () => {
     <Container>
       <ContainerInner>
         <Grid>
-          <Grid sx={{ p: "1rem 4rem" }}>
-            <img style={{ width: "100%" }} src={heroImg}></img>
+          <Grid sx={{ p: '1rem 4rem' }}>
+            <img style={{ width: '100%' }} src={heroImg}></img>
           </Grid>
           <Typography
             variant="body1"
             color={theme.palette.grey.main}
             fontWeight={500}
-            sx={{ textAlign: "center", mb: "1rem" }}
+            sx={{ textAlign: 'center', mb: '1rem' }}
           >
             Sign up to see photos and videos from your friends.
           </Typography>
@@ -137,15 +148,15 @@ const SignupPage = () => {
             startIcon={<FacebookIcon />}
             fullWidth
             sx={{
-              textTransform: "capitalize",
-              fontSize: "12px",
-              mb: "1.6rem",
-              height: "30px",
+              textTransform: 'capitalize',
+              fontSize: '12px',
+              mb: '1.6rem',
+              height: '30px',
             }}
           >
             Log in with Facebook
           </Button>
-          <Divider sx={{ mb: "1.2rem" }}>OR</Divider>
+          <Divider sx={{ mb: '1.2rem' }}>OR</Divider>
 
           <form onSubmit={handleUserRegister}>
             <TextField
@@ -154,11 +165,11 @@ const SignupPage = () => {
               name="phoneNumber"
               // autoComplete="email"
               placeholder="Phone number, username, or email"
-              sx={{ mb: "0.5rem" }}
+              sx={{ mb: '0.5rem' }}
               inputProps={{
                 style: {
-                  height: "6px",
-                  fontSize: "12px",
+                  height: '6px',
+                  fontSize: '12px',
                 },
               }}
               onChange={handleOnChangePhone}
@@ -169,11 +180,11 @@ const SignupPage = () => {
             <TextField
               fullWidth
               placeholder="Full Name"
-              sx={{ mb: "0.5rem" }}
+              sx={{ mb: '0.5rem' }}
               inputProps={{
                 style: {
-                  height: "6px",
-                  fontSize: "12px",
+                  height: '6px',
+                  fontSize: '12px',
                 },
               }}
               onChange={handleOnChangeFullName}
@@ -184,11 +195,11 @@ const SignupPage = () => {
             <TextField
               fullWidth
               placeholder="Username"
-              sx={{ mb: "0.5rem" }}
+              sx={{ mb: '0.5rem' }}
               inputProps={{
                 style: {
-                  height: "6px",
-                  fontSize: "12px",
+                  height: '6px',
+                  fontSize: '12px',
                 },
               }}
               onChange={handleOnChangeUserName}
@@ -202,25 +213,25 @@ const SignupPage = () => {
               type="password"
               inputProps={{
                 style: {
-                  height: "6px",
-                  fontSize: "12px",
+                  height: '6px',
+                  fontSize: '12px',
                 },
               }}
               onChange={handleOnChangePassword}
               value={password}
               error={passwordErr ? true : false}
               helperText={passwordErr ? passwordErr : null}
-              sx={{ mb: "0.5rem" }}
+              sx={{ mb: '0.5rem' }}
             />
             <Button
               type="submit"
               variant="contained"
               fullWidth
               sx={{
-                textTransform: "capitalize",
-                fontSize: "12px",
-                mb: "1.2rem",
-                height: "30px",
+                textTransform: 'capitalize',
+                fontSize: '12px',
+                mb: '1.2rem',
+                height: '30px',
               }}
             >
               Sign up
@@ -228,13 +239,13 @@ const SignupPage = () => {
           </form>
           <Typography
             fontSize="12px"
-            sx={{ textAlign: "center", mb: "0.8rem" }}
+            sx={{ textAlign: 'center', mb: '0.8rem' }}
           >
             Have an account?
             <Link
               to="/"
               style={{
-                textDecoration: "none",
+                textDecoration: 'none',
                 color: theme.palette.primary.main,
               }}
             >
@@ -243,15 +254,15 @@ const SignupPage = () => {
           </Typography>
         </Grid>
 
-        <Typography fontSize="12px" sx={{ textAlign: "center", mb: "1rem" }}>
+        <Typography fontSize="12px" sx={{ textAlign: 'center', mb: '1rem' }}>
           Get the app
         </Typography>
-        <Grid display="flex" justifyContent="space-between" sx={{ mb: "2rem" }}>
-          <Grid sx={{ width: "48%" }}>
-            <img style={{ width: "100%" }} src={appleStore}></img>
+        <Grid display="flex" justifyContent="space-between" sx={{ mb: '2rem' }}>
+          <Grid sx={{ width: '48%' }}>
+            <img style={{ width: '100%' }} src={appleStore}></img>
           </Grid>
-          <Grid sx={{ width: "48%" }}>
-            <img style={{ width: "100%" }} src={googleStore}></img>
+          <Grid sx={{ width: '48%' }}>
+            <img style={{ width: '100%' }} src={googleStore}></img>
           </Grid>
         </Grid>
         <Typography textAlign="center" color="secondary">

@@ -39,6 +39,7 @@ migrate = Migrate(app, db)
 
 # create db
 with app.app_context():
+    # db.drop_all()
     db.create_all()
 
 # users_reg route is used to register new users
