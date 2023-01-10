@@ -39,7 +39,7 @@ const ProfileInfoRightFirst = styled(Grid)(({ theme }) => ({
   [theme.breakpoints.up('sm')]: {
     flexDirection: 'row',
     alignItems: 'center',
-    maxWidth: '300px',
+    maxWidth: '420px',
     justifyContent: 'space-between',
   },
 }));
@@ -154,7 +154,7 @@ const ProfileInfo = ({
         <ProfileMobileName variant="h6">{name}</ProfileMobileName>
       </Grid>
       <ProfileInfoRight item xs={9} sm={8}>
-        <ProfileInfoRightFirst>
+        <ProfileInfoRightFirst display="flex" justifyContent="space-between">
           <Grid display="flex" alignItems="center">
             <Typography variant="h4">{username}</Typography>
             <IconButton size="large" color="black" aria-label="menu">

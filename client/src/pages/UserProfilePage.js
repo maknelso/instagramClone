@@ -29,26 +29,11 @@ const ProfileContainer = styled(Grid)(({ theme }) => ({
 const UserProfilePage = () => {
   const [user, setUser] = useState(null);
   const [followStatus, setFollowStatus] = useState(false);
-
-  // const [failedAuth, setFailedAuth] = useState(false);
-
-  // const navigate = useNavigate();
   const { user_name } = useParams();
 
   useEffect(() => {
-    // const token = sessionStorage.getItem("token");
-
-    // if (!token) {
-    //   setFailedAuth(true);
-    //   return;
-    // }
-
     axios
-      .get(`/api/instagram/${user_name}`, {
-        // headers: {
-        //   Authorization: "Bearer " + token,
-        // },
-      })
+      .get(`/api/instagram/${user_name}`)
       .then((response) => {
         console.log(response);
         setUser(response.data);
@@ -57,10 +42,6 @@ const UserProfilePage = () => {
         // setFailedAuth(false);
       });
   }, [followStatus]);
-
-  // if (failedAuth) {
-  //   navigate("/");
-  // }
 
   if (!user) {
     return <Loader />;
