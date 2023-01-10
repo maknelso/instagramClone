@@ -161,19 +161,19 @@ const DashSinglePost = ({
               cursor: 'pointer',
             }}
           />
-          <ShareOutlinedIcon
+          {/* <ShareOutlinedIcon
             fontSize="large"
             sx={{
               cursor: 'pointer',
             }}
-          />
+          /> */}
         </Grid>
-        <BookmarkBorderIcon
+        {/* <BookmarkBorderIcon
           fontSize="large"
           sx={{
             cursor: 'pointer',
           }}
-        />
+        /> */}
       </Grid>
       <Grid display="flex" flexDirection="column" gap={1} sx={{ p: '1rem' }}>
         {/* <Typography fontSize="12px">

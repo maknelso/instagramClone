@@ -260,6 +260,14 @@ export default function DashHeader({
                 Search
               </DashIconText>
             </DashIconHover>
+            <DashIconHover className="dash__hover">
+              <Grid sx={{ color: theme.palette.black.main }}>
+                <ChatBubbleOutlineIcon fontSize="large" />
+              </Grid>
+              <DashIconText sx={{ color: theme.palette.black.main }}>
+                Messages
+              </DashIconText>
+            </DashIconHover>
             <DashIconHover
               className="dash__hover"
               onClick={() => setOpenPostModal(true)}
