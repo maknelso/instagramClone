@@ -132,7 +132,7 @@ const ProfileInfo = ({
       })
       .then((res) => {
         console.log(res);
-        setFollowStatus(true);
+        setFollowStatus(false);
         // handle success
         console.log('data successfully deleted from db');
       })

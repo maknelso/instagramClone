@@ -272,7 +272,7 @@ export default function DashHeader({
               </DashIconText>
             </DashIconHover>
             {/* </Link> */}
-            {navItems.map((item, index) => {
+            {/* {navItems.map((item, index) => {
               return (
                 <Link
                   to={item.to}
@@ -289,7 +289,7 @@ export default function DashHeader({
                   </DashIconHover>
                 </Link>
               );
-            })}
+            })} */}
           </DashMobileDisappear>
 
           {usersInfo && (
@@ -330,35 +330,3 @@ export default function DashHeader({
     // </Box>
   );
 }
-
-const navItems = [
-  {
-    id: 3,
-    logo: <ExploreIcon fontSize="large" />,
-    text: 'Explore',
-    to: '/dashboard',
-  },
-  {
-    id: 4,
-    logo: <ChatBubbleOutlineIcon fontSize="large" />,
-    text: 'Messages',
-    to: '/dashboard',
-  },
-  {
-    id: 5,
-    logo: <FavoriteBorderIcon fontSize="large" />,
-    text: 'Notifications',
-    to: '/dashboard',
-  },
-  // {
-  //   id: 6,
-  //   logo: (
-  //     <AddCircleOutlineIcon
-  //       fontSize="large"
-  //       onClick={() => openPostModal(true)}
-  //     />
-  //   ),
-  //   text: 'Create',
-  //   to: '/dashboard',
-  // },
-];

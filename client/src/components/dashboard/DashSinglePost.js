@@ -197,12 +197,6 @@ const DashSinglePost = ({
         >
           View all comments
         </Typography>
-        {/* <Typography
-          fontSize="12px"
-          sx={{ color: theme.palette.secondary.main }}
-        >
-          14 hours ago
-        </Typography> */}
       </Grid>
       <Grid
         display="flex"
