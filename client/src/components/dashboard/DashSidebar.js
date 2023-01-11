@@ -85,7 +85,7 @@ const DashSidebar = ({ usersInfo }) => {
           </Grid>
           <Grid display="flex" flexDirection="column">
             <Typography variant="body2" fontWeight="bold">
-              Johnsmith
+              MessiLeo
             </Typography>
             <Typography fontSize="12px">Followed by Jane + 4 more</Typography>
           </Grid>

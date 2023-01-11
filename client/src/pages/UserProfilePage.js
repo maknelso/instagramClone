@@ -28,20 +28,47 @@ const ProfileContainer = styled(Grid)(({ theme }) => ({
 
 const UserProfilePage = () => {
   const [user, setUser] = useState(null);
-  const [followStatus, setFollowStatus] = useState(false);
+  const [followStatus, setFollowStatus] = useState({});
   const { user_name } = useParams();
+
+  useEffect(() => {
+    const res = {};
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+      return;
+    }
+
+    axios
+      .get('/api/update-follow', {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      })
+      .then((response) => {
+        // console.log(response);
+        response.data.forEach((followInfo) => {
+          res[followInfo.following_id] = true;
+        });
+        setFollowStatus(res);
+      })
+      .catch(() => {
+        // setFailedAuth(false);
+      });
+  }, []);
 
   useEffect(() => {
     axios
       .get(`/api/instagram/${user_name}`)
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         setUser(response.data);
       })
       .catch(() => {
         // setFailedAuth(false);
       });
   }, [followStatus]);
+
+  // console.log(user);
 
   if (!user) {
     return <Loader />;
@@ -56,6 +83,8 @@ const UserProfilePage = () => {
     current_follower,
     current_following,
   } = user;
+
+  console.log(followStatus);
 
   return (
     <ProfileContainer>

@@ -19,6 +19,7 @@ import DashHamBtn from './DashHamBtn';
 import DashSearchMobile from './DashSearchMobile';
 import DashSearchDrawer from './DashSearchDrawer';
 import { Link } from 'react-router-dom';
+import Loader from '../loader/Loader';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -193,8 +194,6 @@ export default function DashHeader({
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
-  console.log(usersInfo);
 
   return (
     <DashAppBar>

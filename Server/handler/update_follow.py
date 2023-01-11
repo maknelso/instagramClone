@@ -22,6 +22,28 @@ userFields = {
 
 class update_follow(Resource):
     @marshal_with(userFields)
+    def get(self):
+        if not request.headers.get("Authorization"):
+            return jsonify({"message": "Please login"}), 401
+        auth_token = request.headers.get("Authorization").split(" ")[1]
+
+        data = jwt.decode(auth_token, SECRET_KEY, algorithms="HS256")
+
+        current_user = Account.query.filter_by(email=data["email"]).first()
+
+        # get account id
+        account_id = current_user.account_id
+        current_follow = Following.query.all()
+
+        # create and return the array that only contain the current users' following_id
+        current_user_obj = []
+        for followObj in current_follow:
+            if followObj.follower_id == account_id:
+                current_user_obj.append(followObj)
+
+        return current_user_obj
+
+    @marshal_with(userFields)
     def post(self):
         if not request.headers.get("Authorization"):
             return jsonify({"message": "Please login"}), 401
@@ -37,37 +59,54 @@ class update_follow(Resource):
         frontend_data = json.loads(request.get_data())
         following_id = frontend_data["followingId"]
 
-        follow_data = Following(
-            follower_id=account_id,
-            following_id=following_id,
-        )
+        # determine the add or delete record condition
 
-        db.session.add(follow_data)
+        if frontend_data["ifFollow"]:
+            follow_data = Following(
+                follower_id=account_id,
+                following_id=following_id,
+            )
+            db.session.add(follow_data)
+
+        else:
+            follow_data = Following.query.filter_by(
+                follower_id=account_id, following_id=following_id
+            ).first()
+            db.session.delete(follow_data)
+
         db.session.commit()
+
+        # follow_data = Following(
+        #     follower_id=account_id,
+        #     following_id=following_id,
+        # )
+
+        # db.session.add(follow_data)
+        # db.session.commit()
 
         follows_table = Following.query.all()
         return follows_table
 
-    def delete(self):
-        if not request.headers.get("Authorization"):
-            return jsonify({"message": "Please login"}), 401
-        auth_token = request.headers.get("Authorization").split(" ")[1]
+    # def delete(self):
+    #     if not request.headers.get("Authorization"):
+    #         return jsonify({"message": "Please login"}), 401
+    #     auth_token = request.headers.get("Authorization").split(" ")[1]
 
-        data = jwt.decode(auth_token, SECRET_KEY, algorithms="HS256")
+    #     data = jwt.decode(auth_token, SECRET_KEY, algorithms="HS256")
 
-        current_user = Account.query.filter_by(email=data["email"]).first()
+    #     current_user = Account.query.filter_by(email=data["email"]).first()
 
-        # get account id
-        account_id = current_user.account_id
+    #     # get account id
+    #     account_id = current_user.account_id
 
-        frontend_data = json.loads(request.get_data())
-        following_id = frontend_data["followingId"]
+    #     frontend_data = json.loads(request.get_data())
+    #     following_id = frontend_data["followingId"]
 
-        follow_data = Following.query.filter_by(
-            follower_id=account_id, following_id=following_id
-        ).first()
+    #     # follow_data = Following.query.filter_by(
+    #     #     follower_id=account_id, following_id=following_id
+    #     # ).first()
 
-        db.session.delete(follow_data)
-        db.session.commit()
+    #     # db.session.delete(follow_data)
+    #     db.session.commit()
 
-        return "following record has been deleted"
+    #     return "following record has been deleted"

@@ -95,6 +95,7 @@ const ProfileInfo = ({
         '/api/update-follow',
         {
           followingId: account_id,
+          ifFollow: !followStatus[account_id],
         },
         {
           headers: {
@@ -161,15 +162,20 @@ const ProfileInfo = ({
               <SettingsIcon fontSize="large" />
             </IconButton>
           </Grid>
-          <Button
-            className={followStatus ? 'follow__btn' : ''}
+          {/* <Button
+            className={followStatus[account_id] ? 'follow__btn' : ''}
             variant="contained"
             onClick={handlePostFollow}
           >
             Follow
-          </Button>
-          {followStatus && (
-            <Button variant="contained" onClick={handleDeleteFollow}>
+          </Button> */}
+          {!followStatus[account_id] && (
+            <Button variant="contained" onClick={handlePostFollow}>
+              follow
+            </Button>
+          )}
+          {followStatus[account_id] && (
+            <Button variant="contained" onClick={handlePostFollow}>
               Unfollow
             </Button>
           )}
