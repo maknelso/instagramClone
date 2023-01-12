@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Drawer from '@mui/material/Drawer';
 import Divider from '@mui/material/Divider';
-import { Grid, Typography } from '@mui/material';
+import { Grid, Typography, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import CloseIcon from '@mui/icons-material/Close';
 import Avatar from '@mui/material/Avatar';
 import MenuItem from '@mui/material/MenuItem';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const DashDrawer = styled(Drawer)(({ theme }) => ({
   '& .MuiDrawer-paper': {
@@ -51,6 +51,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function DashSearchDrawer({ isDrawerOpen, setIsDrawderOpen }) {
   const [searchDb, setSearchDb] = useState([]);
   const [searchItem, setSearchItem] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -111,14 +112,14 @@ export default function DashSearchDrawer({ isDrawerOpen, setIsDrawderOpen }) {
             </Grid>
             {searchDb.map((user, index) => {
               return (
-                <Link
+                <Button
                   style={{
                     textDecoration: 'none',
                     color: 'black',
                     cursor: 'pointer',
                   }}
                   key={index}
-                  to={`/instagram/${user.username}`}
+                  onClick={() => navigate(`/instagram/${user.username}`)}
                 >
                   <MenuItem
                     sx={{ display: 'flex', justifyContent: 'space-between' }}
@@ -138,7 +139,7 @@ export default function DashSearchDrawer({ isDrawerOpen, setIsDrawderOpen }) {
                     </Grid>
                     <CloseIcon />
                   </MenuItem>
-                </Link>
+                </Button>
               );
             })}
 

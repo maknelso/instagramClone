@@ -39,7 +39,7 @@ const ProfileInfoRightFirst = styled(Grid)(({ theme }) => ({
   [theme.breakpoints.up('sm')]: {
     flexDirection: 'row',
     alignItems: 'center',
-    maxWidth: '420px',
+    maxWidth: '350px',
     justifyContent: 'space-between',
   },
 }));
@@ -80,10 +80,15 @@ const ProfileInfo = ({
   avatar,
   followStatus,
   setFollowStatus,
+  // followRes,
+  // setFollowRes,
 }) => {
-  useEffect(() => {}, [followStatus]);
+  useEffect(() => {
+    console.log(username);
+  }, [followStatus]);
 
   const handlePostFollow = () => {
+    console.log(followStatus);
     const token = sessionStorage.getItem('token');
     if (!token) {
       // setFailedAuth(true);
@@ -105,41 +110,18 @@ const ProfileInfo = ({
       )
       .then((res) => {
         console.log(res);
-        setFollowStatus(true);
+        setFollowStatus({ [account_id]: !followStatus[account_id] });
+        console.log(followStatus);
+        // setFollowStatus({
+        //   ...followStatus,
+        //   [account_id]: followStatus[!followStatus],
+        // });
         // handle success
         console.log('data successfully saved to db');
       })
       .catch((err) => {
         // handle API error
         console.log('save failed: ' + err.message);
-      });
-  };
-
-  const handleDeleteFollow = () => {
-    const token = sessionStorage.getItem('token');
-    if (!token) {
-      // setFailedAuth(true);
-      return;
-    }
-    // write follow record to db
-    axios
-      .delete('/api/update-follow', {
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
-        data: {
-          followingId: account_id,
-        },
-      })
-      .then((res) => {
-        console.log(res);
-        setFollowStatus(false);
-        // handle success
-        console.log('data successfully deleted from db');
-      })
-      .catch((err) => {
-        // handle API error
-        console.log('delete failed: ' + err.message);
       });
   };
 
@@ -162,26 +144,16 @@ const ProfileInfo = ({
               <SettingsIcon fontSize="large" />
             </IconButton>
           </Grid>
-          {/* <Button
-            className={followStatus[account_id] ? 'follow__btn' : ''}
-            variant="contained"
-            onClick={handlePostFollow}
-          >
-            Follow
-          </Button> */}
-          {!followStatus[account_id] && (
+
+          {followStatus[account_id] ? (
+            <Button variant="contained" onClick={handlePostFollow}>
+              unfollow
+            </Button>
+          ) : (
             <Button variant="contained" onClick={handlePostFollow}>
               follow
             </Button>
           )}
-          {followStatus[account_id] && (
-            <Button variant="contained" onClick={handlePostFollow}>
-              Unfollow
-            </Button>
-          )}
-          <ProfileInfoBtn variant="outlined" fullWidth color="secondary">
-            Edit Profile
-          </ProfileInfoBtn>
         </ProfileInfoRightFirst>
         <ProfileInfoRightSecond>
           <Grid display="flex" alignItems="center" gap={0.6}>

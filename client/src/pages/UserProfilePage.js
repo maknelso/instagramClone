@@ -29,6 +29,7 @@ const ProfileContainer = styled(Grid)(({ theme }) => ({
 const UserProfilePage = () => {
   const [user, setUser] = useState(null);
   const [followStatus, setFollowStatus] = useState({});
+  // const [followRes, setFollowRes] = useState({});
   const { user_name } = useParams();
 
   useEffect(() => {
@@ -49,6 +50,7 @@ const UserProfilePage = () => {
         response.data.forEach((followInfo) => {
           res[followInfo.following_id] = true;
         });
+        // console.log(res);
         setFollowStatus(res);
       })
       .catch(() => {
@@ -84,8 +86,6 @@ const UserProfilePage = () => {
     current_following,
   } = user;
 
-  console.log(followStatus);
-
   return (
     <ProfileContainer>
       <DashHeader />
@@ -100,6 +100,8 @@ const UserProfilePage = () => {
           account_id={account_id}
           followStatus={followStatus}
           setFollowStatus={setFollowStatus}
+          // followRes={followRes}
+          // setFollowRes={setFollowRes}
         />
         <ProfilePosts
           currentpost={current_post}
