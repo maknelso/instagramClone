@@ -1,8 +1,7 @@
 import { Grid, Typography } from '@mui/material';
 import React from 'react';
-import alex from '../../assets/images/dashboard/alex-suprun-ZHvM3XIOHoE-unsplash.jpg';
-import jake from '../../assets/images/dashboard/jake-nackos-IF9TK5Uy-KI-unsplash.jpg';
 import { styled } from '@mui/material/styles';
+import DashNoFollow from './DashNoFollow';
 
 const DashFollowContainer = styled(Grid)(({ theme }) => ({
   display: 'flex',
@@ -30,6 +29,10 @@ const DashFollowing = ({ userFollowingPosts }) => {
   const arrayUniqueByKey = [
     ...new Map(userFollowingPosts.map((item) => [item[key], item])).values(),
   ];
+
+  if (userFollowingPosts.length === 0) {
+    return <DashNoFollow />;
+  }
 
   return (
     <DashFollowContainer>

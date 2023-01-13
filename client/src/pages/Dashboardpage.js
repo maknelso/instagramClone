@@ -14,7 +14,7 @@ import UserContext from '../contexts/userContext';
 import axios from 'axios';
 
 const DashContainer = styled(Grid)(({ theme }) => ({
-  height: '100%',
+  minHeight: '100vh',
   maxWidth: '400px',
   margin: '0 auto',
   [theme.breakpoints.up('md')]: {
