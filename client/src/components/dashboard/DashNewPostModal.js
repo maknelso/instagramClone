@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useContext } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -9,6 +9,7 @@ import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 
 import axios from 'axios';
 import { theme } from '../ThemeColor';
+import UserContext from '../../contexts/userContext';
 
 const style = {
   position: 'absolute',
@@ -54,19 +55,14 @@ const styleUpload = {
   flexDirection: 'column',
 };
 
-export default function DashNewPostModal({
-  openPostModal,
-  setOpenPostModal,
-  openPreviewModal,
-  setOpenPreviewModal,
-  usersInfo,
-}) {
+export default function DashNewPostModal({ usersInfo }) {
   const uploadRef = useRef(null);
   const [files, setFiles] = useState([]);
   const [preview, setPreivew] = useState();
   const [feedDesc, setFeedDesc] = useState('');
-  const [showUpload, setShowUpload] = useState(false);
   const [step, setStep] = useState(0);
+
+  const { openPostModal, setOpenPostModal } = useContext(UserContext);
 
   useEffect(() => {
     if (files.length === 0) {
@@ -82,10 +78,8 @@ export default function DashNewPostModal({
 
   useEffect(() => {}, [step]);
 
-  // const handleOpenPostModal = () => setOpenPostModal(true);
   const handleClosePostModal = () => {
     setOpenPostModal(false);
-    // setShowUpload(false);
   };
 
   const handleChangeImgDesc = (e) => {
@@ -97,9 +91,6 @@ export default function DashNewPostModal({
   };
 
   const handleAddFileToState = (e) => {
-    // console.log(e.target.files[0]);
-    // user upload multiple files
-    // setFiles([...files, ...e.target.files]);
     setFiles(e.target.files);
     setStep(1);
   };
@@ -107,7 +98,6 @@ export default function DashNewPostModal({
   const handleUploadPost = () => {
     const token = sessionStorage.getItem('token');
     if (!token) {
-      // setFailedAuth(true);
       return;
     }
 
@@ -136,7 +126,6 @@ export default function DashNewPostModal({
       });
 
     // send file to backend
-
     axios
       .get('/api/upload-s3-url?filename=' + files[0].name, {
         headers: {
@@ -146,7 +135,6 @@ export default function DashNewPostModal({
       .then((res) => {
         // make form data as a container to include files and fields
         const formData = new FormData();
-        console.log(res);
 
         // extract url and fields from response
         const { url, fields } = JSON.parse(res.data.res);
@@ -227,21 +215,13 @@ export default function DashNewPostModal({
                 justifyContent: 'space-between',
               }}
             >
-              <Typography
-                variant="h6"
-                // textAlign="center"
-                sx={{ p: '1rem', fontWeight: 500 }}
-              >
+              <Typography variant="h6" sx={{ p: '1rem', fontWeight: 500 }}>
                 <KeyboardBackspaceIcon
                   fontSize="large"
                   onClick={() => setStep(0)}
                 />
               </Typography>
-              <Typography
-                variant="h5"
-                // textAlign="center"
-                sx={{ p: '1rem', fontWeight: 700 }}
-              >
+              <Typography variant="h5" sx={{ p: '1rem', fontWeight: 700 }}>
                 Preview
               </Typography>
               <Typography
@@ -274,21 +254,13 @@ export default function DashNewPostModal({
                 borderBottom: '1px solid lightgrey',
               }}
             >
-              <Typography
-                variant="h6"
-                // textAlign="center"
-                sx={{ p: '1rem', fontWeight: 500 }}
-              >
+              <Typography variant="h6" sx={{ p: '1rem', fontWeight: 500 }}>
                 <KeyboardBackspaceIcon
                   fontSize="large"
                   onClick={() => setStep(0)}
                 />
               </Typography>
-              <Typography
-                variant="h5"
-                // textAlign="center"
-                sx={{ p: '1rem', fontWeight: 700 }}
-              >
+              <Typography variant="h5" sx={{ p: '1rem', fontWeight: 700 }}>
                 Create new post
               </Typography>
               <Typography
@@ -351,5 +323,3 @@ export default function DashNewPostModal({
     </div>
   );
 }
-
-// DashNewPostModal

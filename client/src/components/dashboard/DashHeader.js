@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useContext } from 'react';
 import AppBar from '@mui/material/AppBar';
 import { styled } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
@@ -6,20 +6,18 @@ import InputBase from '@mui/material/InputBase';
 import logo from '../../assets/images/d2529dbef8ed.png';
 import profile from '../../assets/images/profilepage/profile.jpg';
 import { Grid } from '@mui/material';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import HomeIcon from '@mui/icons-material/Home';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import SearchIcon from '@mui/icons-material/Search';
-import ExploreIcon from '@mui/icons-material/Explore';
 import { theme } from '../ThemeColor';
 import DashHamBtn from './DashHamBtn';
 import DashSearchMobile from './DashSearchMobile';
 import DashSearchDrawer from './DashSearchDrawer';
 import { Link } from 'react-router-dom';
-import Loader from '../loader/Loader';
+import UserContext from '../../contexts/userContext';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -182,14 +180,11 @@ const DashDownWrapper = styled(Grid)(({ theme }) => ({
   // [theme.breakpoints.up("md")]: {},
 }));
 
-export default function DashHeader({
-  handleLogOut,
-  usersInfo,
-  setOpenPostModal,
-  setOpenPreviewModal,
-}) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [isDrawerOpen, setIsDrawderOpen] = React.useState(false);
+export default function DashHeader({ handleLogOut, usersInfo }) {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [isDrawerOpen, setIsDrawderOpen] = useState(false);
+
+  const { setOpenPostModal } = useContext(UserContext);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -278,25 +273,6 @@ export default function DashHeader({
                 Create
               </DashIconText>
             </DashIconHover>
-            {/* </Link> */}
-            {/* {navItems.map((item, index) => {
-              return (
-                <Link
-                  to={item.to}
-                  key={index}
-                  style={{ color: 'black', textDecoration: 'none' }}
-                >
-                  <DashIconHover className="dash__hover">
-                    <Grid sx={{ color: theme.palette.black.main }}>
-                      {item.logo}
-                    </Grid>
-                    <DashIconText sx={{ color: theme.palette.black.main }}>
-                      {item.text}
-                    </DashIconText>
-                  </DashIconHover>
-                </Link>
-              );
-            })} */}
           </DashMobileDisappear>
 
           {usersInfo && (
@@ -334,6 +310,5 @@ export default function DashHeader({
       />
       <DashHamBtn handleLogOut={handleLogOut} />
     </DashAppBar>
-    // </Box>
   );
 }

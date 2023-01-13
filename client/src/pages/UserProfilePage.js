@@ -1,13 +1,15 @@
 import { Grid } from '@mui/material';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import ProfileInfo from '../components/profilepage/ProfileInfo';
 import ProfilePosts from '../components/profilepage/ProfilePosts';
 import axios from 'axios';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import ProfileBottom from '../components/profilepage/ProfileBottom';
 import DashHeader from '../components/dashboard/DashHeader';
 import { styled } from '@mui/material/styles';
 import Loader from '../components/loader/Loader';
+import UserContext from '../contexts/userContext';
+import DashNewPostModal from '../components/dashboard/DashNewPostModal';
 
 const ProfileWrapper = styled(Grid)(({ theme }) => ({
   [theme.breakpoints.up('lg')]: {
@@ -29,8 +31,27 @@ const ProfileContainer = styled(Grid)(({ theme }) => ({
 const UserProfilePage = () => {
   const [user, setUser] = useState(null);
   const [followStatus, setFollowStatus] = useState({});
-  // const [followRes, setFollowRes] = useState({});
+  const [usersInfo, setUsersInfo] = useState(null);
   const { user_name } = useParams();
+
+  useEffect(() => {
+    const token = sessionStorage.getItem('token');
+
+    if (!token) {
+      return;
+    }
+
+    axios
+      .get('/api/protect', {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      })
+      .then((response) => {
+        setUsersInfo(response.data);
+      })
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     const res = {};
@@ -46,15 +67,13 @@ const UserProfilePage = () => {
         },
       })
       .then((response) => {
-        // console.log(response);
         response.data.forEach((followInfo) => {
           res[followInfo.following_id] = true;
         });
-        // console.log(res);
         setFollowStatus(res);
       })
-      .catch(() => {
-        // setFailedAuth(false);
+      .catch((error) => {
+        console.log(error);
       });
   }, []);
 
@@ -62,15 +81,12 @@ const UserProfilePage = () => {
     axios
       .get(`/api/instagram/${user_name}`)
       .then((response) => {
-        // console.log(response);
         setUser(response.data);
       })
-      .catch(() => {
-        // setFailedAuth(false);
+      .catch((error) => {
+        console.log(error);
       });
   }, [followStatus]);
-
-  // console.log(user);
 
   if (!user) {
     return <Loader />;
@@ -100,8 +116,6 @@ const UserProfilePage = () => {
           account_id={account_id}
           followStatus={followStatus}
           setFollowStatus={setFollowStatus}
-          // followRes={followRes}
-          // setFollowRes={setFollowRes}
         />
         <ProfilePosts
           currentpost={current_post}
@@ -110,6 +124,7 @@ const UserProfilePage = () => {
         />
         <ProfileBottom />
       </ProfileWrapper>
+      <DashNewPostModal usersInfo={usersInfo} />
     </ProfileContainer>
   );
 };

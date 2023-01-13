@@ -1,17 +1,17 @@
 import { Grid } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import DashFollowing from '../components/dashboard/DashFollowing';
 import DashHeader from '../components/dashboard/DashHeader';
 import DashPosts from '../components/dashboard/DashPosts';
 import DashSidebar from '../components/dashboard/DashSidebar';
 import { styled } from '@mui/material/styles';
-import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import DashModal from '../components/dashboard/DashModal';
 import DashFooter from '../components/dashboard/DashFooter';
 import DashNewPostModal from '../components/dashboard/DashNewPostModal';
 import Loader from '../components/loader/Loader';
+import UserContext from '../contexts/userContext';
+import axios from 'axios';
 
 const DashContainer = styled(Grid)(({ theme }) => ({
   height: '100%',
@@ -43,17 +43,10 @@ const DashContainerRight = styled(Grid)(({ theme }) => ({
 }));
 
 const DashboardPage = () => {
+  const [open, setOpen] = useState(false);
   const [usersInfo, setUsersInfo] = useState(null);
   const [failedAuth, setFailedAuth] = useState(false);
   const [userFollowingPosts, setUserFollowingPosts] = useState([]);
-
-  // modal state in DashModal.js
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-
-  // modal state in DashNewPostModal.js
-  const [openPostModal, setOpenPostModal] = React.useState(false);
-  const [openPreviewModal, setOpenPreviewModal] = React.useState(false);
 
   const navigate = useNavigate();
 
@@ -82,7 +75,6 @@ const DashboardPage = () => {
           post.username = userData.username;
           post.avatar = userData.avatar;
           userPosts.push(post);
-          // userFollowingPosts.push(post);
         });
         setUserFollowingPosts(userPosts);
       })
@@ -90,6 +82,18 @@ const DashboardPage = () => {
         setFailedAuth(false);
       });
   }, []);
+
+  useEffect(() => {
+    if (failedAuth) {
+      navigate('/');
+    }
+  }, [failedAuth]);
+
+  // modal state in DashModal.js
+
+  const handleOpen = () => setOpen(true);
+
+  // modal state in DashNewPostModal.js
 
   const handleLogOut = () => {
     sessionStorage.removeItem('token');
@@ -107,12 +111,7 @@ const DashboardPage = () => {
 
   return (
     <Grid sx={{ height: '100%', position: 'relative' }}>
-      <DashHeader
-        handleLogOut={handleLogOut}
-        usersInfo={usersInfo}
-        setOpenPostModal={setOpenPostModal}
-        setOpenPreviewModal={setOpenPreviewModal}
-      />
+      <DashHeader handleLogOut={handleLogOut} usersInfo={usersInfo} />
       <DashContainer>
         <DashContainerLeft>
           <DashFollowing userFollowingPosts={userFollowingPosts} />
@@ -127,13 +126,7 @@ const DashboardPage = () => {
         </DashContainerRight>
       </DashContainer>
       <DashModal open={open} setOpen={setOpen} />
-      <DashNewPostModal
-        openPostModal={openPostModal}
-        setOpenPostModal={setOpenPostModal}
-        openPreviewModal={openPreviewModal}
-        setOpenPreviewModal={setOpenPreviewModal}
-        usersInfo={usersInfo}
-      />
+      <DashNewPostModal usersInfo={usersInfo} />
       <DashFooter />
     </Grid>
   );

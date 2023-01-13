@@ -61,15 +61,6 @@ const ProfileInfoRightThird = styled(Grid)(({ theme }) => ({
   },
 }));
 
-const ProfileInfoBtn = styled(Button)(({ theme }) => ({
-  maxWidth: '250px',
-  maxHeight: '30px',
-  [theme.breakpoints.up('sm')]: {
-    maxWidth: '110px',
-    padding: '0.3rem 0',
-  },
-}));
-
 const ProfileInfo = ({
   account_id,
   username,
@@ -80,18 +71,13 @@ const ProfileInfo = ({
   avatar,
   followStatus,
   setFollowStatus,
-  // followRes,
-  // setFollowRes,
 }) => {
-  useEffect(() => {
-    console.log(username);
-  }, [followStatus]);
+  useEffect(() => {}, [followStatus]);
 
   const handlePostFollow = () => {
     console.log(followStatus);
     const token = sessionStorage.getItem('token');
     if (!token) {
-      // setFailedAuth(true);
       return;
     }
     // write follow record to db
@@ -111,11 +97,7 @@ const ProfileInfo = ({
       .then((res) => {
         console.log(res);
         setFollowStatus({ [account_id]: !followStatus[account_id] });
-        console.log(followStatus);
-        // setFollowStatus({
-        //   ...followStatus,
-        //   [account_id]: followStatus[!followStatus],
-        // });
+
         // handle success
         console.log('data successfully saved to db');
       })
