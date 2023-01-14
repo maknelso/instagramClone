@@ -1,29 +1,29 @@
-import * as React from "react";
-import Button from "@mui/material/Button";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import { Divider, Grid, Typography } from "@mui/material";
-import DehazeOutlinedIcon from "@mui/icons-material/DehazeOutlined";
-import { theme } from "../ThemeColor";
-import { styled, alpha } from "@mui/material/styles";
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import { Divider, Grid, Typography } from '@mui/material';
+import DehazeOutlinedIcon from '@mui/icons-material/DehazeOutlined';
+import { theme } from '../ThemeColor';
+import { styled, alpha } from '@mui/material/styles';
 
 const DashHamburger = styled(Grid)(({ theme }) => ({
-  display: "none",
-  [theme.breakpoints.up("sm")]: {
-    display: "block",
+  display: 'none',
+  [theme.breakpoints.up('sm')]: {
+    display: 'block',
   },
-  [theme.breakpoints.up("lg")]: {
-    display: "flex",
-    alignItems: "center",
-    gap: "1rem",
+  [theme.breakpoints.up('lg')]: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '1rem',
   },
 }));
 
 const DashIconText = styled(Grid)(({ theme }) => ({
-  display: "none",
-  [theme.breakpoints.up("lg")]: {
-    display: "block",
-    fontSize: "16px",
+  display: 'none',
+  [theme.breakpoints.up('lg')]: {
+    display: 'block',
+    fontSize: '16px',
   },
 }));
 
@@ -40,13 +40,13 @@ export default function DashHamBtn({ handleLogOut }) {
   return (
     <div>
       <DashHamburger
-        sx={{ color: theme.palette.black.main, pt: "1rem", cursor: "pointer" }}
+        sx={{ color: theme.palette.black.main, pt: '1rem', cursor: 'pointer' }}
         className="dash__hover"
         fontSize="medium"
         id="demo-positioned-button"
-        aria-controls={open ? "demo-positioned-menu" : undefined}
+        aria-controls={open ? 'demo-positioned-menu' : undefined}
         aria-haspopup="true"
-        aria-expanded={open ? "true" : undefined}
+        aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
         <DehazeOutlinedIcon fontSize="large" />
@@ -61,34 +61,46 @@ export default function DashHamBtn({ handleLogOut }) {
         open={open}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: "top",
-          horizontal: "left",
+          vertical: 'top',
+          horizontal: 'left',
         }}
         transformOrigin={{
-          vertical: "bottom",
-          horizontal: "left",
+          vertical: 'bottom',
+          horizontal: 'left',
         }}
       >
         <MenuItem
-          sx={{ pt: 0, pb: 0, minHeight: 0, width: "180px" }}
+          sx={{ minHeight: 0, width: '180px', m: 0 }}
           onClick={handleClose}
         >
           Settings
         </MenuItem>
-        <Divider />
-        <MenuItem sx={{ pt: 0, pb: 0, minHeight: 0 }} onClick={handleClose}>
+        <Divider sx={{ m: 0 }} />
+        <MenuItem
+          sx={{ minHeight: 0, width: '180px', m: 0 }}
+          onClick={handleClose}
+        >
           Saved
         </MenuItem>
         <Divider />
-        <MenuItem sx={{ pt: 0, pb: 0, minHeight: 0 }} onClick={handleClose}>
+        <MenuItem
+          sx={{ minHeight: 0, width: '180px', m: 0 }}
+          onClick={handleClose}
+        >
           Report a problem
         </MenuItem>
         <Divider />
-        <MenuItem sx={{ pt: 0, pb: 0, minHeight: 0 }} onClick={handleClose}>
+        <MenuItem
+          sx={{ minHeight: 0, width: '180px', m: 0 }}
+          onClick={handleClose}
+        >
           Switch accounts
         </MenuItem>
         <Divider />
-        <MenuItem sx={{ pt: 0, pb: 0, minHeight: 0 }} onClick={handleLogOut}>
+        <MenuItem
+          sx={{ minHeight: 0, width: '180px', m: 0 }}
+          onClick={handleLogOut}
+        >
           Log out
         </MenuItem>
       </Menu>
