@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext, useState } from 'react';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import BottomNavigation from '@mui/material/BottomNavigation';
@@ -12,6 +12,7 @@ import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import { Grid } from '@mui/material';
+import UserContext from '../../contexts/userContext';
 
 const DashFooterMobile = styled(Grid)(({ theme }) => ({
   [theme.breakpoints.up('sm')]: {
@@ -21,8 +22,8 @@ const DashFooterMobile = styled(Grid)(({ theme }) => ({
 }));
 
 export default function DashFooter() {
-  const [value, setValue] = React.useState(0);
-  // const ref = React.useRef(null);
+  const [value, setValue] = useState(0);
+  const { setOpenPostModal } = useContext(UserContext);
 
   return (
     <DashFooterMobile sx={{ pb: 7 }}>
@@ -43,6 +44,7 @@ export default function DashFooter() {
           <BottomNavigationAction
             label="Create Post"
             icon={<AddCircleOutlineIcon />}
+            onClick={() => setOpenPostModal(true)}
           />
           <BottomNavigationAction
             label="Message"

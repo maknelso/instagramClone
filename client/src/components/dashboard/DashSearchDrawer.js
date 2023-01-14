@@ -108,11 +108,17 @@ export default function DashSearchDrawer({ isDrawerOpen, setIsDrawderOpen }) {
               }}
             >
               <Typography fontWeight={500}>Recent</Typography>
-              <Typography color="primary">Clear all</Typography>
+              <Typography
+                sx={{ cursor: 'pointer' }}
+                color="primary"
+                onClick={() => setSearchItem('')}
+              >
+                Clear all
+              </Typography>
             </Grid>
             {searchDb.map((user, index) => {
               return (
-                <Button
+                <Grid
                   style={{
                     textDecoration: 'none',
                     color: 'black',
@@ -139,7 +145,7 @@ export default function DashSearchDrawer({ isDrawerOpen, setIsDrawderOpen }) {
                     </Grid>
                     <CloseIcon />
                   </MenuItem>
-                </Button>
+                </Grid>
               );
             })}
 
