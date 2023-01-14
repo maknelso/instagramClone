@@ -181,7 +181,7 @@ const DashDownWrapper = styled(Grid)(({ theme }) => ({
 }));
 
 export default function DashHeader({ handleLogOut, usersInfo }) {
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(true);
   const [isDrawerOpen, setIsDrawderOpen] = useState(false);
 
   const { setOpenPostModal } = useContext(UserContext);
