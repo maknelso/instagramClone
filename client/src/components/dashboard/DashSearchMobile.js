@@ -8,14 +8,12 @@ import { Grid } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { theme } from '../ThemeColor';
 
-export default function DashSearchMobile({ setAnchorEl, anchorEl }) {
+export default function DashSearchMobile({ anchorEl, open, setOpen }) {
   //   const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  //   const handleClick = (event) => {
-  //     setAnchorEl(event.currentTarget);
-  //   };
+  // const open = Boolean(anchorEl);
+
   const handleClose = () => {
-    setAnchorEl(null);
+    setOpen(false);
   };
   return (
     <Menu

@@ -1,11 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useRef } from 'react';
 import AppBar from '@mui/material/AppBar';
 import { styled } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import InputBase from '@mui/material/InputBase';
 import logo from '../../assets/images/d2529dbef8ed.png';
 import profile from '../../assets/images/profilepage/profile.jpg';
-import { Grid } from '@mui/material';
+import { Grid, TextField, Autocomplete } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
@@ -49,7 +49,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   color: 'black',
 }));
 
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
+const StyledInputBase = styled(TextField)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
@@ -180,15 +180,35 @@ const DashDownWrapper = styled(Grid)(({ theme }) => ({
   // [theme.breakpoints.up("md")]: {},
 }));
 
-export default function DashHeader({ handleLogOut, usersInfo }) {
-  const [anchorEl, setAnchorEl] = useState(true);
-  const [isDrawerOpen, setIsDrawderOpen] = useState(false);
+const SearchInput = (
+  handleSearchChange
+) => {
+  return (
+    // <Search>
+    //   <SearchIconWrapper>
+    //     <SearchIcon />
+    //   </SearchIconWrapper>
+      <StyledInputBase
+        placeholder="Search…"
+        onChange={handleSearchChange}
+        sx={{ width: '100%' }}
+      />
+    // </Search>
+  );
+};
 
+export default function DashHeader({ handleLogOut, usersInfo }) {
+  const [isDrawerOpen, setIsDrawderOpen] = useState(false);
+  const [inputEl, setInputEl] = useState('');
   const { setOpenPostModal } = useContext(UserContext);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+  const handleSearchChange = (e) => {
+    setInputEl(e.target.value);
   };
+
+  console.log(inputEl);
+
+  const options = [{ label: 'Leomessi' }, { label: 'tonyrose123' }];
 
   return (
     <DashAppBar>
@@ -206,21 +226,34 @@ export default function DashHeader({ handleLogOut, usersInfo }) {
             />
           </DashDownWrapper>
         </DashLogoWrapper>
-        <Search>
+        {/* <Search onClick={handleShowPopUp}>
           <SearchIconWrapper>
             <SearchIcon />
           </SearchIconWrapper>
           <StyledInputBase
             placeholder="Search…"
             inputProps={{ 'aria-label': 'search' }}
+            onChange={handleSearchChange}
             sx={{ width: '100%' }}
+            ref={inputRef}
+            onFocus={handleShowPopUp}
           />
         </Search>
-        <DashSearchMobile
-          anchorEl={anchorEl}
-          setAnchorEl={setAnchorEl}
-          handleClick={handleClick}
+        <DashSearchMobile 
+        anchorEl={inputRef} 
+        open={open}
+        setOpen={setOpen}
+         /> */}
+        <Autocomplete
+          // disablePortal
+          options={options}
+          renderInput={
+            (params) =>  <StyledInputBase startAdornment={
+            <SearchIcon />} {...params} />
+          }
+          sx={{ width: '100%' }}
         />
+
         <DashIconWrapper>
           <DashInsLoggo>
             <InstagramIcon
