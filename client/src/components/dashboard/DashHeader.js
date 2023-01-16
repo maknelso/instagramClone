@@ -18,6 +18,7 @@ import DashSearchMobile from './DashSearchMobile';
 import DashSearchDrawer from './DashSearchDrawer';
 import { Link } from 'react-router-dom';
 import UserContext from '../../contexts/userContext';
+import { fontSize } from '@mui/system';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -49,22 +50,22 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   color: 'black',
 }));
 
-const StyledInputBase = styled(TextField)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    color: 'black',
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '40ch',
-      '&:focus': {
-        width: '20ch',
-      },
-    },
-  },
-}));
+// const StyledInputBase = styled(TextField)(({ theme }) => ({
+//   color: 'inherit',
+//   '& .MuiInputBase-input': {
+//     padding: theme.spacing(1, 1, 1, 0),
+//     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+//     transition: theme.transitions.create('width'),
+//     color: 'black',
+//     width: '100%',
+//     [theme.breakpoints.up('sm')]: {
+//       width: '40ch',
+//       '&:focus': {
+//         width: '20ch',
+//       },
+//     },
+//   },
+// }));
 
 const DashToolBar = styled(Toolbar)(({ theme }) => ({
   display: 'flex',
@@ -180,22 +181,26 @@ const DashDownWrapper = styled(Grid)(({ theme }) => ({
   // [theme.breakpoints.up("md")]: {},
 }));
 
-const SearchInput = (
-  handleSearchChange
-) => {
-  return (
-    // <Search>
-    //   <SearchIconWrapper>
-    //     <SearchIcon />
-    //   </SearchIconWrapper>
-      <StyledInputBase
-        placeholder="Search…"
-        onChange={handleSearchChange}
-        sx={{ width: '100%' }}
-      />
-    // </Search>
-  );
-};
+const DashMobileSearch = styled(Grid)(({ theme }) => ({
+  [theme.breakpoints.up('sm')]: {
+    display: 'none',
+  },
+}));
+
+// const SearchInput = (handleSearchChange) => {
+//   return (
+//     // <Search>
+//     //   <SearchIconWrapper>
+//     //     <SearchIcon />
+//     //   </SearchIconWrapper>
+//     <StyledInputBase
+//       placeholder="Search…"
+//       onChange={handleSearchChange}
+//       sx={{ width: '100%' }}
+//     />
+//     // </Search>
+//   );
+// };
 
 export default function DashHeader({ handleLogOut, usersInfo }) {
   const [isDrawerOpen, setIsDrawderOpen] = useState(false);
@@ -244,15 +249,19 @@ export default function DashHeader({ handleLogOut, usersInfo }) {
         open={open}
         setOpen={setOpen}
          /> */}
-        <Autocomplete
-          // disablePortal
-          options={options}
-          renderInput={
-            (params) =>  <StyledInputBase startAdornment={
-            <SearchIcon />} {...params} />
-          }
-          sx={{ width: '100%' }}
-        />
+        <DashMobileSearch sx={{ width: '50%' }}>
+          <Autocomplete
+            options={options}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Search"
+                variant="filled"
+                value={inputEl}
+              />
+            )}
+          />
+        </DashMobileSearch>
 
         <DashIconWrapper>
           <DashInsLoggo>
