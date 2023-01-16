@@ -9,9 +9,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import { theme } from '../ThemeColor';
 
 export default function DashSearchMobile({ anchorEl, open, setOpen }) {
-  //   const [anchorEl, setAnchorEl] = React.useState(null);
-  // const open = Boolean(anchorEl);
-
   const handleClose = () => {
     setOpen(false);
   };
