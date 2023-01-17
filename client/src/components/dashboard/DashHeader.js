@@ -1,11 +1,11 @@
-import React, { useState, useContext, useRef } from 'react';
+import React, { useState, useContext, useRef, useEffect } from 'react';
 import AppBar from '@mui/material/AppBar';
 import { styled } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import InputBase from '@mui/material/InputBase';
 import logo from '../../assets/images/d2529dbef8ed.png';
 import profile from '../../assets/images/profilepage/profile.jpg';
-import { Grid, TextField, Autocomplete } from '@mui/material';
+import { Grid, TextField, Autocomplete, Button } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
@@ -14,11 +14,12 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import SearchIcon from '@mui/icons-material/Search';
 import { theme } from '../ThemeColor';
 import DashHamBtn from './DashHamBtn';
-import DashSearchMobile from './DashSearchMobile';
+// import DashSearchMobile from './DashSearchMobile';
 import DashSearchDrawer from './DashSearchDrawer';
 import { Link } from 'react-router-dom';
 import UserContext from '../../contexts/userContext';
-import { fontSize } from '@mui/system';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -49,23 +50,6 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   justifyContent: 'center',
   color: 'black',
 }));
-
-// const StyledInputBase = styled(TextField)(({ theme }) => ({
-//   color: 'inherit',
-//   '& .MuiInputBase-input': {
-//     padding: theme.spacing(1, 1, 1, 0),
-//     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-//     transition: theme.transitions.create('width'),
-//     color: 'black',
-//     width: '100%',
-//     [theme.breakpoints.up('sm')]: {
-//       width: '40ch',
-//       '&:focus': {
-//         width: '20ch',
-//       },
-//     },
-//   },
-// }));
 
 const DashToolBar = styled(Toolbar)(({ theme }) => ({
   display: 'flex',
@@ -182,38 +166,41 @@ const DashDownWrapper = styled(Grid)(({ theme }) => ({
 }));
 
 const DashMobileSearch = styled(Grid)(({ theme }) => ({
+  display: 'flex',
   [theme.breakpoints.up('sm')]: {
     display: 'none',
   },
 }));
 
-// const SearchInput = (handleSearchChange) => {
-//   return (
-//     // <Search>
-//     //   <SearchIconWrapper>
-//     //     <SearchIcon />
-//     //   </SearchIconWrapper>
-//     <StyledInputBase
-//       placeholder="Search…"
-//       onChange={handleSearchChange}
-//       sx={{ width: '100%' }}
-//     />
-//     // </Search>
-//   );
-// };
-
 export default function DashHeader({ handleLogOut, usersInfo }) {
   const [isDrawerOpen, setIsDrawderOpen] = useState(false);
-  const [inputEl, setInputEl] = useState('');
-  const { setOpenPostModal } = useContext(UserContext);
+  const [searchUsers, setSearchUsers] = useState([]);
+  const { setOpenPostModal, searchItem, setSearchItem } =
+    useContext(UserContext);
+  useContext(UserContext);
 
-  const handleSearchChange = (e) => {
-    setInputEl(e.target.value);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    axios
+      .get('/api/login')
+      .then((response) => {
+        console.log(response);
+        setSearchUsers(response.data);
+      })
+      .catch(() => {});
+  }, [searchItem]);
+
+  const handleSearchChange = (e, newValue) => {
+    setSearchItem(newValue);
   };
 
-  console.log(inputEl);
+  const handleSearch = () => {
+    navigate(`/instagram/${searchItem}`);
+    setSearchItem('');
+  };
 
-  const options = [{ label: 'Leomessi' }, { label: 'tonyrose123' }];
+  console.log(searchItem);
 
   return (
     <DashAppBar>
@@ -231,36 +218,35 @@ export default function DashHeader({ handleLogOut, usersInfo }) {
             />
           </DashDownWrapper>
         </DashLogoWrapper>
-        {/* <Search onClick={handleShowPopUp}>
-          <SearchIconWrapper>
-            <SearchIcon />
-          </SearchIconWrapper>
-          <StyledInputBase
-            placeholder="Search…"
-            inputProps={{ 'aria-label': 'search' }}
-            onChange={handleSearchChange}
-            sx={{ width: '100%' }}
-            ref={inputRef}
-            onFocus={handleShowPopUp}
-          />
-        </Search>
-        <DashSearchMobile 
-        anchorEl={inputRef} 
-        open={open}
-        setOpen={setOpen}
-         /> */}
-        <DashMobileSearch sx={{ width: '50%' }}>
+
+        <DashMobileSearch>
           <Autocomplete
-            options={options}
+            freeSolo
+            sx={{ minWidth: '200px' }}
+            options={searchUsers.map((user) => user.username)}
+            onChange={handleSearchChange}
+            value={searchItem}
             renderInput={(params) => (
               <TextField
                 {...params}
-                label="Search"
-                variant="filled"
-                value={inputEl}
+                placeholder="search"
+                size="small"
+                autoFocus={true}
+                sx={{
+                  [`& fieldset`]: {
+                    borderRadius: 0,
+                  },
+                }}
               />
             )}
           />
+          <Button
+            variant="contained"
+            onClick={handleSearch}
+            sx={{ borderRadius: 0, boxShadow: 'none' }}
+          >
+            Search
+          </Button>
         </DashMobileSearch>
 
         <DashIconWrapper>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Drawer from '@mui/material/Drawer';
 import Divider from '@mui/material/Divider';
 import { Grid, Typography, Button } from '@mui/material';
@@ -9,6 +9,7 @@ import Avatar from '@mui/material/Avatar';
 import MenuItem from '@mui/material/MenuItem';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import UserContext from '../../contexts/userContext';
 
 const DashDrawer = styled(Drawer)(({ theme }) => ({
   '& .MuiDrawer-paper': {
@@ -49,8 +50,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function DashSearchDrawer({ isDrawerOpen, setIsDrawderOpen }) {
-  const [searchDb, setSearchDb] = useState([]);
-  const [searchItem, setSearchItem] = useState('');
+  const { searchDb, setSearchDb, searchItem, setSearchItem } =
+    useContext(UserContext);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -58,7 +60,6 @@ export default function DashSearchDrawer({ isDrawerOpen, setIsDrawderOpen }) {
       .get('/api/login')
       .then((response) => {
         setSearchDb(response.data);
-        // console.log(response.data);
         const filteredArr = response.data.filter((searchedUser) => {
           return searchedUser.username === searchItem;
           // return searchedUser.username.match(searchItem);
@@ -148,23 +149,6 @@ export default function DashSearchDrawer({ isDrawerOpen, setIsDrawderOpen }) {
                 </Grid>
               );
             })}
-
-            {/* <MenuItem sx={{ display: "flex", justifyContent: "space-between" }}>
-              <Grid
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  gap: "1rem",
-                }}
-              >
-                <Avatar />
-                <Grid>
-                  <Typography>tonyrose123</Typography>
-                  <Typography>tony</Typography>
-                </Grid>
-              </Grid>
-              <CloseIcon />
-            </MenuItem> */}
           </Grid>
         </Grid>
       </DashDrawer>
