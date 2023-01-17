@@ -8,8 +8,8 @@ import ProfileBottom from '../components/profilepage/ProfileBottom';
 import DashHeader from '../components/dashboard/DashHeader';
 import { styled } from '@mui/material/styles';
 import Loader from '../components/loader/Loader';
-import UserContext from '../contexts/userContext';
 import DashNewPostModal from '../components/dashboard/DashNewPostModal';
+import UserContext from '../contexts/userContext';
 
 const ProfileWrapper = styled(Grid)(({ theme }) => ({
   [theme.breakpoints.up('lg')]: {
@@ -33,6 +33,8 @@ const UserProfilePage = () => {
   const [followStatus, setFollowStatus] = useState({});
   const [usersInfo, setUsersInfo] = useState(null);
   const { user_name } = useParams();
+
+  const { searchItem } = useContext(UserContext);
 
   useEffect(() => {
     const token = sessionStorage.getItem('token');
@@ -86,7 +88,7 @@ const UserProfilePage = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, [followStatus]);
+  }, [followStatus, searchItem]);
 
   if (!user) {
     return <Loader />;

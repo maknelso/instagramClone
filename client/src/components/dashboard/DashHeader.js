@@ -177,7 +177,6 @@ export default function DashHeader({ handleLogOut, usersInfo }) {
   const [searchUsers, setSearchUsers] = useState([]);
   const { setOpenPostModal, searchItem, setSearchItem } =
     useContext(UserContext);
-  useContext(UserContext);
 
   const navigate = useNavigate();
 
