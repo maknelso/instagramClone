@@ -42,9 +42,7 @@ const DashPosts = ({ handleOpen, userFollowingPosts }) => {
           },
         }
       )
-      .then(function (response) {
-        // console.log(response);
-      })
+      .then(function (response) {})
       .catch(function (error) {
         console.log(error);
         setFavicon({ ...favicon, [post_id]: favicon[post_id] });
