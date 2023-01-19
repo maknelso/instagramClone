@@ -69,25 +69,25 @@ const DashSidebar = ({ usersInfo }) => {
         <Grid display="flex" gap={2}>
           <Grid
             sx={{
-              width: '40px',
+              maxWidth: '40px',
               height: '40px',
-              borderRadius: '50%',
             }}
           >
             <img
               style={{
                 width: '100%',
+                height: '100%',
                 objectFit: 'cover',
                 borderRadius: '50%',
               }}
-              src="https://via.placeholder.com/40"
+              src="https://instagramclone-2022.s3.us-west-1.amazonaws.com/avatars/lionel-messi-most-liked-instagram-picute-122222-2e46f8ce2f8444948fce28f2c84c72f2.webp"
             ></img>
           </Grid>
           <Grid display="flex" flexDirection="column">
             <Typography variant="body2" fontWeight="bold">
               MessiLeo
             </Typography>
-            <Typography fontSize="12px">Followed by Jane + 4 more</Typography>
+            <Typography fontSize="12px">Followed by Jane + more</Typography>
           </Grid>
         </Grid>
         <Typography fontSize="12px" fontWeight="bold" color="primary">
