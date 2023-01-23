@@ -10,6 +10,7 @@ import { styled } from '@mui/material/styles';
 import Loader from '../components/loader/Loader';
 import DashNewPostModal from '../components/dashboard/DashNewPostModal';
 import UserContext from '../contexts/userContext';
+import { APIProtect } from '../api/user';
 
 const ProfileWrapper = styled(Grid)(({ theme }) => ({
   [theme.breakpoints.up('lg')]: {
@@ -43,12 +44,7 @@ const UserProfilePage = () => {
       return;
     }
 
-    axios
-      .get('/api/protect', {
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
-      })
+APIProtect()
       .then((response) => {
         setUsersInfo(response.data);
       })

@@ -12,6 +12,7 @@ import DashNewPostModal from '../components/dashboard/DashNewPostModal';
 import Loader from '../components/loader/Loader';
 import UserContext from '../contexts/userContext';
 import axios from 'axios';
+import { APIProtect } from '../api/user';
 
 const DashContainer = styled(Grid)(({ theme }) => ({
   minHeight: '100vh',
@@ -51,19 +52,7 @@ const DashboardPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = sessionStorage.getItem('token');
-
-    if (!token) {
-      setFailedAuth(true);
-      return;
-    }
-
-    axios
-      .get('/api/protect', {
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
-      })
+    APIProtect()
       .then((response) => {
         setUsersInfo(response.data);
         const { following_posts, users } = response.data;

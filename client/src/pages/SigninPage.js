@@ -7,8 +7,7 @@ import appleStore from '../assets/images/apple_store.png';
 import googleStore from '../assets/images/google_store.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { theme } from '../components/ThemeColor';
-import UserContext from '../contexts/userContext';
-import axios from 'axios';
+import { APILogin } from '../api/user';
 
 const FormComponent = styled(Grid)(({ theme }) => ({
   padding: '1rem',
@@ -59,8 +58,6 @@ const SigninPage = () => {
 
   const navigate = useNavigate();
 
-  // const { setFailedAuth } = useContext(UserContext);
-
   const handleEmailInput = (e) => {
     setEmail(e.target.value);
   };
@@ -70,15 +67,12 @@ const SigninPage = () => {
   };
 
   const handleLogin = () => {
-    axios
-      .post('/api/login', {
-        email: email,
-        password: password,
-      })
+    const body = { email: email, password: password };
+
+    APILogin(body)
       .then(function (response) {
         setPasswordErr(false);
         sessionStorage.setItem('token', response.data.token);
-        // setFailedAuth(false);
       })
       .then(() => {
         navigate('/dashboard');

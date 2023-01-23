@@ -41,7 +41,7 @@ const SignupPage = () => {
   const [password, setPassword] = useState('');
   const [passwordErr, setPasswordErr] = useState('');
 
-  const notify = () => toast('Successfully signed up!');
+  const notify = () => toast.success('Successfully signed up!');
 
   const navigate = useNavigate();
 
@@ -64,10 +64,6 @@ const SignupPage = () => {
   const handleUserRegister = (e) => {
     e.preventDefault();
     validate();
-    notify();
-    setTimeout(() => {
-      navigate('/');
-    }, '2000');
 
     const fetchRegisterApi = async () => {
       const payload = {
@@ -78,7 +74,13 @@ const SignupPage = () => {
       };
       try {
         if (!phoneNumberErr && !userNameErr && !fullNameErr && !passwordErr) {
-          const res = await axios.post('/api/register', payload);
+          const res = await axios.post('/api/register', payload).then(() => {
+            notify();
+            setTimeout(() => {
+              navigate('/');
+            }, '3000');
+          });
+
           console.log(res);
         } else {
           return null;
@@ -159,6 +161,18 @@ const SignupPage = () => {
           <Divider sx={{ mb: '1.2rem' }}>OR</Divider>
 
           <form onSubmit={handleUserRegister}>
+            <ToastContainer
+              position="bottom-center"
+              autoClose={3000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="dark"
+            />
             <TextField
               fullWidth
               autoFocus
