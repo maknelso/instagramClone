@@ -1,5 +1,5 @@
 import { Button, Grid, TextField, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
@@ -23,8 +23,15 @@ const DashSinglePost = ({
 }) => {
   const [failedAuth, setFailedAuth] = useState(false);
   const [commentInput, setCommentInput] = useState('');
+  const [isReadMore, setIsReadMore] = useState(true);
 
   const navigate = useNavigate();
+
+  useEffect(() => {}, [commentInput]);
+
+  const toggleReadMore = () => {
+    setIsReadMore(!isReadMore);
+  };
 
   const handleCommentChange = (e) => {
     setCommentInput(e.target.value);
@@ -155,7 +162,22 @@ const DashSinglePost = ({
           >
             {post.username}
           </Typography>
-          <span style={{ fontSize: '12px' }}>{post.img_description}</span>
+
+          <span style={{ fontSize: '12px' }}>
+            {isReadMore
+              ? post.img_description.slice(0, 28)
+              : post.img_description}
+          </span>
+          <span
+            style={{
+              cursor: 'pointer',
+              fontWeight: 'bold',
+              color: '#5A5A5A',
+            }}
+            onClick={toggleReadMore}
+          >
+            {isReadMore ? '... more' : ' show less'}
+          </span>
         </Grid>
         <Typography
           fontSize="12px"
