@@ -1,11 +1,15 @@
 import axios from 'axios';
 
-export const postAPI = (url, body = {}, headers = {}) => {
+const REACT_APP_BASEURL_PRO = process.env.REACT_APP_BASEURL_PRO;
+
+export const postAPI = (url, body = {}) => {
   const token = sessionStorage.getItem('token');
   const baseHeader = {
     Authorization: 'Bearer ' + token,
   };
-  return axios.post(url, body, { headers: baseHeader });
+  console.log(REACT_APP_BASEURL_PRO + url);
+
+  return axios.post(REACT_APP_BASEURL_PRO + url, body, { headers: baseHeader });
 };
 
 export const getAPI = (url) => {
@@ -13,7 +17,7 @@ export const getAPI = (url) => {
   const baseHeader = {
     Authorization: 'Bearer ' + token,
   };
-  return axios.get(url, {
+  return axios.get(REACT_APP_BASEURL_PRO + url, {
     headers: baseHeader,
   });
 };
