@@ -12,6 +12,7 @@ import validator from 'validator';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { APIRegister } from '../api/user';
 
 const Container = styled(Grid)(({ theme }) => ({
   display: 'flex',
@@ -74,7 +75,7 @@ const SignupPage = () => {
       };
       try {
         if (!phoneNumberErr && !userNameErr && !fullNameErr && !passwordErr) {
-          const res = await axios.post('/api/register', payload).then(() => {
+          const res = await APIRegister(payload).then(() => {
             notify();
             setTimeout(() => {
               navigate('/');

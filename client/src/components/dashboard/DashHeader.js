@@ -184,7 +184,7 @@ export default function DashHeader({ handleLogOut, usersInfo }) {
     axios
       .get('/api/login')
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         setSearchUsers(response.data);
       })
       .catch(() => {});
@@ -198,8 +198,6 @@ export default function DashHeader({ handleLogOut, usersInfo }) {
     navigate(`/instagram/${searchItem}`);
     setSearchItem('');
   };
-
-  console.log(searchItem);
 
   return (
     <DashAppBar>

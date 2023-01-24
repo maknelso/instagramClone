@@ -12,7 +12,7 @@ export const postAPI = (url, body = {}, headers = {}) => {
     // headers: headers,
   );
 };
-export const getAPI = (url, header = {}) => {
+export const getAPI = (url) => {
   const token = sessionStorage.getItem('token');
   const baseHeader = {
     Authorization: 'Bearer ' + token,

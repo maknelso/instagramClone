@@ -10,7 +10,7 @@ import { styled } from '@mui/material/styles';
 import Loader from '../components/loader/Loader';
 import DashNewPostModal from '../components/dashboard/DashNewPostModal';
 import UserContext from '../contexts/userContext';
-import { APIProtect } from '../api/user';
+import { APIProtect, APIUpdateFollow, APIGetUserName } from '../api/user';
 
 const ProfileWrapper = styled(Grid)(({ theme }) => ({
   [theme.breakpoints.up('lg')]: {
@@ -44,7 +44,7 @@ const UserProfilePage = () => {
       return;
     }
 
-APIProtect()
+    APIProtect()
       .then((response) => {
         setUsersInfo(response.data);
       })
@@ -53,17 +53,8 @@ APIProtect()
 
   useEffect(() => {
     const res = {};
-    const token = sessionStorage.getItem('token');
-    if (!token) {
-      return;
-    }
 
-    axios
-      .get('/api/update-follow', {
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
-      })
+    APIUpdateFollow()
       .then((response) => {
         response.data.forEach((followInfo) => {
           res[followInfo.following_id] = true;
@@ -76,8 +67,7 @@ APIProtect()
   }, []);
 
   useEffect(() => {
-    axios
-      .get(`/api/instagram/${user_name}`)
+    APIGetUserName(user_name)
       .then((response) => {
         setUser(response.data);
       })
