@@ -18,7 +18,6 @@ const DashFooterMobile = styled(Grid)(({ theme }) => ({
   [theme.breakpoints.up('sm')]: {
     display: 'none',
   },
-  // [theme.breakpoints.up("md")]: {},
 }));
 
 export default function DashFooter() {

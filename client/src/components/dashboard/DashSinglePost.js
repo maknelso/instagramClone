@@ -1,18 +1,14 @@
 import { Button, Grid, TextField, Typography } from '@mui/material';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
-
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 import { theme } from '../ThemeColor';
 import DashCommentModal from './DashCommentModal';
 import { useNavigate } from 'react-router-dom';
-
-import axios from 'axios';
+import { APIPostComment } from '../../api/comment';
 
 const DashSinglePost = ({
   post,
@@ -35,28 +31,12 @@ const DashSinglePost = ({
   };
 
   const handleClickPost = (post_id) => {
-    const token = sessionStorage.getItem('token');
-    if (!token) {
-      setFailedAuth(true);
-      navigate('/');
-    }
-    // else if(!commentInput) {
+    const body = {
+      post_id: post_id,
+      comment: commentInput,
+    };
 
-    // }
-
-    axios
-      .post(
-        '/api/comment',
-        {
-          post_id: post_id,
-          comment: commentInput,
-        },
-        {
-          headers: {
-            Authorization: 'Bearer ' + token,
-          },
-        }
-      )
+    APIPostComment(body)
       .then(function (response) {
         setCommentInput('');
         console.log(response);
@@ -75,6 +55,7 @@ const DashSinglePost = ({
         border: '1px solid lightgrey',
         background: 'white',
         borderRadius: '4px',
+        maxWidth: '360px',
       }}
     >
       <Grid
@@ -122,12 +103,14 @@ const DashSinglePost = ({
         />
       </Grid>
       <Grid>
-        <Grid sx={{ maxWidth: '360px' }}>
-          <img
-            style={{ width: '100%', maxHeight: '470px', objectFit: 'cover' }}
-            src={post.img_url}
-          ></img>
-        </Grid>
+        <img
+          style={{
+            width: '100%',
+            height: '470px',
+            objectFit: 'cover',
+          }}
+          src={post.img_url}
+        ></img>
       </Grid>
       <Grid
         display="flex"
@@ -161,26 +144,10 @@ const DashSinglePost = ({
               cursor: 'pointer',
             }}
           />
-          {/* <ShareOutlinedIcon
-            fontSize="large"
-            sx={{
-              cursor: 'pointer',
-            }}
-          /> */}
         </Grid>
-        {/* <BookmarkBorderIcon
-          fontSize="large"
-          sx={{
-            cursor: 'pointer',
-          }}
-        /> */}
       </Grid>
       <Grid display="flex" flexDirection="column" gap={1} sx={{ p: '1rem' }}>
-        {/* <Typography fontSize="12px">
-      Liked by <span>{post.liked_user_name}</span> and
-      <span>others</span>
-    </Typography> */}
-        <Grid display="flex" alignItems="center" gap="0.3rem">
+        <Grid display="flex" gap="0.6rem">
           <Typography
             fontSize="12px"
             sx={{ display: 'inline' }}

@@ -1,11 +1,10 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { Divider, Grid, Typography } from '@mui/material';
+import { Divider, Grid } from '@mui/material';
 import DehazeOutlinedIcon from '@mui/icons-material/DehazeOutlined';
 import { theme } from '../ThemeColor';
-import { styled, alpha } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 
 const DashHamburger = styled(Grid)(({ theme }) => ({
   display: 'none',

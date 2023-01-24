@@ -2,15 +2,14 @@ import { Grid } from '@mui/material';
 import React, { useState, useEffect, useContext } from 'react';
 import ProfileInfo from '../components/profilepage/ProfileInfo';
 import ProfilePosts from '../components/profilepage/ProfilePosts';
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import ProfileBottom from '../components/profilepage/ProfileBottom';
 import DashHeader from '../components/dashboard/DashHeader';
 import { styled } from '@mui/material/styles';
 import Loader from '../components/loader/Loader';
 import DashNewPostModal from '../components/dashboard/DashNewPostModal';
 import UserContext from '../contexts/userContext';
-import { APIProtect, APIUpdateFollow, APIGetUserName } from '../api/user';
+import { APIProtect, APIGetUserName } from '../api/user';
+import { APIUpdateFollow } from '../api/follow';
 
 const ProfileWrapper = styled(Grid)(({ theme }) => ({
   [theme.breakpoints.up('lg')]: {
@@ -110,7 +109,6 @@ const UserProfilePage = () => {
           current_follower={current_follower}
           current_following={current_following}
         />
-        <ProfileBottom />
       </ProfileWrapper>
       <DashNewPostModal usersInfo={usersInfo} />
     </ProfileContainer>

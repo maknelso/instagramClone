@@ -11,6 +11,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { styled } from '@mui/material/styles';
 import axios from 'axios';
 import { theme } from '../ThemeColor';
+import { APIGetCommentById } from '../../api/comment';
 
 const DashModal = styled(Grid)(({ theme }) => ({
   position: 'absolute',
@@ -125,8 +126,6 @@ export default function DashCommentModal({
   const [filteredPost, setFilteredPost] = useState({});
   const [comments, setComments] = useState([]);
 
-  // console.log(favicon[postId]);
-
   const handleClose = () => setOpenCommentModal(false);
 
   useEffect(() => {
@@ -137,7 +136,7 @@ export default function DashCommentModal({
   });
 
   useEffect(() => {
-    axios.get(`/api/comment/${postId}`).then((res) => {
+    APIGetCommentById(postId).then((res) => {
       setComments(res.data);
     });
   }, [postId]);

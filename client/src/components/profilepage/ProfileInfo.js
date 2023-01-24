@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Typography, Grid, Button } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { styled } from '@mui/material/styles';
-import profile from '../../assets/images/profilepage/profile.jpg';
-import axios from 'axios';
+import { APIUpdateFollowPost } from '../../api/follow';
 
 const ProfileInfoWrapper = styled(Grid)(({ theme }) => ({
   borderBottom: '1px solid lightgrey',
@@ -75,25 +74,13 @@ const ProfileInfo = ({
   useEffect(() => {}, [followStatus]);
 
   const handlePostFollow = () => {
-    console.log(followStatus);
-    const token = sessionStorage.getItem('token');
-    if (!token) {
-      return;
-    }
     // write follow record to db
-    axios
-      .post(
-        '/api/update-follow',
-        {
-          followingId: account_id,
-          ifFollow: !followStatus[account_id],
-        },
-        {
-          headers: {
-            Authorization: 'Bearer ' + token,
-          },
-        }
-      )
+    const body = {
+      followingId: account_id,
+      ifFollow: !followStatus[account_id],
+    };
+
+    APIUpdateFollowPost(body)
       .then((res) => {
         console.log(res);
         setFollowStatus({ [account_id]: !followStatus[account_id] });

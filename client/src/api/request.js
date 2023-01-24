@@ -5,13 +5,9 @@ export const postAPI = (url, body = {}, headers = {}) => {
   const baseHeader = {
     Authorization: 'Bearer ' + token,
   };
-  // return axios.post(process.env.REACT_APP_BASEURL + url, {
-  return axios.post(
-    url,
-    body
-    // headers: headers,
-  );
+  return axios.post(url, body, { headers: baseHeader });
 };
+
 export const getAPI = (url) => {
   const token = sessionStorage.getItem('token');
   const baseHeader = {

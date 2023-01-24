@@ -12,11 +12,6 @@ const DashNoFollowWrapper = styled(Grid)(({ theme }) => ({
   [theme.breakpoints.up('sm')]: {
     height: '50px',
   },
-
-  // [theme.breakpoints.up('md')]: {
-  //   margin: '0',
-  //   marginBottom: '1rem',
-  // },
 }));
 
 const DashNoFollow = () => {

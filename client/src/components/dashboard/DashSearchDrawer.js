@@ -1,15 +1,15 @@
 import React, { useEffect, useState, useContext } from 'react';
 import Drawer from '@mui/material/Drawer';
 import Divider from '@mui/material/Divider';
-import { Grid, Typography, Button } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import CloseIcon from '@mui/icons-material/Close';
 import Avatar from '@mui/material/Avatar';
 import MenuItem from '@mui/material/MenuItem';
-import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import UserContext from '../../contexts/userContext';
+import { APIGetAllUsers } from '../../api/user';
 
 const DashDrawer = styled(Drawer)(({ theme }) => ({
   '& .MuiDrawer-paper': {
@@ -56,8 +56,7 @@ export default function DashSearchDrawer({ isDrawerOpen, setIsDrawderOpen }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios
-      .get('/api/login')
+    APIGetAllUsers()
       .then((response) => {
         setSearchDb(response.data);
         const filteredArr = response.data.filter((searchedUser) => {

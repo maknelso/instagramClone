@@ -10,6 +10,7 @@ import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import axios from 'axios';
 import { theme } from '../ThemeColor';
 import UserContext from '../../contexts/userContext';
+import { APIGenerateFeed, APISendFeed } from '../../api/feed';
 
 const style = {
   position: 'absolute',
@@ -96,25 +97,13 @@ export default function DashNewPostModal({ usersInfo }) {
   };
 
   const handleUploadPost = () => {
-    const token = sessionStorage.getItem('token');
-    if (!token) {
-      return;
-    }
-
+    const body = {
+      filename: files[0].name,
+      feedDesc: feedDesc,
+    };
     // write post record to db
-    axios
-      .post(
-        '/api/generate-post',
-        {
-          filename: files[0].name,
-          feedDesc: feedDesc,
-        },
-        {
-          headers: {
-            Authorization: 'Bearer ' + token,
-          },
-        }
-      )
+
+    APIGenerateFeed(body)
       .then((res) => {
         console.log(res);
         // handle success
@@ -126,47 +115,43 @@ export default function DashNewPostModal({ usersInfo }) {
       });
 
     // send file to backend
-    axios
-      .get('/api/upload-s3-url?filename=' + files[0].name, {
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
-      })
-      .then((res) => {
-        // make form data as a container to include files and fields
-        const formData = new FormData();
+    const variable = files[0].name;
 
-        // extract url and fields from response
-        const { url, fields } = JSON.parse(res.data.res);
-        Object.keys(fields).forEach((key) => {
-          console.log(key);
-          formData.append(key, fields[key]);
-        });
+    APISendFeed(variable).then((res) => {
+      // make form data as a container to include files and fields
+      const formData = new FormData();
 
-        // add file into form data
-        formData.append('file', files[0]);
-
-        // upload file to s3
-
-        axios
-          .post(url, formData, {
-            headers: {
-              ContentType: 'multipart/form-data',
-            },
-          })
-          .then((res) => {
-            setFeedDesc('');
-            setOpenPostModal(false);
-
-            console.log(res);
-            // handle success
-            console.log('uploaded successfully');
-          })
-          .catch((err) => {
-            // handle API error
-            console.log('upload failed: ' + err.message);
-          });
+      // extract url and fields from response
+      const { url, fields } = JSON.parse(res.data.res);
+      Object.keys(fields).forEach((key) => {
+        console.log(key);
+        formData.append(key, fields[key]);
       });
+
+      // add file into form data
+      formData.append('file', files[0]);
+
+      // upload file to s3
+
+      axios
+        .post(url, formData, {
+          headers: {
+            ContentType: 'multipart/form-data',
+          },
+        })
+        .then((res) => {
+          setFeedDesc('');
+          setOpenPostModal(false);
+
+          console.log(res);
+          // handle success
+          console.log('uploaded successfully');
+        })
+        .catch((err) => {
+          // handle API error
+          console.log('upload failed: ' + err.message);
+        });
+    });
   };
 
   return (

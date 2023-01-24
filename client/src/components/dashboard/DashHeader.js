@@ -2,7 +2,6 @@ import React, { useState, useContext, useRef, useEffect } from 'react';
 import AppBar from '@mui/material/AppBar';
 import { styled } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
-import InputBase from '@mui/material/InputBase';
 import logo from '../../assets/images/d2529dbef8ed.png';
 import profile from '../../assets/images/profilepage/profile.jpg';
 import { Grid, TextField, Autocomplete, Button } from '@mui/material';
@@ -14,42 +13,11 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import SearchIcon from '@mui/icons-material/Search';
 import { theme } from '../ThemeColor';
 import DashHamBtn from './DashHamBtn';
-// import DashSearchMobile from './DashSearchMobile';
 import DashSearchDrawer from './DashSearchDrawer';
 import { Link } from 'react-router-dom';
 import UserContext from '../../contexts/userContext';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: '#F7F8FA',
-  // "&:hover": {
-  //   backgroundColor: alpha(theme.palette.common.white, 0.25),
-  // },
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    display: 'none',
-  },
-  [theme.breakpoints.up('md')]: {
-    marginLeft: theme.spacing(1),
-    width: 'auto',
-    // display: "block",
-  },
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  color: 'black',
-}));
+import { APIGetAllUsers } from '../../api/user';
 
 const DashToolBar = styled(Toolbar)(({ theme }) => ({
   display: 'flex',
@@ -181,10 +149,8 @@ export default function DashHeader({ handleLogOut, usersInfo }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios
-      .get('/api/login')
+    APIGetAllUsers()
       .then((response) => {
-        // console.log(response);
         setSearchUsers(response.data);
       })
       .catch(() => {});
