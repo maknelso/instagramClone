@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Divider, Grid, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import heroImg from '../assets/images/d2529dbef8ed.png';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import appleStore from '../assets/images/apple_store.png';
 import googleStore from '../assets/images/google_store.png';
-import axios from 'axios';
 import { theme } from '../components/ThemeColor';
 import { Link } from 'react-router-dom';
 import validator from 'validator';
@@ -136,7 +135,11 @@ const SignupPage = () => {
       <ContainerInner>
         <Grid>
           <Grid sx={{ p: '1rem 4rem' }}>
-            <img style={{ width: '100%' }} src={heroImg}></img>
+            <img
+              style={{ width: '100%' }}
+              src={heroImg}
+              alt="signup page"
+            ></img>
           </Grid>
           <Typography
             variant="body1"
@@ -274,10 +277,18 @@ const SignupPage = () => {
         </Typography>
         <Grid display="flex" justifyContent="space-between" sx={{ mb: '2rem' }}>
           <Grid sx={{ width: '48%' }}>
-            <img style={{ width: '100%' }} src={appleStore}></img>
+            <img
+              style={{ width: '100%' }}
+              src={appleStore}
+              alt="apple store icon"
+            ></img>
           </Grid>
           <Grid sx={{ width: '48%' }}>
-            <img style={{ width: '100%' }} src={googleStore}></img>
+            <img
+              style={{ width: '100%' }}
+              src={googleStore}
+              alt="google store icon"
+            ></img>
           </Grid>
         </Grid>
         <Typography textAlign="center" color="secondary">

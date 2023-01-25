@@ -7,7 +7,6 @@ export const postAPI = (url, body = {}) => {
   const baseHeader = {
     Authorization: 'Bearer ' + token,
   };
-  console.log(REACT_APP_BASEURL_PRO + url);
 
   return axios.post(REACT_APP_BASEURL_PRO + url, body, { headers: baseHeader });
 };

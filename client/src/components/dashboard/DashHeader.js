@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import AppBar from '@mui/material/AppBar';
 import { styled } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
@@ -171,7 +171,11 @@ export default function DashHeader({ handleLogOut, usersInfo }) {
         <DashLogoWrapper>
           <Link to="/dashboard">
             <Grid sx={{ width: '100%' }}>
-              <img src={logo} style={{ width: '100px' }}></img>
+              <img
+                src={logo}
+                alt="intagram logo"
+                style={{ width: '100px' }}
+              ></img>
             </Grid>
           </Link>
           <DashDownWrapper>
@@ -279,6 +283,7 @@ export default function DashHeader({ handleLogOut, usersInfo }) {
               >
                 <img
                   src={profile}
+                  alt="user profile"
                   style={{
                     width: '20px',
                     borderRadius: '50%',

@@ -7,7 +7,6 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 import { theme } from '../ThemeColor';
 import DashCommentModal from './DashCommentModal';
-import { useNavigate } from 'react-router-dom';
 import { APIPostComment } from '../../api/comment';
 
 const DashSinglePost = ({
@@ -21,11 +20,8 @@ const DashSinglePost = ({
   postId,
   userFollowingPosts,
 }) => {
-  const [failedAuth, setFailedAuth] = useState(false);
   const [commentInput, setCommentInput] = useState('');
   const [isReadMore, setIsReadMore] = useState(true);
-
-  const navigate = useNavigate();
 
   useEffect(() => {}, [commentInput]);
 
@@ -84,7 +80,6 @@ const DashSinglePost = ({
 
               backgroundOrigin: 'border-box',
               backgroundClip: 'padding-box, border-box',
-              borderRadius: '50%',
             }}
           >
             <img
@@ -94,6 +89,7 @@ const DashSinglePost = ({
                 borderRadius: '50%',
               }}
               src={post.avatar}
+              alt="user avatar"
             ></img>
           </Grid>
           <Grid display="flex" flexDirection="column">
@@ -117,6 +113,7 @@ const DashSinglePost = ({
             objectFit: 'cover',
           }}
           src={post.img_url}
+          alt={post.img_description}
         ></img>
       </Grid>
       <Grid

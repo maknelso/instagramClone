@@ -66,6 +66,7 @@ const DashFollowing = ({ userFollowingPosts }) => {
                   borderRadius: '50%',
                 }}
                 src={user.avatar}
+                alt={user.img_description}
               ></img>
             </Grid>
             <Typography fontSize="12px">{user.username}</Typography>

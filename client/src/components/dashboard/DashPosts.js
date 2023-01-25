@@ -6,7 +6,6 @@ import { APIProtectPost } from '../../api/user';
 
 const DashPosts = ({ handleOpen, userFollowingPosts }) => {
   const [favicon, setFavicon] = useState({});
-  const [failedAuth, setFailedAuth] = useState(false);
   const [commentModal, setCommentModal] = useState(false);
   const [postId, setPostId] = useState(2);
 

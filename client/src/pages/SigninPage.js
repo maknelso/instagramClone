@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState } from 'react';
 import { Button, Divider, Grid, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import heroImg from '../assets/images/d2529dbef8ed.png';
@@ -88,7 +88,11 @@ const SigninPage = () => {
       <FormComponent>
         <BorderUp>
           <Grid display="flex" justifyContent="center" sx={{ p: '2rem 3rem' }}>
-            <img style={{ maxWidth: '150px' }} src={heroImg}></img>
+            <img
+              style={{ maxWidth: '150px' }}
+              src={heroImg}
+              alt="cellphone"
+            ></img>
           </Grid>
           <TextField
             fullWidth
@@ -182,10 +186,18 @@ const SigninPage = () => {
           sx={{ mb: '2rem' }}
         >
           <Grid sx={{ maxWidth: '120px' }}>
-            <img style={{ maxWidth: '100%' }} src={appleStore}></img>
+            <img
+              style={{ maxWidth: '100%' }}
+              src={appleStore}
+              alt="Apple store icon"
+            ></img>
           </Grid>
           <Grid sx={{ maxWidth: '120px' }}>
-            <img style={{ maxWidth: '100%' }} src={googleStore}></img>
+            <img
+              style={{ maxWidth: '100%' }}
+              src={googleStore}
+              alt="Google store icon"
+            ></img>
           </Grid>
         </Grid>
         <Typography textAlign="center" color="secondary" fontSize="12px">

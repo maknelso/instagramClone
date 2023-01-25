@@ -100,6 +100,7 @@ const ProfileInfo = ({
         <ProfileInfoImgWrapper>
           <img
             src={avatar}
+            alt="user avatar"
             style={{ borderRadius: '50%', width: '100%' }}
           ></img>
         </ProfileInfoImgWrapper>

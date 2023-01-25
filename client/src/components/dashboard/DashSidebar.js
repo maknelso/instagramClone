@@ -35,6 +35,7 @@ const DashSidebar = ({ usersInfo }) => {
                 borderRadius: '50%',
               }}
               src={usersInfo.avatar}
+              alt="user profile"
             ></img>
           </Grid>
           <Grid display="flex" flexDirection="column">
@@ -79,6 +80,7 @@ const DashSidebar = ({ usersInfo }) => {
                 borderRadius: '50%',
               }}
               src="https://instagramclone-2022.s3.us-west-1.amazonaws.com/avatars/lionel-messi-most-liked-instagram-picute-122222-2e46f8ce2f8444948fce28f2c84c72f2.webp"
+              alt="user profile"
             ></img>
           </Grid>
           <Grid display="flex" flexDirection="column">

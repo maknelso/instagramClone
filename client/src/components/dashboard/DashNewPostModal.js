@@ -175,7 +175,7 @@ export default function DashNewPostModal({ usersInfo }) {
               }}
             >
               <Grid>
-                <img src={postIcon}></img>
+                <img src={postIcon} alt="a post icon"></img>
               </Grid>
               <Typography id="modal-modal-title" variant="h5" component="h2">
                 Grag photos and videos here
@@ -226,6 +226,7 @@ export default function DashNewPostModal({ usersInfo }) {
               <img
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 src={preview}
+                alt="a preview of the feed to be uploaded"
               ></img>
             </Grid>
           </Box>
@@ -270,6 +271,7 @@ export default function DashNewPostModal({ usersInfo }) {
                     objectFit: 'cover',
                   }}
                   src={preview}
+                  alt="a preivew of the feed to be uploaded"
                 ></img>
               </Grid>
               <Grid
@@ -284,6 +286,7 @@ export default function DashNewPostModal({ usersInfo }) {
                   <img
                     style={{ width: '30px', borderRadius: '50%' }}
                     src={usersInfo.avatar}
+                    alt="user avatar"
                   ></img>
                   <Typography variant="h6" fontWeight={700}>
                     {usersInfo.username}

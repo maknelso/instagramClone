@@ -9,7 +9,6 @@ import ShareIcon from '@mui/icons-material/Share';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { styled } from '@mui/material/styles';
-import axios from 'axios';
 import { theme } from '../ThemeColor';
 import { APIGetCommentById } from '../../api/comment';
 
@@ -133,7 +132,7 @@ export default function DashCommentModal({
       return post.post_id === postId;
     });
     setFilteredPost(newPost);
-  });
+  }, []);
 
   useEffect(() => {
     APIGetCommentById(postId).then((res) => {
@@ -161,6 +160,7 @@ export default function DashCommentModal({
               objectFit: 'cover',
             }}
             src={filteredPost && filteredPost.img_url}
+            alt={filteredPost && filteredPost.img_description}
           ></img>
         </DashModalLeft>
         <DashModalRight item lg={6}>
@@ -172,7 +172,6 @@ export default function DashCommentModal({
                     width: '30px',
                     height: '30px',
                     borderRadius: '50%',
-                    borderRadius: '50%',
                   }}
                 >
                   <img
@@ -182,6 +181,7 @@ export default function DashCommentModal({
                       borderRadius: '50%',
                     }}
                     src={filteredPost && filteredPost.avatar}
+                    alt={filteredPost && filteredPost.img_description}
                   ></img>
                 </Grid>
                 <Grid display="flex" alignItems="center" gap={0.4}>
@@ -200,7 +200,6 @@ export default function DashCommentModal({
                     width: '30px',
                     height: '30px',
                     borderRadius: '50%',
-                    borderRadius: '50%',
                   }}
                 >
                   <img
@@ -210,6 +209,7 @@ export default function DashCommentModal({
                       borderRadius: '50%',
                     }}
                     src={filteredPost && filteredPost.avatar}
+                    alt={filteredPost && filteredPost.img_description}
                   ></img>
                 </Grid>
                 <Grid display="flex" alignItems="center" gap={0.4}>
@@ -233,7 +233,6 @@ export default function DashCommentModal({
                         width: '30px',
                         height: '30px',
                         borderRadius: '50%',
-                        borderRadius: '50%',
                       }}
                     >
                       <img
@@ -243,6 +242,7 @@ export default function DashCommentModal({
                           borderRadius: '50%',
                         }}
                         src={comment.avatar}
+                        alt={comment.comment_text}
                       ></img>
                     </Grid>
                     <Grid display="flex" alignItems="center" gap={0.6}>
@@ -264,6 +264,7 @@ export default function DashCommentModal({
                     objectFit: 'cover',
                   }}
                   src={filteredPost && filteredPost.img_url}
+                  alt={filteredPost && filteredPost.img_description}
                 ></img>
               </DashModalRightImg>
             </Grid>
