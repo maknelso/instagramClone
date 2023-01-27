@@ -8,6 +8,16 @@ import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt
 import { theme } from '../ThemeColor';
 import DashCommentModal from './DashCommentModal';
 import { APIPostComment } from '../../api/comment';
+import { styled } from '@mui/material/styles';
+
+const DashSingleWrapper = styled(Grid)(({ theme }) => ({
+  border: '1px solid lightgrey',
+  background: 'white',
+  borderRadius: '4px',
+  [theme.breakpoints.up('md')]: {
+    maxWidth: '360px',
+  },
+}));
 
 const DashSinglePost = ({
   post,
@@ -50,17 +60,7 @@ const DashSinglePost = ({
   };
 
   return (
-    <Grid
-      display="flex"
-      flexDirection="column"
-      mb="1rem"
-      sx={{
-        border: '1px solid lightgrey',
-        background: 'white',
-        borderRadius: '4px',
-        maxWidth: '360px',
-      }}
-    >
+    <DashSingleWrapper display="flex" flexDirection="column" mb="1rem">
       <Grid
         display="flex"
         justifyContent="space-between"
@@ -212,7 +212,7 @@ const DashSinglePost = ({
         userFollowingPosts={userFollowingPosts}
         favicon={favicon}
       />
-    </Grid>
+    </DashSingleWrapper>
   );
 };
 

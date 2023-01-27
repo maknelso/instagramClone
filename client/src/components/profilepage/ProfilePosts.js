@@ -27,6 +27,16 @@ const ProfileTagTitle = styled(Typography)(({ theme }) => ({
   },
 }));
 
+const ProfileImageWrapper = styled(Typography)(({ theme }) => ({
+  marginBottom: '2.6rem',
+  width: '120px',
+  height: '120px',
+  [theme.breakpoints.up('sm')]: {
+    width: '250px',
+    height: '250px',
+  },
+}));
+
 const ProfilePosts = ({ currentpost, current_follower, current_following }) => {
   return (
     <ProfilePostWrapper container item>
@@ -84,23 +94,16 @@ const ProfilePosts = ({ currentpost, current_follower, current_following }) => {
       <Grid container item display="flex" justifyContent="space-between">
         {currentpost.map((post, index) => {
           return (
-            <Grid
-              key={index}
-              item
-              xs={3.6}
-              display="flex"
-              sx={{ mb: '3.6rem' }}
-            >
+            <ProfileImageWrapper key={index} item xs={3.6} display="flex">
               <img
                 style={{
                   width: '100%',
-                  height: '300px',
                   objectFit: 'cover',
                 }}
                 src={post.img_url}
                 alt={post.img_description}
               ></img>
-            </Grid>
+            </ProfileImageWrapper>
           );
         })}
       </Grid>

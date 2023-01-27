@@ -8,7 +8,7 @@ export const postAPI = (url, body = {}) => {
     Authorization: 'Bearer ' + token,
   };
 
-  return axios.post(REACT_APP_BASEURL_PRO + url, body, { headers: baseHeader });
+  return axios.post(url, body, { headers: baseHeader });
 };
 
 export const getAPI = (url) => {
@@ -16,7 +16,7 @@ export const getAPI = (url) => {
   const baseHeader = {
     Authorization: 'Bearer ' + token,
   };
-  return axios.get(REACT_APP_BASEURL_PRO + url, {
+  return axios.get(url, {
     headers: baseHeader,
   });
 };

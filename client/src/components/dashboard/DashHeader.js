@@ -189,7 +189,7 @@ export default function DashHeader({ handleLogOut, usersInfo }) {
         <DashMobileSearch>
           <Autocomplete
             freeSolo
-            sx={{ minWidth: '200px' }}
+            sx={{ minWidth: '140px' }}
             options={searchUsers.map((user) => user.username)}
             onChange={handleSearchChange}
             value={searchItem}
@@ -210,7 +210,7 @@ export default function DashHeader({ handleLogOut, usersInfo }) {
           <Button
             variant="contained"
             onClick={handleSearch}
-            sx={{ borderRadius: 0, boxShadow: 'none' }}
+            sx={{ borderRadius: 0, boxShadow: 'none', maxWidth: '50px' }}
           >
             Search
           </Button>
